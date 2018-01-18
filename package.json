@@ -2,24 +2,19 @@
   "name": "airchat",
   "version": "1.0.0",
   "description": "easy to chat",
-  "author": "Hxvin <13055503310@163.com>",
+  "author": "hxvin <hxvin@foxmail.com>",
   "private": true,
   "scripts": {
+    "init_sql": "node ./server/init/index.js",
     "dev": "webpack-dev-server --inline --progress --config build/webpack.dev.conf.js",
     "start": "npm run dev",
-    "build": "node build/build.js"
+    "build": "node build/build.js",
+    "server-dev": "node server/index.js"
   },
   "dependencies": {
     "axios": "^0.17.1",
-    "mysql": "^2.15.0",
-    "async": "0.2.9",
-    "koa": "^2.3.0",
-    "koa-bodyparser": "^4.2.0",
-    "koa-mysql-session": "^0.0.2",
-    "koa-session-minimal": "^3.0.4",
-    "koa-static": "^4.0.0",
-    "moment": "^2.18.1",
     "md5": "^2.2.1",
+    "moment": "^2.18.1",
     "vue": "^2.4.2",
     "vue-router": "^2.7.0",
     "vuex": "^3.0.0"
