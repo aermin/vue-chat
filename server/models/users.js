@@ -7,13 +7,13 @@ let insertData = function (value) {
 }
 
 // 通过名字查找用户
-let findDataByName = function (name) {
+let findDataByName = function (  name ) {
     let _sql = `
       SELECT * from users
         where name="${name}"
         `
-    return query(_sql)
-}
+    return query( _sql)
+  }
 
 module.exports = {
     insertData,

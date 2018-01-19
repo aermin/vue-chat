@@ -6,7 +6,8 @@
   "private": true,
   "scripts": {
     "init_sql": "node ./init/index.js",
-    "start": "gulp start"
+    "start": "gulp start",
+    "dev": "node --inspect ../server"
   },
   "engines": {
     "node": ">= 0.10.0"
