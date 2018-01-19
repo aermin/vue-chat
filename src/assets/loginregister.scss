@@ -1,5 +1,5 @@
 .login {
-    background-color: #4191E6;
+    // background-color: #39ace7;
     font-family: "Poppins", sans-serif;
     height: 100vh;
     .wrapper {
@@ -9,7 +9,7 @@
         justify-content: center;
         width: 100%;
         min-height: 100%;
-        padding: 0.4rem;
+        // padding: 0.4rem;
         #formContent {
             -webkit-border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
             border-radius: 0.2rem 0.2rem 0.2rem 0.2rem;
@@ -32,7 +32,7 @@
                 color: #cccccc;
             }
             .active{
-                color: #4191E6;
+                color: #39ace7;
             }
             .underlineHover:after {
                 display: block;
@@ -40,7 +40,7 @@
                 bottom: -0.1rem;
                 width: 0;
                 height: 0.02rem;
-                background-color: #4191E6;
+                background-color: #39ace7;
                 content: "";
                 transition: width 0.2s;
             }
@@ -54,7 +54,7 @@
                 input[type=button],
                 input[type=submit],
                 input[type=reset] {
-                    background-color: #4191E6;
+                    background-color: #39ace7;
                     border: none;
                     color: white;
                     padding: 0.15rem 0.8rem;
