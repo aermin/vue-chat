@@ -16,12 +16,7 @@ const sessionMysqlConfig= {
     host: dbConfig.host,
 }
 
-app.use(cors({
-    maxAge: 7 * 24 * 60 * 60,
-    credentials: true,
-    methods: 'GET, HEAD, OPTIONS, PUT, POST, PATCH, DELETE',
-    headers: 'Content-Type, Accept, Authorization'
-}))
+app.use(cors());
 
 // 配置session中间件
 app.use(session({

@@ -7,7 +7,7 @@
                 <h2 class="inactive underlineHover" @click="$router.push('/register')">注册 </h2>
     
                 <div class="fadeIn first">
-                     <img src="../assets/icon.svg" id="icon" alt="User Icon" />
+                    <img src="../assets/icon.svg" id="icon" alt="User Icon" />
                 </div>
     
                 <form>
@@ -21,11 +21,19 @@
 </template>
 
 <script>
-    
     export default {
+        name: 'login',
+        props: {},
+        components: {},
         data() {
-            return {}
-        }
+            return {};
+        },
+    
+        computed: {},
+    
+        watch: {},
+    
+        methods: {}
     }
 </script>
 

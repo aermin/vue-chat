@@ -1,6 +1,6 @@
 <template>
     <!--  提示组件 -->
-    <div class="tips"  v-if="ifShow">
+    <div class="tips" v-if="tipShow">
         <div  v-if="tipStyle === 'success' " class="success-tip">
             <svg class="icon" aria-hidden="true" style="font-size : 0.2rem">
                         <use  xlink:href="#icon-success1"></use>
@@ -33,7 +33,7 @@
                 type: String,
                 default: ""
             },
-            ifShow:{
+            tipShow:{
                 type: Boolean,
                 default:false
             }

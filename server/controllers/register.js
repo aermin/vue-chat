@@ -8,19 +8,14 @@ module.exports = async(ctx, next) => {
         password: ctx.request.body.password
     }
 
-    await userModel.findDataByName(user.name)
+    await userModel
+        .findDataByName(user.name)
         .then(result => {
             console.log(result)
             if (result.length) {
-                try {
-                    throw Error('用户存在')
-                    ctx.response.body = {
-                        resCode: 'URSER_EXIST'
-                    };;
-                } catch (error) {
-                    //处理err
-                    console.log(error)
-                }
+                ctx.response.body = {
+                    resCode: 'URSER_EXIST'
+                };;
             } else {
                 ctx.response.body = {
                     resCode: 'SUCCESS'
