@@ -1,7 +1,7 @@
 <template>
     <!--  登录 -->
     <div class="login">
-        <Tips :tipStyle="tipStyle" :tipMessage="tipMessage" :ifShow="ifShow"></Tips>
+        <Tips :tipStyle="tipStyle" :tipMessage="tipMessage" :tipShow="tipShow"></Tips>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <h2 class="inactive underlineHover" @click="$router.push('/login')"> 登录 </h2>
@@ -34,42 +34,51 @@
                 password: '',
                 tipStyle: "",
                 tipMessage: '',
-                ifShow: false
+                tipShow: false
             }
         },
         methods: {
             register() {
-                axios.post(
-                        '/api/v1/register', {
-                            name: this.name,
-                            password: this.password
-                        })
-                    .then(res => {
-                        if (res.data.resCode === "SUCCESS") {
-                            console.log(213)
-                            this.ifShow = true;
-                            this.tipStyle = "success";
-                            this.tipMessage = "注册成功！";
-                            let self = this;
-                            setTimeout(function() {
-                                self.ifShow = false;
-                                this.$router.push('/login')
-                            }, 3000)
-                        } else if (res.data.resCode === "URSER_EXIST") {
-                            this.ifShow = true;
-                            this.tipStyle = "success";
-                            this.tipMessage = "用户名已存在";
-                            let self = this;
-                            setTimeout(function() {
-                                self.ifShow = false;
-                            }, 3000)
-                        }
+                if (this.name !== "" && this.password !== "") {
+                    axios.post(
+                            '/api/v1/register', {
+                                name: this.name,
+                                password: this.password
+                            })
+                        .then(res => {
+                            this.tipShow = true;
+                            if (res.data) {
+                                if (res.data.resCode === "SUCCESS") {
+                                    this.tipStyle = "success";
+                                    this.tipMessage = "注册成功！";
     
-                    })
-                    .catch(err => {
-                        const errorMsg = err.response.data.error
-                        alert(errorMsg)
-                    })
+                                } else if (res.data.resCode === "URSER_EXIST") {
+                                    this.tipStyle = "warn";
+                                    this.tipMessage = "用户名已存在";
+                                }
+                                let self = this;
+                                setTimeout(function() {
+                                    self.tipShow = false;
+                                    self.$router.push({
+                                        path: '/login'
+                                    });
+                                }, 2500)
+                            }
+                        })
+                        .catch(err => {
+                            const errorMsg = err.response.data.error
+                            alert(errorMsg)
+                        })
+                } else {
+                    this.tipShow = true;
+                    this.tipStyle = "warn";
+                    this.tipMessage = this.name === "" ? "请输入用户名" : "请输入密码";
+                    let self = this;
+                    setTimeout(function() {
+                        self.tipShow = false;
+                    }, 2500)
+                }
+    
             }
         }
     }
