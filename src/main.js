@@ -5,6 +5,9 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
+import Tips from './components/Tips/index'
+Vue.use(Tips);
+
 
 Vue.config.productionTip = false
 

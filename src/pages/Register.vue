@@ -23,11 +23,7 @@
 
 <script>
     import axios from 'axios'
-    import Tips from '../components/Tips.vue'
     export default {
-        components: {
-            Tips
-        },
         data() {
             return {
                 name: '',
