@@ -5,10 +5,11 @@ import Robot from "@/pages/Robot";
 import Me from "@/pages/Me";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
+import axios from "axios";
 
 Vue.use(Router);
 
-export default new Router({
+const router = new Router({
   routes: [
     {
       path: "/message",
@@ -34,11 +35,28 @@ export default new Router({
       path: "/register",
       name: "Register",
       component: Register
-    }
-    ,
-    { 
-      path: "/", 
-      redirect: "/login" 
+    },
+    {
+      path: "/",
+      redirect: "/login"
     }
   ]
 });
+
+router.beforeEach((to, from, next) => {
+  if (!localStorage.userToken) {
+    if (to.path === "/login" || to.path === "/register" ) {
+      next();
+    } else {
+      next("/login");
+    }
+  } else{
+    if (to.path === "/login" || to.path === "/register" ) {
+      next("/message");
+    } else{
+      next();
+    }
+  }
+});
+
+export default router;
