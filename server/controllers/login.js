@@ -7,7 +7,7 @@ module.exports = async ctx => {
     password = ctx.request.body.password || "";
   if (name === "" || password === "") {
     ctx.body = {
-      success: "false",
+      success: false,
       message: "用户名或密码不能为空"
     };
     return;
@@ -26,21 +26,21 @@ module.exports = async ctx => {
         expiresIn: Math.floor(Date.now() / 1000) + 24 * 60 * 60 // 一天
       });
       ctx.body = {
-        success: "true",
+        success: true,
         message: "登录成功",
         token: token
       };
     } else {
       // ctx.throw(401, "密码错误");
       ctx.body = {
-        success: "false",
+        success: false,
         message: "密码错误"
       };
     }
   } else {
     //   ctx.throw(401, "用户名错误");
     ctx.body = {
-      success: "false",
+      success: false,
       message: "用户名错误"
     };
   }
