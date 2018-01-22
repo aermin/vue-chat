@@ -11,11 +11,12 @@ const baseApi = require('../config').baseApi;
 // let createController =require('../Controllers/createController');
 const register =require('../controllers/register');
 const login = require('../controllers/login')
-
+const verify = require('../middlewares/verify')
 
 router.prefix(`/${baseApi}`)
 router.post('/register', register)
         .post('/login', login.createToken)
+        .get('/check' ,verify ,login.checkToken)
 //     .get('/', indexController.index) //首页
 //     .get('/article/:id', articleController.index) //文章页面
 //     .get('/signup', signupController.NotLogin) //注册
