@@ -1,7 +1,6 @@
 <template>
     <!--  登录 -->
     <div class="login">
-        <Tips :tipStyle="tipStyle" :tipMessage="tipMessage" :tipShow="tipShow"></Tips>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <h2 class="active"> 登录 </h2>
@@ -22,7 +21,7 @@
 </template>
 
 <script>
-    import axios from 'axios'
+    import axios from "axios";
     export default {
         name: "login",
         props: {},
@@ -30,10 +29,7 @@
         data() {
             return {
                 name: "",
-                password: "",
-                tipStyle: "",
-                tipMessage: "",
-                tipShow: false
+                password: ""
             };
         },
     
@@ -50,44 +46,42 @@
                             password: this.password
                         })
                         .then(res => {
-                            console.log(res)
-                            this.tipShow = true;
+                            console.log(res);
                             if (res) {
                                 if (res.data.success) {
-                                    localStorage.setItem('userToken', res.data.token)
-                                    this.tipStyle = "success";
-                                    this.tipMessage = res.data.message;
-                                } else {
-                                    this.tipStyle = "warn";
-                                    this.tipMessage = res.data.message;
-                                }
-                                let self = this;
-                                setTimeout(function() {
-                                    self.tipShow = false;
-                                    self.$router.push({
-                                        path: "/message"
+                                    localStorage.setItem("userToken", res.data.token);
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "success"
                                     });
-                                }, 2500);
+                                    let self = this;
+                                    setTimeout(function() {
+                                        self.$router.push({
+                                            path: "/message"
+                                        });
+                                    }, 4000);
+                                } else {
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "error"
+                                    });
+                                }
+    
                             }
                         })
                         .catch(err => {
-                            const errorMsg = err.response.data.error
-                            this.tipShow = true;
-                            this.tipStyle = "error";
-                            this.tipMessage = errorMsg;
-                            let self = this;
-                            setTimeout(function() {
-                                self.tipShow = false;
-                            }, 2500)
+                            const errorMsg = err.response.data.error;
+                            this.$message({
+                                message: errorMsg,
+                                type: "error"
+                            });
                         });
                 } else {
-                    this.tipShow = true;
-                    this.tipStyle = "warn";
-                    this.tipMessage = this.name === "" ? "请输入用户名" : "请输入密码";
-                    let self = this;
-                    setTimeout(function() {
-                        self.tipShow = false;
-                    }, 2500);
+                    const message = this.name === "" ? "请输入用户名" : "请输入密码";
+                    this.$message({
+                        message: message,
+                        type: "warn"
+                    });
                 }
             }
         }

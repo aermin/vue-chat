@@ -1,7 +1,6 @@
 <template>
     <!--  登录 -->
     <div class="login">
-        <Tips :tipStyle="tipStyle" :tipMessage="tipMessage" :tipShow="tipShow"></Tips>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <h2 class="inactive underlineHover" @click="$router.push('/login')"> 登录 </h2>
@@ -28,9 +27,6 @@
             return {
                 name: '',
                 password: '',
-                tipStyle: "",
-                tipMessage: '',
-                tipShow: false
             }
         },
         methods: {
@@ -42,34 +38,33 @@
                                 password: this.password
                             })
                         .then(res => {
-                            this.tipShow = true;
-                            if (res.data) {
-                                if (res.data.resCode === "SUCCESS") {
-                                    this.tipStyle = "success";
-                                    this.tipMessage = "注册成功！";
-    
-                                } else if (res.data.resCode === "URSER_EXIST") {
-                                    this.tipStyle = "warn";
-                                    this.tipMessage = "用户名已存在";
-                                }
-                                let self = this;
-                                setTimeout(function() {
-                                    self.tipShow = false;
-                                    self.$router.push({
-                                        path: '/login'
+                            console.log(res);
+                            if (res) {
+                                if (res.data.success) {
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "success"
                                     });
-                                }, 2500)
+                                    let self = this;
+                                    setTimeout(function() {
+                                        self.$router.push({
+                                            path: "/login"
+                                        });
+                                    }, 4000);
+                                } else {
+                                    this.$message({
+                                        message: res.data.message,
+                                        type: "error"
+                                    });
+                                }
                             }
                         })
                         .catch(err => {
                             const errorMsg = err.response.data.error
-                            this.tipShow = true;
-                            this.tipStyle = "error";
-                            this.tipMessage = errorMsg;
-                            let self = this;
-                            setTimeout(function() {
-                                self.tipShow = false;
-                            }, 2500)
+                            this.$message({
+                                message: errorMsg,
+                                type: "error"
+                            });
                         })
                 } else {
                     this.tipShow = true;
