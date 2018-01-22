@@ -13,7 +13,7 @@ let findDataByName = function (  name ) {
         where name="${name}"
         `
     return query( _sql)
-  }
+}
 
 module.exports = {
     insertData,
