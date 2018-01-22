@@ -1,6 +1,9 @@
 <template>
 <div class="header">
   <div>{{title}}</div>
+        <svg v-show="currentTab === 3" class="icon" aria-hidden="true">
+            <use  xlink:href="#icon-ico-exit"></use>
+        </svg>
 </div>
 </template>
 
@@ -35,5 +38,13 @@ export default {
     top: 0;
     width: 100%;
     z-index: 3;
+    .icon{
+      position: absolute;
+      right: 0.2rem;
+      top: 50%;
+      transform: translateY(-50%);
+      -moz-transform:  translateY(-50%);
+      -webkit-transform:  translateY(-50%);
+    }
 }
 </style>
