@@ -9,10 +9,13 @@ const baseApi = require('../config').baseApi;
 // let signoutController = require('../Controllers/signoutController');
 // let postController = require('../Controllers/postController');
 // let createController =require('../Controllers/createController');
-let register =require('../controllers/register');
+const register =require('../controllers/register');
+const login = require('../controllers/login')
+
 
 router.prefix(`/${baseApi}`)
 router.post('/register', register)
+        .post('/login', login.createToken)
 //     .get('/', indexController.index) //首页
 //     .get('/article/:id', articleController.index) //文章页面
 //     .get('/signup', signupController.NotLogin) //注册

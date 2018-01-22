@@ -63,7 +63,13 @@
                         })
                         .catch(err => {
                             const errorMsg = err.response.data.error
-                            alert(errorMsg)
+                            this.tipShow = true;
+                            this.tipStyle = "error";
+                            this.tipMessage = errorMsg;
+                            let self = this;
+                            setTimeout(function() {
+                                self.tipShow = false;
+                            }, 2500)
                         })
                 } else {
                     this.tipShow = true;

@@ -15,6 +15,7 @@
   "dependencies": {
     "async": "0.2.9",
     "debug": "0.7.2",
+    "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "0.0.16",
