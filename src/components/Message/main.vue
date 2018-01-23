@@ -22,7 +22,7 @@
 
 <script type="text/javascript">
   export default {
-    name: 'kiko-message',
+    name: 'Message',
     data() {
       return {
         message: '',
