@@ -1,7 +1,7 @@
 <template>
 <div class="header">
   <div>{{title}}</div>
-        <svg v-show="currentTab === 3" class="icon" aria-hidden="true">
+        <svg v-show="currentTab === 3" class="icon" aria-hidden="true" @click="showMessageBox">
             <use  xlink:href="#icon-ico-exit"></use>
         </svg>
 </div>
@@ -18,6 +18,11 @@ export default {
   computed: {
     title() {
       return this.currentTab === 1 ? '消息' : this.currentTab === 2 ? '机器人' : '我'
+    }
+  },
+  methods:{
+    showMessageBox(){
+           this.$emit("showMessageBox", true);
     }
   }
 }

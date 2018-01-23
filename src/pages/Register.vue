@@ -67,13 +67,11 @@
                             });
                         })
                 } else {
-                    this.tipShow = true;
-                    this.tipStyle = "warn";
-                    this.tipMessage = this.name === "" ? "请输入用户名" : "请输入密码";
-                    let self = this;
-                    setTimeout(function() {
-                        self.tipShow = false;
-                    }, 2500)
+                    const message = this.name === "" ? "请输入用户名" : "请输入密码";
+                    this.$message({
+                        message: message,
+                        type: "warn"
+                    });
                 }
     
             }
