@@ -5,8 +5,8 @@ import App from './App'
 import router from './router'
 import axios from 'axios'
 
-import Message from './components/index'
-Vue.use(Message);
+import Components from './components/index'
+Vue.use(Components);
 
 Vue.config.productionTip = false
 
