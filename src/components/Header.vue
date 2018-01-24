@@ -39,7 +39,7 @@ export default {
     color: white;
     font-size: 0.32rem;
     letter-spacing: 0.04rem;
-    position: absolute;
+    position: fixed;
     top: 0;
     width: 100%;
     z-index: 3;

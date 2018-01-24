@@ -2,7 +2,7 @@ const jwt = require("jsonwebtoken");
 const secret = require("../config").secret;
 const userModel = require("../models/users");
 const md5 = require("md5");
-module.exports = async ctx => {
+module.exports = async (ctx, next) => {
   let name = ctx.request.body.name || "",
     password = ctx.request.body.password || "";
   if (name === "" || password === "") {
