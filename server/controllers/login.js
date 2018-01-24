@@ -31,14 +31,12 @@ module.exports = async ctx => {
         token: token
       };
     } else {
-      // ctx.throw(401, "密码错误");
       ctx.body = {
         success: false,
         message: "密码错误"
       };
     }
   } else {
-    //   ctx.throw(401, "用户名错误");
     ctx.body = {
       success: false,
       message: "用户名错误"
