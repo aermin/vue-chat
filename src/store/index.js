@@ -9,46 +9,76 @@ const store = new Vuex.Store({
     // 存放机器人开场白
     robotmsg: [
       {
-        message: "Hi~有什么想知道的可以问我",
+        message: "hi , 欢迎与我聊天，问我问题哦！",
         user: "robot"
       }
+    ],
+    chatList:[
+        {
+          name:"技术交流群",
+            img:"../../static/peoples1.jpg",
+            type:"group",
+            id:"",
+            time:"2017-12-12"
+        },
+        {
+            name:"闲聊群",
+              img:"../../static/peoples2.jpg",
+              type:"group",
+              id:"",
+              time:"2017-11-11"
+        },
+        {
+            name:"路飞",
+              img:"../../static/people1.jpg",
+              type:"private",
+              id:"",
+              time:"2017-11-11"
+        },
+        {
+            name:"索隆",
+              img:"../../static/people2.jpg",
+              type:"private",
+              id:"",
+              time:"2017-11-11"
+        },
     ]
   },
   getters: {
-    robotMsgGetter: state => state.robotmsg
+    robotMsgGetter: state => state.robotmsg,
+    chatListGetter:state => state.chatList
   },
   mutations: {
-    setRobotMsg(state, data) {
-      state.robotmsg.push(data);
+    robotMsgMutation(state, data) {
+      state.robotmsg.push(data)
+    },
+    chatListMutation(state, data) {
+    state.chatList.push(data)
     }
   },
   actions: {
     robatMsgAction({ commit }, data) {
-      console.log(data + "  data");
+      console.log(data + "  robatMsgAction");
       axios.get("/api/v1/robot", {
           params: data
         })
         .then(res => {
           if (res) {
-            // console.log(res + "   return robotres");
-            // robotdata = JSON.parse(res.data.data.data);
-            // 分类信息
-            // console.log(res);
             if (res.data.data.code === 100000) {
-              commit("setRobotMsg", {
+              commit("robotMsgMutation", {
                 message: res.data.data.text,
                 user: "robot"
               });
             } else if (res.data.data.code === 200000) {
               let data = res.data.data.text + res.data.data.url;
-              commit("setRobotMsg", { message: data, user: "robot" });
+              commit("robotMsgMutation", { message: data, user: "robot" });
             } else if (res.data.data.code === 302000) {
-              commit("setRobotMsg", {
+              commit("robotMsgMutation", {
                 message: "暂不支持此类对话",
                 user: "robot"
               });
             } else {
-              commit("setRobotMsg", {
+              commit("robotMsgMutation", {
                 message: "暂不支持此类对话",
                 user: "robot"
               });
@@ -59,6 +89,10 @@ const store = new Vuex.Store({
           console.log(err);
         });
     }
+    // ,
+    // chatListAction({ commit }, data) {
+    //     console.log(data + "  chatListAction");
+    // }
   }
 });
 

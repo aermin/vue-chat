@@ -44,7 +44,7 @@
     methods: {
       async sendMessage() {
         if (this.inputMsg.trim() == '') return;
-        this.$store.commit('setRobotMsg', {
+        this.$store.commit('robotMsgMutation', {
           message: this.inputMsg
         })
         this.$store.dispatch('robatMsgAction', {
@@ -80,8 +80,6 @@
   .wrapper {
     height: 100vh;
     padding-top: 0.6rem;
-    position: absolute;
-    width: 100%;
     z-index: 1;
     ul {
       display: flex;
