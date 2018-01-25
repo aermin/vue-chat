@@ -33,7 +33,7 @@ const store = new Vuex.Store({
             // console.log(res + "   return robotres");
             // robotdata = JSON.parse(res.data.data.data);
             // 分类信息
-            console.log(res);
+            // console.log(res);
             if (res.data.data.code === 100000) {
               commit("setRobotMsg", {
                 message: res.data.data.text,
