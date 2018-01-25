@@ -40,8 +40,7 @@
 <style lang="scss" scoped>
     .private-chat {
         position: relative;
-        width: 100%;
-        margin-bottom: 0.36rem;
+        width: 100%;    
         .otherchat {
             position: relative;
             display: flex;

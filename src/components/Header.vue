@@ -42,7 +42,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 3;
+    z-index: 999;
     .icon{
       position: absolute;
       right: 0.2rem;

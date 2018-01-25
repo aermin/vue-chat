@@ -2,16 +2,16 @@
   <!-- 机器人聊天 -->
   <div class="wrapper">
     <Header :currentTab="currentTab"></Header>
-  
-      <div v-for="msg in robotMsgGetter">
-        <Private-chat v-if="msg.user" img="../../static/robot.gif" :msg="msg.message" :name="msg.user" :time="time"></Private-chat>
-        <Private-chat v-if="!msg.user" me="true" img="../../static/me.jpg" :msg="msg.message" :time="time"></Private-chat>
-      </div>
-  
-      <div class="input-msg">
-        <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
-        <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">发送</a>
-      </div>
+    <ul>
+      <li v-for="msg in robotMsgGetter">
+        <ChatItem v-if="msg.user" img="../../static/robot.gif" :msg="msg.message" :name="msg.user" :time="time"></ChatItem>
+        <ChatItem v-if="!msg.user" me="true" img="../../static/me.jpg" :msg="msg.message" :time="time"></ChatItem>
+      </li>
+    </ul>
+    <div class="input-msg">
+      <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
+      <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">发送</a>
+    </div>
   
     <Footer :currentTab="currentTab"></Footer>
   
@@ -21,7 +21,7 @@
 <script>
   import Header from '../components/Header.vue'
   import Footer from '../components/Footer.vue'
-  import PrivateChat from '../components/PrivateChat.vue'
+  import ChatItem from '../components/ChatItem.vue'
   import axios from "axios";
   import {
     mapGetters
@@ -32,13 +32,14 @@
       return {
         currentTab: 2,
         time: "2017",
-        inputMsg: ""
+        inputMsg: "",
+        isScrollToBottom: true
       }
     },
     components: {
       Header,
       Footer,
-      PrivateChat
+      ChatItem
     },
     methods: {
       async sendMessage() {
@@ -46,34 +47,60 @@
         this.$store.commit('setRobotMsg', {
           message: this.inputMsg
         })
-        // const data = {
-        //     'info': this.inputMsg
-        //   }
         this.$store.dispatch('robatMsgAction', {
           message: this.inputMsg
         })
+      },
+      refresh() {
+        setTimeout(() => {
+          // console.log(document.body.scrollHeight)
+          window.scrollTo(0, document.body.scrollHeight + 10000)
+        }, 0)
+      }
+    },
+    watch: {
+      robotMsgGetter() { //当数据改变了,则自动刷新
+        this.refresh();
       }
     },
     computed: {
       ...mapGetters([
         'robotMsgGetter'
       ])
-    }
+    },
+    mounted() {
+      setTimeout(() => {
+        this.refresh();
+      }, 200)
+    },
   }
 </script>
 
 <style lang="scss" scoped>
   .wrapper {
-       overflow: hidden;
-    background-color: #EDECED;
     height: 100vh;
-    padding-top: 0.8rem;
+    padding-top: 0.6rem;
+    position: absolute;
+    width: 100%;
+    z-index: 1;
+    ul {
+      display: flex;
+      flex-direction: column;
+      width: 100%;
+      padding-bottom: 1.6rem;
+      // touch-action:none !important;
+      li {
+        margin-top: -1rem;
+        padding: 0;
+      }
+    }
     .input-msg {
       height: 0.46rem;
       position: fixed;
       bottom: 0.5rem;
       display: flex;
       width: 100%;
+      z-index: 999;
       textarea {
         width: 87.8%;
         margin: 0 0.06rem;

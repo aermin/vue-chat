@@ -62,8 +62,24 @@ export default {
     // user-select: none;
     // text-size-adjust: none;
 }
+html, body {
+background-color: #EDECED;
+  width: 100%;
+  height: 100%;
+  font-family: 'Microsoft Yahei' !important;
+}
+::-webkit-scrollbar {
+    width: 2px;
+    height: 2px;
+}
 
+::-webkit-scrollbar-track {
+    background: transparent;
+}
 
+::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,.1);
+}
 .icon {
     width: 1em;
     height: 1em;

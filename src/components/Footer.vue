@@ -37,7 +37,7 @@
     position: fixed;
     bottom: 0;
     width: 100%;
-    z-index: 1;
+    z-index: 999;
     font-size: 0.36rem;
     display: flex;
     justify-content: space-between;
