@@ -1,6 +1,6 @@
 const jwt = require("jsonwebtoken");
 const secret = require("../config").secret;
-const userModel = require("../models/users");
+const userModel = require("../models/user_info");
 const md5 = require("md5");
 module.exports = async (ctx, next) => {
   let name = ctx.request.body.name || "",
@@ -28,7 +28,13 @@ module.exports = async (ctx, next) => {
       ctx.body = {
         success: true,
         message: "登录成功",
-        token: token
+        token: token,
+        userInfo:{
+          name:res[0]["name"],
+          sex:res[0]["sex"],
+          avatar:res[0]["avatar"],
+          place:res[0]["place"]
+        }
       };
     } else {
       ctx.body = {

@@ -19,28 +19,36 @@ const store = new Vuex.Store({
             img:"../../static/peoples1.jpg",
             type:"group",
             id:"",
-            time:"2017-12-12"
+            message:"",
+            time:"2017-12-12",
+            unread:"0"
         },
         {
             name:"闲聊群",
               img:"../../static/peoples2.jpg",
               type:"group",
               id:"",
-              time:"2017-11-11"
+              message:"",
+              time:"2017-11-11",
+              unread:"0"
         },
         {
             name:"路飞",
               img:"../../static/people1.jpg",
               type:"private",
               id:"",
-              time:"2017-11-11"
+              message:"",
+              time:"2017-11-11",
+              unread:"0"
         },
         {
             name:"索隆",
               img:"../../static/people2.jpg",
               type:"private",
               id:"",
-              time:"2017-11-11"
+              message:"",
+              time:"2017-11-11",
+              unread:"0"
         },
     ]
   },

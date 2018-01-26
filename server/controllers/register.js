@@ -1,4 +1,4 @@
-let userModel = require("../models/users");
+let userModel = require("../models/user_info");
 let md5 = require("md5");
 
 module.exports = async (ctx, next) => {

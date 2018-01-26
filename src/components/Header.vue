@@ -10,14 +10,22 @@
 <script>
 export default {
   name: 'Header',
-  props: ['currentTab'],
+  props: ['currentTab','chatTitle'],
   data() {
     return {
     }
   },
   computed: {
     title() {
-      return this.currentTab === 1 ? '消息' : this.currentTab === 2 ? '机器人' : '我'
+      if(this.currentTab === 1){
+          return   '消息'
+      } else if(this.currentTab === 2){
+          return '机器人'
+      } else if(this.currentTab === 3){
+          return '我'
+      } else{
+        return this.chatTitle
+      }
     }
   },
   methods:{

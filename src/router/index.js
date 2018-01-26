@@ -5,6 +5,9 @@ import Robot from "@/pages/Robot";
 import Me from "@/pages/Me";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
+import GroupChat from "@/pages/GroupChat";
+
+
 import axios from "axios";
 
 Vue.use(Router);
@@ -35,6 +38,11 @@ const router = new Router({
       path: "/register",
       name: "Register",
       component: Register
+    },
+    {
+      path: "/group_chat",
+      name: "GroupChat",
+      component: GroupChat
     },
     {
       path: "/",

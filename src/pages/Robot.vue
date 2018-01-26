@@ -44,10 +44,10 @@
     methods: {
       async sendMessage() {
         if (this.inputMsg.trim() == '') return;
-        this.$store.commit('robotMsgMutation', {
+        this.$store.commit('robotMsgMutation', { //提交自己的内容，不然state中
           message: this.inputMsg
         })
-        this.$store.dispatch('robatMsgAction', {
+        this.$store.dispatch('robatMsgAction', { //提交由自己输入内容作为参数请求接口异步得来的内容（机器人的回复）
           message: this.inputMsg
         })
       },

@@ -1,24 +1,29 @@
 <template>
-  <!--  主页面底部 -->
-  <div class="footer">
+  <div class="wrapper">
+
   </div>
 </template>
 
 <script>
   export default {
-    name: 'footer',
+    name: '',
+
     props: {},
+
     components: {
     },
+
     data() {
-      return {};
+      return {}
     },
-  
+
     computed: {},
   
     watch: {},
   
-    methods: {}
+    methods: {},
+
+    mounted(){}
   }
 </script>
 
