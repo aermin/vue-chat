@@ -19,10 +19,10 @@ const sessionMysqlConfig= {
 app.use(cors());
 
 // 配置session中间件
-app.use(session({
-    key: 'USER_SID',
-    store: new MysqlStore(sessionMysqlConfig)
-}))
+// app.use(session({
+//     key: 'USER_SID',
+//     store: new MysqlStore(sessionMysqlConfig)
+// }))
 
 
 app.use(bodyParser());

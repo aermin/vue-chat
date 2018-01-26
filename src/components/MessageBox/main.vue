@@ -7,8 +7,14 @@
             <p>
                 <slot name="content"></slot>
             </p>
-            <a href="javscript:void(0)" @click="cancel">取消</a>
-            <a href="javscript:void(0)" @click="confirm">确定</a>
+            <div v-if="hasCancel" class="hasCancel">
+                <a href="javscript:void(0)" @click="cancel">取消</a>
+                <a href="javscript:void(0)" @click="confirm">确定</a>
+            </div>
+            <div v-else class="noCancel">
+                <a href="javscript:void(0)" @click="confirm">确定</a>
+            </div>
+    
         </div>
     
     
@@ -26,6 +32,10 @@
             title: {
                 type: String,
                 default: "提示"
+            },
+            hasCancel: {
+                type: Boolean,
+                default: true
             }
         },
         components: {},
@@ -57,6 +67,7 @@
         left: 0;
         background-color: #000;
         opacity: 0.3;
+        z-index: 100;
     }
     
     .message-box-wrapper {
@@ -71,6 +82,7 @@
         border-top: 0.01rem solid white;
         animation: fade 1s ease 1 forwards;
         text-align: center;
+        z-index: 999;
         @keyframes fade {
             from {
                 opacity: 0;
@@ -91,35 +103,62 @@
             font-size: 0.1rem;
             margin: 0 0.2rem 0.7rem;
         }
-        a {
-            background: transparent;
-            color: #1678E5;
-            height: 0.46rem;
-            font-size: 0.14rem;
-            line-height: 0.46rem;
-            width: 50%;
-            position: absolute;
-            bottom: 0;
-            text-decoration: none;
+        .hasCancel {
+            a {
+                background: transparent;
+                color: #1678E5;
+                height: 0.46rem;
+                font-size: 0.14rem;
+                line-height: 0.46rem;
+                width: 50%;
+                position: absolute;
+                bottom: 0;
+                text-decoration: none;
+            }
+            a:nth-of-type(1) {
+                border-top: 1px solid #B4B4B4;
+                border-right: 1px solid #B4B4B4;
+                left: 0;
+                border-radius: 0 0 0 0.1rem;
+            }
+            a:nth-of-type(2) {
+                border-top: 0.01rem solid #B4B4B4;
+                right: 0;
+                border-radius: 0 0 0.1rem 0;
+            }
+            a:focus,
+            a:hover {
+                font-weight: bold;
+                background: #EFEFEF;
+            }
+            a:active {
+                background: #D6D6D6;
+            }
         }
-        a:nth-of-type(1) {
-            border-top: 1px solid #B4B4B4;
-            border-right: 1px solid #B4B4B4;
-            left: 0;
-            border-radius: 0 0 0 0.1rem;
-        }
-        a:nth-of-type(2) {
-            border-top: 0.01rem solid #B4B4B4;
-            right: 0;
-            border-radius: 0 0 0.1rem 0;
-        }
-        a:focus,
-        a:hover {
-            font-weight: bold;
-            background: #EFEFEF;
-        }
-        a:active {
-            background: #D6D6D6;
+        .noCancel{
+                a {
+                background: transparent;
+                color: #1678E5;
+                height: 0.46rem;
+                font-size: 0.14rem;
+                line-height: 0.46rem;
+                width: 100%;
+                position: absolute;
+                bottom: 0;
+                text-decoration: none;
+                border-top: 1px solid #B4B4B4;
+                left: 0;
+                 right: 0;
+                border-radius: 0 0 0 0.1rem;
+            }
+            a:focus,
+            a:hover {
+                font-weight: bold;
+                background: #EFEFEF;
+            }
+            a:active {
+                background: #D6D6D6;
+            }
         }
     }
 </style>

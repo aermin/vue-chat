@@ -1,10 +1,16 @@
 <template>
-  <!-- 机器人聊天 -->
+  <!-- 我 -->
   <div class="wrapper">
     <Message-box :visible="visible" :title="title" @cancel="cancel" @confirm="confirm">
       <p slot="content">{{message}}</p>
     </Message-box>
     <Header :currentTab="currentTab" @showMessageBox="showMessageBox"></Header>
+    <div class="content">
+      <img :src="userInfo.avatar" alt="">
+        <p>用户名：{{userInfo.name}}</p>
+        <p>性别：{{userInfo.sex}}</p>
+         <p>来自：{{userInfo.place}}</p>
+    </div>
     <Footer :currentTab="currentTab"></Footer>
   </div>
 </template>
@@ -19,7 +25,8 @@
         currentTab: 3,
         visible: false,
         title: "提示",
-        message: ""
+        message: "",
+        userInfo:{}
       }
     },
     components: {
@@ -39,6 +46,7 @@
       confirm(value) {
         if (value) {
           localStorage.removeItem("userToken");
+          localStorage.removeItem("userInfo");
           let self = this;
           setTimeout(function() {
             self.$router.push({
@@ -47,6 +55,29 @@
           }, 1000);
         }
       }
+    },
+    mounted() {
+      this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
     }
   }
 </script>
+<style lang="scss" scoped>
+  .content{
+    text-align: center;
+    img{
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50%;
+      margin: 2rem auto;
+    }
+    p{
+
+    font-size: 0.32rem;
+    line-height: 0.8rem;
+    max-width: 80%;
+    margin: 0 auto;
+    color: #4290F7;
+    }
+
+  }
+</style>

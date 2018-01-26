@@ -1,6 +1,9 @@
 <template>
     <!--  登录 -->
     <div class="login">
+        <Message-box :visible="visible" :title="title" @confirm="confirm" :hasCancel=false>
+            <p slot="content">{{message}}</p>
+        </Message-box>
         <div class="wrapper fadeInDown">
             <div id="formContent">
                 <h2 class="active"> 登录 </h2>
@@ -29,7 +32,10 @@
         data() {
             return {
                 name: "",
-                password: ""
+                password: "",
+                visible: false,
+                title: "提示",
+                message: ""
             };
         },
     
@@ -49,24 +55,21 @@
                             console.log(res);
                             if (res) {
                                 if (res.data.success) {
-                                    localStorage.setItem("userToken", res.data.token);
                                     this.$message({
                                         message: res.data.message,
                                         type: "success"
                                     });
-                                    let self = this;
-                                    setTimeout(function() {
-                                        self.$router.push({
-                                            path: "/message"
-                                        });
-                                    }, 4000);
+                                    console.log(res.data);
+                                    localStorage.setItem("userToken", res.data.token);
+                                    localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo));
+                                    this.visible = true;
+                                    this.message = "您已登录成功"
                                 } else {
                                     this.$message({
                                         message: res.data.message,
                                         type: "error"
                                     });
                                 }
-    
                             }
                         })
                         .catch(err => {
@@ -82,6 +85,16 @@
                         message: message,
                         type: "warn"
                     });
+                }
+            },
+            confirm(value) {
+                if (value) {
+                    let self = this;
+                    setTimeout(function() {
+                        self.$router.push({
+                         path: "/message"
+                        });
+                    }, 1000);
                 }
             }
         }
