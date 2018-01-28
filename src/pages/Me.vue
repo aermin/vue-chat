@@ -6,7 +6,7 @@
     </Message-box>
     <Header :currentTab="currentTab" @showMessageBox="showMessageBox"></Header>
     <div class="content">
-      <img :src="userInfo.avatar" alt="">
+      <img :src="userInfo.avator" alt="">
         <p>用户名：{{userInfo.name}}</p>
         <p>性别：{{userInfo.sex}}</p>
          <p>来自：{{userInfo.place}}</p>

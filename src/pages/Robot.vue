@@ -5,7 +5,7 @@
     <ul>
       <li v-for="msg in robotMsgGetter">
         <ChatItem v-if="msg.user" img="../../static/robot.gif" :msg="msg.message" :name="msg.user" :time="time"></ChatItem>
-        <ChatItem v-if="!msg.user" me="true" img="../../static/me.jpg" :msg="msg.message" :time="time"></ChatItem>
+        <ChatItem v-if="!msg.user" me="true" :img=img :msg="msg.message" :time="time"></ChatItem>
       </li>
     </ul>
     <div class="input-msg">
@@ -33,6 +33,7 @@
         currentTab: 2,
         time: "2017",
         inputMsg: "",
+        img:"",
         isScrollToBottom: true
       }
     },
@@ -67,6 +68,10 @@
       ...mapGetters([
         'robotMsgGetter'
       ])
+    },
+    created(){
+        const userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        this.img = userInfo.avator;
     },
     mounted() {
       setTimeout(() => {

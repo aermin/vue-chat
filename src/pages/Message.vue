@@ -3,10 +3,12 @@
   <div class="wrapper">
     <Header :currentTab="currentTab"></Header>
     <ul>
-      <li v-for="data in chatListGetter" @click="enterChat(data.type,data.id)">
-        <img :src="data.img" alt="群头像" class="img">
+      <li v-for="data in msgListGetter" @click="enterChat(data.type,data.id)">
+        <img v-if="data.type === 'group'" :src="data.group_avator" alt="群头像" class="img">
+        <img v-if="data.type === 'private'" :src="data.avator" alt="用户头像" class="img">
         <div class="content">
-          <div class="title">{{data.name}}<span>{{data.time}}</span></div>
+          <div v-if="data.type === 'group'" class="title">{{data.group_name}}<span>{{data.time}}</span></div>
+           <div v-if="data.type === 'private'" class="title">{{data.name}}<span>{{data.time}}</span></div>
           <div class="message">{{data.message}}</div>
         </div>
   
@@ -36,7 +38,7 @@
     },
     computed: {
       ...mapGetters([
-        'chatListGetter'
+        'msgListGetter'
       ])
     },
     methods:{
@@ -54,8 +56,12 @@
         this.$router.push(path)
       }
     },
-    mounted() {
-
+    created() {
+        // axios.get("/api/v1/message")
+        // .then(res => {
+        //   console.log(res + "  msgListActionres");
+        // })
+         this.$store.dispatch('msgListAction')
     }
   }
 </script>

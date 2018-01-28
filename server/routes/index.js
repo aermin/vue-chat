@@ -11,7 +11,7 @@ router.prefix(`/${baseApi}`)
 router.post('/register', register)
         .post('/login', login)
         .get('/robot',robot)
-        .get('/message' ,message.getAllList)
+        .get('/message' ,message)
 
 
 console.log("router");
