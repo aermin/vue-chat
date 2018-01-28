@@ -7,7 +7,7 @@
         <img :src="data.img" alt="群头像" class="img">
         <div class="content">
           <div class="title">{{data.name}}<span>{{data.time}}</span></div>
-          <div class="message">dfghht</div>
+          <div class="message">{{data.message}}</div>
         </div>
   
       </li>

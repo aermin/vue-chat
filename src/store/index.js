@@ -19,7 +19,7 @@ const store = new Vuex.Store({
             img:"../../static/peoples1.jpg",
             type:"group",
             id:"",
-            message:"",
+            message:"大家好，我是22",
             time:"2017-12-12",
             unread:"0"
         },
@@ -28,7 +28,7 @@ const store = new Vuex.Store({
               img:"../../static/peoples2.jpg",
               type:"group",
               id:"",
-              message:"",
+              message:"闲聊群，比较适合我",
               time:"2017-11-11",
               unread:"0"
         },
@@ -37,7 +37,7 @@ const store = new Vuex.Store({
               img:"../../static/people1.jpg",
               type:"private",
               id:"",
-              message:"",
+              message:"这条是22回复11的",
               time:"2017-11-11",
               unread:"0"
         },
@@ -46,7 +46,7 @@ const store = new Vuex.Store({
               img:"../../static/people2.jpg",
               type:"private",
               id:"",
-              message:"",
+              message:"这条是11发给33的",
               time:"2017-11-11",
               unread:"0"
         },
@@ -97,10 +97,6 @@ const store = new Vuex.Store({
           console.log(err);
         });
     }
-    // ,
-    // chatListAction({ commit }, data) {
-    //     console.log(data + "  chatListAction");
-    // }
   }
 });
 
