@@ -31,8 +31,9 @@ module.exports = async (ctx, next) => {
         token: token,
         userInfo:{
           name:res[0]["name"],
+          user_id:res[0]["id"],
           sex:res[0]["sex"],
-          avatar:res[0]["avatar"],
+          avator:res[0]["avator"],
           place:res[0]["place"]
         }
       };

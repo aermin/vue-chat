@@ -6,14 +6,15 @@ let insertData = function (value) {
     return query(_sql, value)
 }
 
-// 通过名字查找用户
+// 通过用户名查找用户信息 user_info
 let findDataByName = function (  name ) {
     let _sql = `
-      SELECT * from user_info
-        where name="${name}"
+      SELECT * FROM user_info
+      WHERE name="${name}"
         `
     return query( _sql)
 }
+
 
 module.exports = {
     insertData,

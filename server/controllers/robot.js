@@ -6,7 +6,6 @@ module.exports = async (ctx, next) => {
   const auth = ctx.get("Authorization");
   const token = auth.split(" ")[1];
   const payload = jwt.verify(token, secret);
-  console.log(payload + "  payload");
   const date = {
     key: "92febb91673740c2814911a6c16dbcc5",
     info: "" + ctx.query.message,
@@ -20,34 +19,9 @@ module.exports = async (ctx, next) => {
     json: true // Automatically stringifies the body to JSON
   };
 
-
- const response =await request(options) ;
-  console.log(response)
-    ctx.body = {
-        data: response
-      };
-  //   request(
-  //     {
-  //       url: url,
-  //       method: "POST",
-  //       json: true,
-  //       headers: {
-  //         "content-type": "application/json"
-  //       },
-  //       body: date
-  //     },
-  //     function(error, response, body) {
-  //       console.log("body", body);
-  //       if (error) {
-  //         console.log("error", error);
-  //       } else{
-  //         ctx.body = {
-  //             res: body
-  //           };
-  //       }
-
-  //       //  return body;
-  //     }
-  //   );
-  //   const res =  request();
+  const response = await request(options);
+  console.log(response);
+  ctx.body = {
+    data: response
+  };
 };
