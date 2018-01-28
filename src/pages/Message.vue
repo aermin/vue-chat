@@ -42,15 +42,6 @@
       ])
     },
     methods:{
-      getPrivateMsg(){ // 根据用户id 获取私聊聊天记录  数据库tabel （private__msg）
-          
-      },
-      getGroupInfo(){ //根据用户id 获取群信息 特别是群id  数据库table（group_user_relation）
-
-      },
-      getGroupMsg(){ // 根据群id 获取 群聊天记录  数据库tabel （group_msg）
-
-      },
       enterChat(chatType,chatId){
         const path = chatType =='private' ? `/private_chat/${chatId}`:`/group_chat/${chatId}`
         this.$router.push(path)

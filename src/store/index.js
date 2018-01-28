@@ -111,10 +111,12 @@ const store = new Vuex.Store({
         groupList.forEach(element => {
           element.type = "group";
           element.time = toNomalTime(element.time);
+          element.id = element.group_id;
         });
         privateList.forEach(element => {
           element.type = "private";
           element.time = toNomalTime(element.time);
+          element.id = element.other_user_id;
         });
         const allMsgList = groupList.concat(privateList);
         allMsgList.sort((a, b) => {
