@@ -40,7 +40,7 @@ const router = new Router({
       component: Register
     },
     {
-      path: "/group_chat",
+      path: "/group_chat/:group_id",
       name: "GroupChat",
       component: GroupChat
     },

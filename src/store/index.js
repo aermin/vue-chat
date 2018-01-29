@@ -14,48 +14,15 @@ const store = new Vuex.Store({
         user: "robot"
       }
     ],
-    msgList: [
-      // {
-      //   name:"技术交流群",
-      //     img:"../../static/peoples1.jpg",
-      //     type:"group",
-      //     id:"",
-      //     message:"大家好，我是22",
-      //     time:"2017-12-12",
-      //     unread:"0"
-      // },
-      // {
-      //     name:"闲聊群",
-      //       img:"../../static/peoples2.jpg",
-      //       type:"group",
-      //       id:"",
-      //       message:"闲聊群，比较适合我",
-      //       time:"2017-11-11",
-      //       unread:"0"
-      // },
-      // {
-      //     name:"路飞",
-      //       img:"../../static/people1.jpg",
-      //       type:"private",
-      //       id:"",
-      //       message:"这条是22回复11的",
-      //       time:"2017-11-11",
-      //       unread:"0"
-      // },
-      // {
-      //     name:"索隆",
-      //       img:"../../static/people2.jpg",
-      //       type:"private",
-      //       id:"",
-      //       message:"这条是11发给33的",
-      //       time:"2017-11-11",
-      //       unread:"0"
-      // }
-    ]
+    // 消息首页列表
+    msgList: [],
+    //群聊
+    groupChat:[]
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
-    msgListGetter: state => state.msgList
+    msgListGetter: state => state.msgList,
+    groupChatGetter:state => state.groupChat
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -63,9 +30,13 @@ const store = new Vuex.Store({
     },
     msgListMutation(state, data) {
       state.msgList = data;
-    }
+    },
+    groupChatMutation(state, data) {
+      state.groupChat = data;
+    },
   },
   actions: {
+    //机器人
     robatMsgAction({ commit }, data) {
       console.log(data + "  robatMsgAction");
       axios
@@ -102,6 +73,7 @@ const store = new Vuex.Store({
           console.log(err);
         });
     },
+      // 消息首页列表
     async msgListAction({ commit }) {
       const res = await axios.get("/api/v1/message");
       console.log("res", res);
@@ -125,6 +97,9 @@ const store = new Vuex.Store({
         console.log("allMsgList", allMsgList);
         commit("msgListMutation", allMsgList);
       }
+    },
+    async groupChatAction({ commit }, data) {
+        
     }
   }
 });
