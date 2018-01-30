@@ -23,6 +23,7 @@
     "koa-router": "^7.2.1",
     "koa-session-minimal": "^3.0.4",
     "koa-static": "^4.0.0",
+    "koa2-cors": "^2.0.5",
     "md5": "^2.2.1",
     "moment": "^2.18.1",
     "mysql": "2.x",

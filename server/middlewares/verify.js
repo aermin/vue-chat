@@ -2,11 +2,8 @@
  * @file 处理验证的中间件
  */
 
-// import jwt from 'jsonwebtoken'
-// import {secret} from '../config'
-
 const jwt = require("jsonwebtoken");
-const secret = require("../config");
+const secret = require("../config").secret;
 
 module.exports = async function (ctx, next) {
     // 同步验证

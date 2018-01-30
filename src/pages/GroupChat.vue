@@ -4,13 +4,13 @@
         <Header :chatTitle="groupDetailGetter.groupInfo.group_name"></Header>
         <ul>
             <li v-for="item in dataList.message">
-                <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.user" :time="item.time"></ChatItem>
-                <ChatItem v-else :img="item.avator" :msg="item.message" :time="item.time"></ChatItem>
+                <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
+                <ChatItem v-else :img="item.avator" :msg="item.message"  :name="item.name"  :time="item.time"></ChatItem>
             </li>
         </ul>
         <div class="input-msg">
             <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
-            <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">发送</a>
+            <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">{{btnInfo}}</a>
         </div>
     </div>
 </template>
@@ -19,6 +19,7 @@
     import Header from '../components/Header.vue'
     import ChatItem from '../components/ChatItem.vue'
     import axios from "axios"
+    import { toNomalTime } from "../utils/transformTime";
     import {
         mapGetters
     } from 'vuex'
@@ -38,7 +39,8 @@
                     message: [] //群消息
                 },
                 inputMsg: '',
-                userInfo: {}
+                userInfo: {},
+                btnInfo: "发送"
             };
         },
     
@@ -60,6 +62,9 @@
                     .then(res => {
                         if (res.data.success) {
                             this.dataList.message = res.data.data.groupMsg;
+                            this.dataList.message.forEach(element => {
+                                element.time = toNomalTime(element.time);
+                            });
                             this.$store.commit('groupDetailMutation', { 
                                 groupInfo: res.data.data.groupInfo[0],
                                 groupMember: res.data.data.groupMember
@@ -75,16 +80,21 @@
                         });
                     })
             },
-            sendMessage() {},
+            sendMessage() {
+                    if (this.inputMsg.trim() == '') return
+                        this.$refs.message.focus()
+                        this.btnInfo = '发送中'
+                         this.sendBySocket()
+            },
             sendBySocket() {
-                socket.emit('sendGroupMessage', {
-                    group_id: this.dataList.groupId, //群id
-                    group_name: this.dataList.groupName, //群名称
-                    group_avator: this.dataList.groupAvator, //群头像
-                    group_member: this.dataList.groupMember, //所有群成员的id
-                    from_user_id: this.userId, //自己的id
+                socket.emit('sendGroupMsg', {
+                    group_id: this.groupInfo.groupId, //群id
+                    group_name: groupDetailGetter.groupInfo.group_name, //群名称
+                    group_avator: groupDetailGetter.groupInfo.group_avator, //群头像
+                    group_member: groupDetailGetter.groupMember, //所有群成员的id
+                    from_user_id: this.userInfo.user_id, //自己的id
                     from_user_face: this.userInfo.avator, //自己的头像
-                    message: this.writeMessage, //消息内容
+                    message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
             },
