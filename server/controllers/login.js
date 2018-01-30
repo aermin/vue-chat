@@ -34,7 +34,8 @@ module.exports = async (ctx, next) => {
           user_id:res[0]["id"],
           sex:res[0]["sex"],
           avator:res[0]["avator"],
-          place:res[0]["place"]
+          place:res[0]["place"],
+          socketId:res[0]["socketid"]
         }
       };
     } else {

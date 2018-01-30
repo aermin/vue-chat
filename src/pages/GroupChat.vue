@@ -5,12 +5,12 @@
         <ul>
             <li v-for="item in dataList.message">
                 <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
-                <ChatItem v-else :img="item.avator" :msg="item.message"  :name="item.name"  :time="item.time"></ChatItem>
+                <ChatItem v-else :img="item.avator" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
             </li>
         </ul>
         <div class="input-msg">
             <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
-            <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">{{btnInfo}}</a>
+            <p class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">{{btnInfo}}</p>
         </div>
     </div>
 </template>
@@ -19,7 +19,9 @@
     import Header from '../components/Header.vue'
     import ChatItem from '../components/ChatItem.vue'
     import axios from "axios"
-    import { toNomalTime } from "../utils/transformTime";
+    import {
+        toNomalTime
+    } from "../utils/transformTime";
     import {
         mapGetters
     } from 'vuex'
@@ -65,7 +67,7 @@
                             this.dataList.message.forEach(element => {
                                 element.time = toNomalTime(element.time);
                             });
-                            this.$store.commit('groupDetailMutation', { 
+                            this.$store.commit('groupDetailMutation', {
                                 groupInfo: res.data.data.groupInfo[0],
                                 groupMember: res.data.data.groupMember
                             })
@@ -81,29 +83,47 @@
                     })
             },
             sendMessage() {
-                    if (this.inputMsg.trim() == '') return
-                        this.$refs.message.focus()
-                        this.btnInfo = '发送中'
-                         this.sendBySocket()
+                if (this.inputMsg.trim() == '') return
+                this.$refs.message.focus()
+                this.btnInfo = '发送中'
+                this.sendBySocket()
             },
             sendBySocket() {
+                console.log('sendGroupMsg', this.groupDetailGetter)
                 socket.emit('sendGroupMsg', {
-                    group_id: this.groupInfo.groupId, //群id
-                    group_name: groupDetailGetter.groupInfo.group_name, //群名称
-                    group_avator: groupDetailGetter.groupInfo.group_avator, //群头像
-                    group_member: groupDetailGetter.groupMember, //所有群成员的id
-                    from_user_id: this.userInfo.user_id, //自己的id
-                    from_user_face: this.userInfo.avator, //自己的头像
+                    groupId: this.groupInfo.groupId, //群id
+                    group_name: this.groupDetailGetter.groupInfo.group_name, //群名称
+                    group_avator: this.groupDetailGetter.groupInfo.group_avator, //群头像
+                    groupMember: this.groupDetailGetter.groupMember, //所有群成员的id
+                    from_user: this.userInfo.user_id, //自己的id
+                    name: this.userInfo.name, //自己的昵称
+                    avator: this.userInfo.avator, //自己的头像
                     message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
             },
-    
+            receiveBySocket() {
+                socket.removeAllListeners();
+                socket.on('receiveGroupMsg', (data) => {
+                    if (!data.groupMember.includes(this.userInfo.user_id)) return
+                    // console.log(data.groupMember.includes(this.userInfo.user_id))
+                    console.log('receiveGroupMsg', data);
+                    this.dataList.message.push(data);
+                    this.refresh();
+                })
+            },
+            // 消息置底
+            refresh() {
+                setTimeout(() => {
+                    window.scrollTo(0, document.body.scrollHeight + 10000)
+                }, 0)
+            }
         },
         created() {
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getChatMsg();
+            this.receiveBySocket()
         }
     }
 </script>
@@ -143,12 +163,11 @@
                 overflow-y: hidden;
                 font: 0.16rem/0.18rem 'Microsoft Yahei';
             }
-            a.btn {
+            p.btn {
                 font-size: 0.2rem;
                 display: flex;
                 align-items: center;
                 justify-content: center;
-                text-decoration: none;
                 text-align: center;
                 margin-right: 0.06rem;
                 height: 100%;

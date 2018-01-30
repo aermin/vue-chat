@@ -53,18 +53,17 @@
                         })
                         .then(res => {
                             console.log(res);
-                            if (res) {
                                 if (res.data.success) {
-                                    this.$message({
-                                        message: res.data.message,
-                                        type: "success"
-                                    });
+                                    // this.$message({
+                                    //     message: res.data.message,
+                                    //     type: "success"
+                                    // });
                                     console.log(res.data);
                                     const userInfo = JSON.stringify(res.data.userInfo) ;
-
+                                    console.log("userInfo",userInfo);
                                     localStorage.setItem("userToken", res.data.token);
                                     localStorage.setItem("userInfo",userInfo);
-                                    // socket.emit('login',userInfo.user_id) 
+                                    socket.emit('login',userInfo.user_id) 
                                     this.visible = true;
                                     this.message = "您已登录成功"
                                 } else {
@@ -73,7 +72,6 @@
                                         type: "error"
                                     });
                                 }
-                            }
                         })
                         .catch(err => {
                             const errorMsg = err.response.data.error;

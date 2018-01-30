@@ -10,7 +10,7 @@
     </ul>
     <div class="input-msg">
       <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
-      <a href="javscript:void(0)" class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">发送</a>
+      <p  class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">发送</p>
     </div>
   
     <Footer :currentTab="currentTab"></Footer>
@@ -116,12 +116,11 @@
         overflow-y: hidden;
         font: 0.16rem/0.18rem 'Microsoft Yahei';
       }
-      a.btn {
+      p.btn {
         font-size: 0.2rem;
         display: flex;
         align-items: center;
         justify-content: center;
-        text-decoration: none;
         text-align: center;
         margin-right: 0.06rem;
         height: 100%;

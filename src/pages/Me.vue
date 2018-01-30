@@ -46,7 +46,7 @@
       confirm(value) {
         if (value) {
           //登出
-          // socket.emit('logout',this.userInfo.user_id)
+          socket.emit('logout',this.userInfo.user_id)
           localStorage.removeItem("userToken");
           localStorage.removeItem("userInfo");
           let self = this;
