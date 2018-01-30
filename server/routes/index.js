@@ -10,10 +10,10 @@ const groupChat = require ('../controllers/groupChat.js')
 
 router.prefix(`/${baseApi}`)
 router.post('/register', register)
-        .post('/login', login)
-        .get('/robot',robot)
-        .get('/message' ,message)
-        .get('/group_chat' ,groupChat)
+        .post('/login' ,login)
+        .get('/robot',verify , robot)
+        .get('/message' ,verify, message)
+        .get('/group_chat' , verify ,groupChat)
 console.log("router");
 
 module.exports = router

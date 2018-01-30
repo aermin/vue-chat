@@ -5,7 +5,7 @@ const {query} = require('../utils/db');
  * @return  message time from_user 群消息及对应的时间和发送人id和头像
  */
 let getGroupMsg = function(groupId){
-    let _sql = `SELECT g.message , g.time , g.from_user ,i.avator  FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time `  
+    let _sql = `SELECT g.message , g.time , g.from_user ,i.avator ,i.name FROM group_msg  As g inner join user_info AS i ON g.from_user = i.id  WHERE to_group = ? order by time `  
     return query( _sql,groupId)
 }
 /**

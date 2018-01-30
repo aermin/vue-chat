@@ -60,8 +60,11 @@
                                         type: "success"
                                     });
                                     console.log(res.data);
+                                    const userInfo = JSON.stringify(res.data.userInfo) ;
+
                                     localStorage.setItem("userToken", res.data.token);
-                                    localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo));
+                                    localStorage.setItem("userInfo",userInfo);
+                                    // socket.emit('login',userInfo.user_id) 
                                     this.visible = true;
                                     this.message = "您已登录成功"
                                 } else {

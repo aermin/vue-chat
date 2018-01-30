@@ -12,8 +12,8 @@ module.exports = async (ctx, next) => {
     const privateList = JSON.parse(JSON.stringify(res1));
     const res2 = await msgModel.getGroupList(user_id);
     const groupList = JSON.parse(JSON.stringify(res2));
-    console.log("privateList    ", privateList);
-    console.log("groupList    ", groupList);
+    // console.log("privateList    ", privateList);
+    // console.log("groupList    ", groupList);
     ctx.body = {
       success: true,
       data: {
