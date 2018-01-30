@@ -13,8 +13,7 @@ router.post('/register', register)
         .post('/login', login)
         .get('/robot',robot)
         .get('/message' ,message)
-        .get('/group_msg' ,groupChat.groupMsg)
-        .get('/group_detail' , groupChat.groupDetail)
+        .get('/group_chat' ,groupChat)
 console.log("router");
 
 module.exports = router

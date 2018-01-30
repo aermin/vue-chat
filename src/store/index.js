@@ -16,13 +16,16 @@ const store = new Vuex.Store({
     ],
     // 消息首页列表
     msgList: [],
-    //群聊
-    groupChat:[]
+    //群聊详细 （群名字，群头像，群成员，群公告等）
+    groupDetail:{
+      groupInfo:[],
+      groupMember:[]
+    }
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
     msgListGetter: state => state.msgList,
-    groupChatGetter:state => state.groupChat
+    groupDetailGetter:state => state.groupDetail
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -31,8 +34,8 @@ const store = new Vuex.Store({
     msgListMutation(state, data) {
       state.msgList = data;
     },
-    groupChatMutation(state, data) {
-      state.groupChat = data;
+    groupDetailMutation(state, data) {
+      state.groupDetail = data;
     },
   },
   actions: {
@@ -97,9 +100,6 @@ const store = new Vuex.Store({
         console.log("allMsgList", allMsgList);
         commit("msgListMutation", allMsgList);
       }
-    },
-    async groupChatAction({ commit }, data) {
-        
     }
   }
 });

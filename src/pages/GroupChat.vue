@@ -1,11 +1,11 @@
 <template>
     <!--  主页面底部 -->
     <div class="wrapper">
-        <Header :chatTitle="chatTitle"></Header>
+        <Header :chatTitle="groupDetailGetter.groupInfo.group_name"></Header>
         <ul>
-            <li>
-                <!-- <ChatItem img="../../static/prople1.jpg" :msg="msg.message" :name="msg.user" :time="time"></ChatItem>
-                        <ChatItem me="true" img="../../static/me.jpg" :msg="msg.message" :time="time"></ChatItem> -->
+            <li v-for="item in dataList.message">
+                <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.user" :time="item.time"></ChatItem>
+                <ChatItem v-else :img="item.avator" :msg="item.message" :time="item.time"></ChatItem>
             </li>
         </ul>
         <div class="input-msg">
@@ -18,51 +18,102 @@
 <script>
     import Header from '../components/Header.vue'
     import ChatItem from '../components/ChatItem.vue'
+    import axios from "axios"
+    import {
+        mapGetters
+    } from 'vuex'
     export default {
         components: {
-            Header
+            Header,
+            ChatItem
         },
         data() {
             return {
-                chatTitle: "加载中...",
-                dataList: {
-                    groupId: '', //群id
-                    groupName: '正在加载中...', //群名称
-                    groupAvator: '', //群头像
-                    groupMember: [], //其它群成员的id（方便socket給指定群成员发送消息）
-                    message: [] //拉取到的消息
+                groupInfo: {
+                    groupId: '' //群id
                 },
+                dataList: {
+                    groupAvator: '', //群头像
+                    groupMember: [], //群成员id
+                    message: [] //群消息
+                },
+                inputMsg: '',
+                userInfo: {}
             };
         },
     
         computed: {
-            //     ...mapGetters([
-            //     'chatListGetter'
-            //   ])
+            ...mapGetters([
+                'groupDetailGetter' // 为了查看群资料组件共用此状态
+            ])
         },
     
         watch: {},
         methods: {
+            getChatMsg() {
+                axios.get(
+                        '/api/v1/group_chat', {
+                            params: {
+                                groupId: this.groupInfo.groupId
+                            }
+                        })
+                    .then(res => {
+                        if (res.data.success) {
+                            this.dataList.message = res.data.data.groupMsg;
+                            this.$store.commit('groupDetailMutation', { 
+                                groupInfo: res.data.data.groupInfo[0],
+                                groupMember: res.data.data.groupMember
+                            })
+                        }
+                        console.log(this.dataList);
+                    })
+                    .catch(err => {
+                        const errorMsg = err.response.data.error
+                        this.$message({
+                            message: errorMsg,
+                            type: "error"
+                        });
+                    })
+            },
             sendMessage() {},
             sendBySocket() {
                 socket.emit('sendGroupMessage', {
                     group_id: this.dataList.groupId, //群id
                     group_name: this.dataList.groupName, //群名称
                     group_avator: this.dataList.groupAvator, //群头像
-                    group_member: this.dataList.groupMember, //所有群成员的id,方便socket判断
+                    group_member: this.dataList.groupMember, //所有群成员的id
                     from_user_id: this.userId, //自己的id
-                    from_user_face: this.userInfo.face, //自己的头像
+                    from_user_face: this.userInfo.avator, //自己的头像
                     message: this.writeMessage, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
             },
+    
         },
-        mounted() {}
+        created() {
+            this.groupInfo.groupId = this.$route.params.group_id;
+            this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.getChatMsg();
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     .wrapper {
+        height: 100vh;
+        padding-top: 0.6rem;
+        z-index: 1;
+        ul {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            padding-bottom: 1.6rem;
+            // touch-action:none !important;
+            li {
+                margin-top: -1rem;
+                padding: 0;
+            }
+        }
         .input-msg {
             height: 0.46rem;
             position: fixed;
