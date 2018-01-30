@@ -8,11 +8,13 @@ let insertData = function (value) {
 
 // 通过用户名查找用户信息 user_info
 let findDataByName = function (  name ) {
-    let _sql = `
-      SELECT * FROM user_info
-      WHERE name="${name}"
-        `
-    return query( _sql)
+    let _sql = `SELECT * FROM user_info WHERE name= ? `
+    return query( _sql,name)
+}
+// 通过用户id查找用户信息 user_info
+let findDataByUserid = function (  userid ) {
+    let _sql = `SELECT * FROM user_info WHERE id= ? `
+    return query( _sql,userid)
 }
 
 
