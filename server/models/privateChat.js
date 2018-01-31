@@ -14,9 +14,9 @@ const { query } = require("../utils/db");
  *         status 发送者的是否在线 
  */
 let getPrivateDetail = (from_user,to_user)=>{
-    const data = [from_user,to_user,from_user,to_user]
+    const data = [from_user,to_user,to_user,from_user]
     const _sql =  
-    'select p.from_user , p.message ,p.time ,i.avator , i.name ,i.sex ,i.place ,i.status  from private__msg as p  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time '
+    'select p.from_user , p.message ,p.time ,i.avator , i.name ,i.sex ,i.place ,i.status  from private__msg as p  inner join user_info as i  on p.from_user = i.id  where  (p.from_user = ? AND p.to_user   = ? )  or (p.from_user = ? AND p.to_user   = ? )  order by time '
     return query(_sql, data);
 }
 
