@@ -2,7 +2,7 @@ const groupChatModel = require("../models/groupChat");
 
 let getGroupDetail = async (ctx, next) => {
   try {
-    const groupId = ctx.query.groupId,
+      const groupId = ctx.query.groupId,
       RowDataPacket1 = await groupChatModel.getGroupMsg(groupId),
       RowDataPacket2 = await groupChatModel.getGroupInfo(groupId),
       RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
@@ -60,15 +60,16 @@ let saveGroupMsg = async (ctx, next) => {
 let addGroupUserRelation = async (ctx, next) => {
   const userId = ctx.request.body.userId,
   groupId = ctx.request.body.groupId;
-  await groupChatModel.addGroupUserRelation(userId, groupId).then(result => {
-    console.log("updateGroupUserRelation11", result);
-    if (result) {
-      ctx.body = {
-        success: true
-      };
-      console.log("保存群消息成功");
+  await groupChatModel.addGroupUserRelation(userId, groupId) ;
+  const RowDataPacket = await groupChatModel.getGroupMember(groupId),
+        groupMember = JSON.parse(JSON.stringify(RowDataPacket));
+  ctx.body = {
+    success: true,
+    data: {
+      groupMember:groupMember
     }
-  });
+  };
+  console.log("添加群成员成功");
 };
 
 module.exports = {

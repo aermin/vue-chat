@@ -1,7 +1,7 @@
 <template>
     <!--  主页面底部 -->
     <div class="wrapper">
-        <Header goback = 'true'  :chatTitle="groupDetailGetter.groupInfo.group_name"></Header>
+        <Header goback = 'true'  :chatTitle="groupInfoGetter.group_name"></Header>
         <ul>
             <li v-for="item in dataList.message">
                 <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
@@ -48,7 +48,8 @@
     
         computed: {
             ...mapGetters([
-                'groupDetailGetter' // 为了查看群资料组件共用此状态
+                'groupInfoGetter',  //群资料
+                'groupMemberGetter' //群成员
             ])
         },
     
@@ -72,10 +73,8 @@
                                 element.time = toNomalTime(element.time);
                                 element.message = element.message.split(':')[1];
                             });
-                            this.$store.commit('groupDetailMutation', {
-                                groupInfo: res.data.data.groupInfo[0],
-                                groupMember: res.data.data.groupMember
-                            })
+                            this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
+                             this.$store.commit('groupMemberMutation', res.data.data.groupMember)
                             this.refresh()
                             //  console.log('getChatMsg',this.dataList);
                         }
@@ -96,12 +95,12 @@
                 this.sendBySocket()
             },
             async sendBySocket() {
-                console.log('sendGroupMsg', this.groupDetailGetter)
+                console.log('sendGroupMsg', this.groupInfoGetter)
                 socket.emit('sendGroupMsg', {
                     groupId: this.groupInfo.groupId, //群id
-                    group_name: this.groupDetailGetter.groupInfo.group_name, //群名称
-                    group_avator: this.groupDetailGetter.groupInfo.group_avator, //群头像
-                    groupMember: this.groupDetailGetter.groupMember, //所有群成员的id
+                    group_name: this.groupInfoGetter.group_name, //群名称
+                    group_avator: this.groupInfoGetter.group_avator, //群头像
+                    groupMember: this.groupMemberGetter, //所有群成员的id
                     from_user: this.userInfo.user_id, //自己的id
                     name: this.userInfo.name, //自己的昵称
                     avator: this.userInfo.avator, //自己的头像
@@ -124,6 +123,7 @@
                         console.log('saveGroupMsg' ,res)
                     })
             },
+            // 把发了言的新成员加入群名单
             addGroupUserRelation(){
                     axios.post(
                             '/api/v1/group_chat_relation', {
@@ -132,6 +132,10 @@
                             })
                     .then(res => {
                         console.log('group_chat_relation' ,res)
+                         if (res.data.success) {
+                             // 更新群成员
+                            this.$store.commit('groupMemberMutation', res.data.data.groupMember)
+                         }
                     })
             },
             receiveBySocket() {
