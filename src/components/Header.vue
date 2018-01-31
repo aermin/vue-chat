@@ -1,10 +1,10 @@
 <template>
 <div class="header">
-    <svg v-show="currentTab === 3" class="icon" aria-hidden="true" @click="showMessageBox">
+    <svg v-show="goback" class="icon goback" aria-hidden="true" @click="goBack">
             <use  xlink:href="#icon-back"></use>
-        </svg>
+      </svg>
   <div>{{title}}</div>
-        <svg v-show="currentTab === 3" class="icon" aria-hidden="true" @click="showMessageBox">
+        <svg v-show="currentTab === 3" class="icon logout" aria-hidden="true" @click="showMessageBox">
             <use  xlink:href="#icon-ico-exit"></use>
         </svg>
 </div>
@@ -13,7 +13,7 @@
 <script>
 export default {
   name: 'Header',
-  props: ['currentTab','chatTitle'],
+  props: ['currentTab','chatTitle','goback'],
   data() {
     return {
     }
@@ -34,6 +34,9 @@ export default {
   methods:{
     showMessageBox(){
            this.$emit("showMessageBox", true);
+    },
+    goBack(){
+        this.$router.back();
     }
   }
 }
@@ -56,11 +59,16 @@ export default {
     z-index: 999;
     .icon{
       position: absolute;
-      right: 0.2rem;
       top: 50%;
       transform: translateY(-50%);
       -moz-transform:  translateY(-50%);
       -webkit-transform:  translateY(-50%);
+    }
+    .logout{
+        right: 0.2rem;
+    }
+    .goback{
+      left: 0.2rem;
     }
 }
 </style>
