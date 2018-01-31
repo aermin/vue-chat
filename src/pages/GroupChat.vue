@@ -64,15 +64,21 @@
                     .then(res => {
                         if (res.data.success) {
                             this.dataList.message = res.data.data.groupMsg;
+                            if(!res.data.data.groupMember.includes(this.userInfo.user_id)){ // 群成员不存在此用户id，则添加
+                                this.addGroupUserRelation;
+                            }
+                            if(this.dataList.message.length==0) return
                             this.dataList.message.forEach(element => {
                                 element.time = toNomalTime(element.time);
+                                element.message = element.message.split(':')[1];
                             });
                             this.$store.commit('groupDetailMutation', {
                                 groupInfo: res.data.data.groupInfo[0],
                                 groupMember: res.data.data.groupMember
                             })
+                            //  console.log('getChatMsg',this.dataList);
                         }
-                        console.log(this.dataList);
+                       
                     })
                     .catch(err => {
                         const errorMsg = err.response.data.error
@@ -88,7 +94,7 @@
                 this.btnInfo = '发送中'
                 this.sendBySocket()
             },
-            sendBySocket() {
+            async sendBySocket() {
                 console.log('sendGroupMsg', this.groupDetailGetter)
                 socket.emit('sendGroupMsg', {
                     groupId: this.groupInfo.groupId, //群id
@@ -101,13 +107,38 @@
                     message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
+                await this.saveGroupMsg();
+
+            },
+            saveGroupMsg(){
+                    axios.post(
+                            '/api/v1/group_chat_msg', {
+                                userId: this.userInfo.user_id,
+                                groupId: this.groupInfo.groupId,
+                                message:this.inputMsg,
+                                name:this.userInfo.name,
+                                time: Date.parse(new Date()) / 1000
+                            })
+                    .then(res => {
+                        console.log('saveGroupMsg' ,res)
+                    })
+            },
+            addGroupUserRelation(){
+                    axios.post(
+                            '/api/v1/group_chat_relation', {
+                                userId: this.userInfo.user_id,
+                                groupId: this.groupInfo.groupId
+                            })
+                    .then(res => {
+                        console.log('group_chat_relation' ,res)
+                    })
             },
             receiveBySocket() {
                 socket.removeAllListeners();
                 socket.on('receiveGroupMsg', (data) => {
                     if (!data.groupMember.includes(this.userInfo.user_id)) return
-                    // console.log(data.groupMember.includes(this.userInfo.user_id))
                     console.log('receiveGroupMsg', data);
+                    data.time = toNomalTime(data.time);
                     this.dataList.message.push(data);
                     this.refresh();
                 })

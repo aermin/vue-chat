@@ -5,7 +5,7 @@
  * @return   yyyy-MM-dd hh:mm 格式的时间
  */
 export const toNomalTime = (timestamp)=> {
-    const date = new Date(1398250549490) ,
+    const date = new Date(timestamp*1000) ,
      Y = date.getFullYear() + '-',
     M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-',
     D = date.getDate() + ' ',
