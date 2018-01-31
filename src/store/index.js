@@ -42,8 +42,7 @@ const store = new Vuex.Store({
     //机器人
     robatMsgAction({ commit }, data) {
       console.log(data + "  robatMsgAction");
-      axios
-        .get("/api/v1/robot", {
+      axios.get("/api/v1/robot", {
           params: data
         })
         .then(res => {
