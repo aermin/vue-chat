@@ -52,18 +52,13 @@
                             password: this.password
                         })
                         .then(res => {
-                            console.log(res);
+          
                                 if (res.data.success) {
-                                    // this.$message({
-                                    //     message: res.data.message,
-                                    //     type: "success"
-                                    // });
-                                    console.log(res.data);
-                                    const userInfo = JSON.stringify(res.data.userInfo) ;
-                                    console.log("userInfo",userInfo);
+                                    console.log("res.data.success",res.data.success)
+                                    console.log("res.data.userInfo.user_id",res.data.userInfo.user_id)
+                                    socket.emit('login',res.data.userInfo.user_id) 
                                     localStorage.setItem("userToken", res.data.token);
-                                    localStorage.setItem("userInfo",userInfo);
-                                    socket.emit('login',userInfo.user_id) 
+                                    localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo) );
                                     this.visible = true;
                                     this.message = "您已登录成功"
                                 } else {

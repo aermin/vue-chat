@@ -1,5 +1,5 @@
 <template>
-    <!--  登录 -->
+    <!--  注册 -->
     <div class="login">
         <div class="wrapper fadeInDown">
             <div id="formContent">

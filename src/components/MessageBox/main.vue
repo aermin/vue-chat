@@ -4,15 +4,15 @@
         <div class="bg"></div>
         <div class="message-box-wrapper">
             <h1> {{title}}</h1>
-            <p>
+            <p class="content">
                 <slot name="content"></slot>
             </p>
             <div v-if="hasCancel" class="hasCancel">
-                <a href="javscript:void(0)" @click="cancel">取消</a>
-                <a href="javscript:void(0)" @click="confirm">确定</a>
+                <p @click="cancel">取消</p>
+                <p @click="confirm">确定</p>
             </div>
             <div v-else class="noCancel">
-                <a href="javscript:void(0)" @click="confirm">确定</a>
+                <p @click="confirm">确定</p>
             </div>
     
         </div>
@@ -95,68 +95,67 @@
         }
         h1 {
             text-align: center;
-            font-size: 0.12rem;
-            margin: 0.15rem 0.01rem 0.2rem;
+            font-size: 0.18rem;
+            margin: 0.16rem 0.01rem 0.2rem;
         }
         p {
-            text-align: center;
-            font-size: 0.1rem;
-            margin: 0 0.2rem 0.7rem;
+            font-size: 0.2rem;
+            color: rgba(0, 0, 0, 0.808);
+            margin-bottom: 0.18rem;
         }
         .hasCancel {
-            a {
+            height: 0.6rem;
+            p {
                 background: transparent;
                 color: #1678E5;
-                height: 0.46rem;
                 font-size: 0.14rem;
-                line-height: 0.46rem;
+                height: 0.6rem;
+                line-height: 0.6rem;
                 width: 50%;
                 position: absolute;
-                bottom: 0;
-                text-decoration: none;
             }
-            a:nth-of-type(1) {
+            p:nth-of-type(1) {
                 border-top: 1px solid #B4B4B4;
                 border-right: 1px solid #B4B4B4;
                 left: 0;
                 border-radius: 0 0 0 0.1rem;
             }
-            a:nth-of-type(2) {
+            p:nth-of-type(2) {
                 border-top: 0.01rem solid #B4B4B4;
                 right: 0;
                 border-radius: 0 0 0.1rem 0;
             }
-            a:focus,
-            a:hover {
+            p:focus,
+            p:hover {
                 font-weight: bold;
                 background: #EFEFEF;
             }
-            a:active {
+            p:active {
                 background: #D6D6D6;
             }
         }
-        .noCancel{
-                a {
+        .noCancel {
+            height: 0.6rem;
+            p {
                 background: transparent;
                 color: #1678E5;
-                height: 0.46rem;
+                height: 0.6rem;
                 font-size: 0.14rem;
-                line-height: 0.46rem;
+                line-height: 0.6rem;
                 width: 100%;
                 position: absolute;
-                bottom: 0;
                 text-decoration: none;
                 border-top: 1px solid #B4B4B4;
                 left: 0;
-                 right: 0;
+                right: 0;
                 border-radius: 0 0 0 0.1rem;
             }
-            a:focus,
-            a:hover {
+            p:focus,
+            p:hover {
                 font-weight: bold;
                 background: #EFEFEF;
             }
-            a:active {
+            p:active {
                 background: #D6D6D6;
             }
         }
