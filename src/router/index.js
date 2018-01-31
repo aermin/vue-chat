@@ -6,7 +6,7 @@ import Me from "@/pages/Me";
 import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import GroupChat from "@/pages/GroupChat";
-
+import PrivateChat from "@/pages/PrivateChat";
 
 import axios from "axios";
 
@@ -45,12 +45,18 @@ const router = new Router({
       component: GroupChat
     },
     {
+      path: "/private_chat/:user_id",
+      name: "PrivateChat",
+      component: PrivateChat
+    },
+    {
       path: "/",
       redirect: "/login"
     }
   ]
 });
 
+//路由守卫
 router.beforeEach((to, from, next) => {
   if (!localStorage.userToken) {
     if (to.path === "/login" || to.path === "/register" ) {

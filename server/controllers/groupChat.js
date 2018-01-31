@@ -1,8 +1,18 @@
 const groupChatModel = require("../models/groupChat");
 
+/**
+ * 获取群聊相关内容
+ * @param   groupMsg  群聊信息
+ * @param   groupInfo  群资料
+ * @param   message  消息
+ * @param   name 用户名
+ * @param   time  时间
+ * @return
+ */
+
 let getGroupDetail = async (ctx, next) => {
   try {
-      const groupId = ctx.query.groupId,
+    const groupId = ctx.query.groupId,
       RowDataPacket1 = await groupChatModel.getGroupMsg(groupId),
       RowDataPacket2 = await groupChatModel.getGroupInfo(groupId),
       RowDataPacket3 = await groupChatModel.getGroupMember(groupId),
@@ -27,7 +37,7 @@ let getGroupDetail = async (ctx, next) => {
   }
 };
 /**
- * 更新群聊信息和资料
+ * 存储群聊信息
  * @param   userId  用户id
  * @param   groupId 群id
  * @param   message  消息
@@ -56,17 +66,22 @@ let saveGroupMsg = async (ctx, next) => {
       console.log(err);
     });
 };
-
+/**
+ * 群添加成员
+ * @param   userId  用户id
+ * @param   groupId 群id
+ * @return
+ */
 let addGroupUserRelation = async (ctx, next) => {
   const userId = ctx.request.body.userId,
-  groupId = ctx.request.body.groupId;
-  await groupChatModel.addGroupUserRelation(userId, groupId) ;
+    groupId = ctx.request.body.groupId;
+  await groupChatModel.addGroupUserRelation(userId, groupId);
   const RowDataPacket = await groupChatModel.getGroupMember(groupId),
-        groupMember = JSON.parse(JSON.stringify(RowDataPacket));
+    groupMember = JSON.parse(JSON.stringify(RowDataPacket));
   ctx.body = {
     success: true,
     data: {
-      groupMember:groupMember
+      groupMember: groupMember
     }
   };
   console.log("添加群成员成功");
