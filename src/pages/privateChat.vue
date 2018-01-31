@@ -1,11 +1,11 @@
 <template>
     <!--  群聊 -->
     <div class="wrapper">
-        <Header goback='true' :chatTitle="groupInfoGetter.group_name"></Header>
+        <Header goback='true' chatTitle="哈哈i"></Header>
         <ul>
-            <li v-for="item in dataList.message">
-                <!-- <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
-                    <ChatItem v-else :img="item.avator" :msg="item.message" :name="item.name" :time="item.time"></ChatItem> -->
+            <li v-for="item in privateDetail"> 
+                 <ChatItem v-if="fromUserInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
+                <ChatItem v-else :img="item.avator" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
             </li>
         </ul>
         <div class="input-msg">
@@ -18,6 +18,7 @@
 <script>
     import Header from '../components/Header.vue'
     import ChatItem from '../components/ChatItem.vue'
+    import axios from "axios"
     import {
         toNomalTime
     } from "../utils/transformTime";
@@ -33,16 +34,65 @@
         data() {
             return {
                 inputMsg: '',
-                userInfo: {},
+                privateDetail: [], //私聊相关
+                toUserInfo:{ //被私聊者 
+                    to_user:'',
+                    avator:'',
+                    sex:'',
+                    place:'',
+                    status:''
+                },
+                fromUserInfo: {}, //用户自己
                 btnInfo: "发送"
             }
         },
     
-        computed: {},
+        computed: {
+               ...mapGetters([
+                'toUserInfoGetter'
+            ])
+        },
     
         watch: {},
     
         methods: {
+            getPrivateMsg() {
+                axios.get(
+                        '/api/v1/private_detail', {
+                            params: {
+                                to_user: this.toUserInfo.to_user,
+                                from_user:this.fromUserInfo.user_id
+                            }
+                        })
+                    .then(res => {
+                        console.log('res222',res)
+                        if (res.data.success) {
+                            this.privateDetail = res.data.data.privateDetail;
+                            // if (!res.data.data.privateMember.includes(this.userInfo.user_id)) { // 如果尚未成为互相朋友，则添加
+                            //     this.addGroupUserRelation;
+                            // }
+                            if (this.privateDetail.length == 0) return
+                            this.privateDetail.forEach(element => {
+                                element.time = toNomalTime(element.time);
+                                element.message = element.message.split(':')[1];
+                            });
+                            // const  toUserInfo ={
+
+                            // }
+                            // this.$store.commit('toUserInfoMutation', res.data.data.privateInfo[0])
+                            this.refresh()
+                            //  console.log('getPrivateMsg',this.getPrivateMsg);
+                        }
+    
+                    })
+                    .catch(err => {
+                        const errorMsg = err.response.data.error
+                        this.$message({
+                            message: errorMsg,
+                            type: "error"
+                        });
+                    })
+            },
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
                 this.$refs.message.focus()
@@ -57,8 +107,10 @@
             }
         },
     
-        mounted() {
-            this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+        created() {
+            this.toUserInfo.to_user = this.$route.params.user_id;
+            this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.getPrivateMsg();
         }
     }
 </script>

@@ -7,25 +7,23 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    // 机器人首语
-    robotmsg: [
+    robotmsg: [     // 机器人首语
       {
         message: "hi , 欢迎与我聊天，问我问题哦！",
         user: "robot"
       }
     ],
-    // 消息首页列表
-    msgList: [],
-    //群资料
-    groupInfo:[],
-    //群成员
-    groupMember:[]
+    msgList: [], // 消息首页列表
+    groupInfo:[],    //群资料
+    groupMember:[],    //群成员
+    toUserInfo:[] , //私聊对方的资料
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
     msgListGetter: state => state.msgList,
     groupInfoGetter:state => state.groupInfo,
-    groupMemberGetter:state => state.groupMember
+    groupMemberGetter:state => state.groupMember,
+    toUserInfoGetter:state => state.toUserInfo
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -39,6 +37,9 @@ const store = new Vuex.Store({
     },
     groupMemberMutation(state, data) {
       state.groupMember = data;
+    },
+    toUserInfoMutation(state, data) {
+      state.toUserInfo = data;
     },
   },
   actions: {
