@@ -8,7 +8,7 @@
         <img v-if="data.type === 'private'" :src="data.avator" alt="用户头像" class="img">
         <div class="content">
           <div v-if="data.type === 'group'" class="title">{{data.group_name}}<span>{{data.time}}</span></div>
-           <div v-if="data.type === 'private'" class="title">{{data.name}}<span>{{data.time}}</span></div>
+          <div v-if="data.type === 'private'" class="title">{{data.name}}<span>{{data.time}}</span></div>
           <div class="message">{{data.message}}</div>
         </div>
   
@@ -41,18 +41,18 @@
         'msgListGetter'
       ])
     },
-    methods:{
-      enterChat(chatType,chatId){
-        const path = chatType =='private' ? `/private_chat/${chatId}`:`/group_chat/${chatId}`
+    methods: {
+      enterChat(chatType, chatId) {
+        const path = chatType == 'private' ? `/private_chat/${chatId}` : `/group_chat/${chatId}`
         this.$router.push(path)
       }
     },
     created() {
-        // axios.get("/api/v1/message")
-        // .then(res => {
-        //   console.log(res + "  msgListActionres");
-        // })
-         this.$store.dispatch('msgListAction')
+      // axios.get("/api/v1/message")
+      // .then(res => {
+      //   console.log(res + "  msgListActionres");
+      // })
+      this.$store.dispatch('msgListAction')
     }
   }
 </script>
@@ -69,7 +69,7 @@
       li {
         display: flex;
         align-items: center;
-        margin:0.4rem 0.2rem;
+        margin: 0.4rem 0.2rem;
         .img {
           width: 0.8rem;
           height: 0.8rem;
@@ -80,7 +80,7 @@
           display: inline-block;
           .title {
             font-size: 0.32rem;
-            span{
+            span {
               font-size: 0.28rem;
               color: #676767;
               position: absolute;

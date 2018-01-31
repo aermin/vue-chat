@@ -2,7 +2,10 @@ const { query } = require("../utils/db");
 /**
  * 获取群消息
  * @param  群id
- * @return  message time from_user 群消息及对应的时间和发送人id和头像
+ * @return  message 群消息
+ * @return  time  时间 
+ * @return  from_user  发送人id
+ *  @return  avator  发送人头像
  */
 let getGroupMsg = function(groupId) {
   let _sql =

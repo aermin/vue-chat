@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    // 存放机器人开场白
+    // 机器人首语
     robotmsg: [
       {
         message: "hi , 欢迎与我聊天，问我问题哦！",
@@ -16,8 +16,9 @@ const store = new Vuex.Store({
     ],
     // 消息首页列表
     msgList: [],
-    //群聊详细 （群名字，群头像，群成员，群公告等）
+    //群资料
     groupInfo:[],
+    //群成员
     groupMember:[]
   },
   getters: {

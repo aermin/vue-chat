@@ -1,7 +1,6 @@
 
 let saveUserSocketId  = function(userId, socketId){
     const data = [socketId,userId]
-    console.log('data22',data)
     let _sql = ' UPDATE  user_info SET socketid = ? WHERE id= ? limit 1 ; '
     return query( _sql,data)
 }

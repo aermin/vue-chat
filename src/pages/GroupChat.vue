@@ -1,7 +1,7 @@
 <template>
-    <!--  主页面底部 -->
+    <!--  群聊 -->
     <div class="wrapper">
-        <Header goback = 'true'  :chatTitle="groupInfoGetter.group_name"></Header>
+        <Header goback='true' :chatTitle="groupInfoGetter.group_name"></Header>
         <ul>
             <li v-for="item in dataList.message">
                 <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
@@ -48,13 +48,14 @@
     
         computed: {
             ...mapGetters([
-                'groupInfoGetter',  //群资料
+                'groupInfoGetter', //群资料
                 'groupMemberGetter' //群成员
             ])
         },
     
         watch: {},
         methods: {
+            //获取聊天记录
             getChatMsg() {
                 axios.get(
                         '/api/v1/group_chat', {
@@ -65,20 +66,20 @@
                     .then(res => {
                         if (res.data.success) {
                             this.dataList.message = res.data.data.groupMsg;
-                            if(!res.data.data.groupMember.includes(this.userInfo.user_id)){ // 群成员不存在此用户id，则添加
+                            if (!res.data.data.groupMember.includes(this.userInfo.user_id)) { // 群成员不存在此用户id，则添加
                                 this.addGroupUserRelation;
                             }
-                            if(this.dataList.message.length==0) return
+                            if (this.dataList.message.length == 0) return
                             this.dataList.message.forEach(element => {
                                 element.time = toNomalTime(element.time);
                                 element.message = element.message.split(':')[1];
                             });
                             this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
-                             this.$store.commit('groupMemberMutation', res.data.data.groupMember)
+                            this.$store.commit('groupMemberMutation', res.data.data.groupMember)
                             this.refresh()
                             //  console.log('getChatMsg',this.dataList);
                         }
-                       
+    
                     })
                     .catch(err => {
                         const errorMsg = err.response.data.error
@@ -88,12 +89,14 @@
                         });
                     })
             },
+    
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
                 this.$refs.message.focus()
                 this.btnInfo = '发送中'
                 this.sendBySocket()
             },
+    
             async sendBySocket() {
                 console.log('sendGroupMsg', this.groupInfoGetter)
                 socket.emit('sendGroupMsg', {
@@ -108,36 +111,38 @@
                     time: Date.parse(new Date()) / 1000 //时间
                 })
                 await this.saveGroupMsg();
-
             },
-            saveGroupMsg(){
-                    axios.post(
-                            '/api/v1/group_chat_msg', {
-                                userId: this.userInfo.user_id,
-                                groupId: this.groupInfo.groupId,
-                                message:this.inputMsg,
-                                name:this.userInfo.name,
-                                time: Date.parse(new Date()) / 1000
-                            })
+    
+            saveGroupMsg() {
+                axios.post(
+                        '/api/v1/group_chat_msg', {
+                            userId: this.userInfo.user_id,
+                            groupId: this.groupInfo.groupId,
+                            message: this.inputMsg,
+                            name: this.userInfo.name,
+                            time: Date.parse(new Date()) / 1000
+                        })
                     .then(res => {
-                        console.log('saveGroupMsg' ,res)
+                        console.log('saveGroupMsg', res)
                     })
             },
+    
             // 把发了言的新成员加入群名单
-            addGroupUserRelation(){
-                    axios.post(
-                            '/api/v1/group_chat_relation', {
-                                userId: this.userInfo.user_id,
-                                groupId: this.groupInfo.groupId
-                            })
+            addGroupUserRelation() {
+                axios.post(
+                        '/api/v1/group_chat_relation', {
+                            userId: this.userInfo.user_id,
+                            groupId: this.groupInfo.groupId
+                        })
                     .then(res => {
-                        console.log('group_chat_relation' ,res)
-                         if (res.data.success) {
-                             // 更新群成员
+                        console.log('group_chat_relation', res)
+                        if (res.data.success) {
+                            // 更新群成员
                             this.$store.commit('groupMemberMutation', res.data.data.groupMember)
-                         }
+                        }
                     })
             },
+
             receiveBySocket() {
                 socket.removeAllListeners();
                 socket.on('receiveGroupMsg', (data) => {
@@ -150,7 +155,6 @@
             },
             // 消息置底
             refresh() {
-
                 setTimeout(() => {
                     window.scrollTo(0, document.body.scrollHeight + 10000)
                     console.log(111)
