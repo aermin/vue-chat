@@ -76,6 +76,7 @@
                                 groupInfo: res.data.data.groupInfo[0],
                                 groupMember: res.data.data.groupMember
                             })
+                            this.refresh()
                             //  console.log('getChatMsg',this.dataList);
                         }
                        
@@ -145,8 +146,10 @@
             },
             // 消息置底
             refresh() {
+
                 setTimeout(() => {
                     window.scrollTo(0, document.body.scrollHeight + 10000)
+                    console.log(111)
                 }, 0)
             }
         },

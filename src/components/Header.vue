@@ -1,5 +1,8 @@
 <template>
 <div class="header">
+    <svg v-show="currentTab === 3" class="icon" aria-hidden="true" @click="showMessageBox">
+            <use  xlink:href="#icon-back"></use>
+        </svg>
   <div>{{title}}</div>
         <svg v-show="currentTab === 3" class="icon" aria-hidden="true" @click="showMessageBox">
             <use  xlink:href="#icon-ico-exit"></use>
