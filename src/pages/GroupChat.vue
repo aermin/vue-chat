@@ -1,7 +1,7 @@
 <template>
     <!--  主页面底部 -->
     <div class="wrapper">
-        <Header :chatTitle="groupDetailGetter.groupInfo.group_name"></Header>
+        <Header goback = 'true'  :chatTitle="groupDetailGetter.groupInfo.group_name"></Header>
         <ul>
             <li v-for="item in dataList.message">
                 <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
