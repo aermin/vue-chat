@@ -9,7 +9,7 @@
             </li>
         </ul>
         <div class="input-msg">
-            <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage" ref="message"></textarea>
+            <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage"></textarea>
             <p class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">{{btnInfo}}</p>
         </div>
     </div>
@@ -67,7 +67,7 @@
                         if (res.data.success) {
                             this.dataList.message = res.data.data.groupMsg;
                             if (!res.data.data.groupMember.includes(this.userInfo.user_id)) { // 群成员不存在此用户id，则添加
-                                this.addGroupUserRelation;
+                                this.addGroupUserRelation();
                             }
                             if (this.dataList.message.length == 0) return
                             this.dataList.message.forEach(element => {
@@ -89,15 +89,9 @@
                         });
                     })
             },
-    
+            //发送信息
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
-                this.$refs.message.focus()
-                this.btnInfo = '发送中'
-                this.sendBySocket()
-            },
-    
-            async sendBySocket() {
                 console.log('sendGroupMsg', this.groupInfoGetter)
                 socket.emit('sendGroupMsg', {
                     groupId: this.groupInfo.groupId, //群id
@@ -110,9 +104,9 @@
                     message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
-                // await this.saveGroupMsg();
+                this.saveGroupMsg();
             },
-    
+            //保存此条信息到数据库
             saveGroupMsg() {
                 axios.post(
                         '/api/v1/group_chat_msg', {
@@ -142,12 +136,12 @@
                         }
                     })
             },
-
-            receiveBySocket() {
+            // 获取socket消息
+            getMsgBySocket() {
                 socket.removeAllListeners();
-                socket.on('receiveGroupMsg', (data) => {
+                socket.on('getGroupMsg', (data) => {
                     if (!data.groupMember.includes(this.userInfo.user_id)) return
-                    console.log('receiveGroupMsg', data);
+                    console.log('getGroupMsg', data);
                     data.time = toNomalTime(data.time);
                     this.dataList.message.push(data);
                     this.refresh();
@@ -165,65 +159,11 @@
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getChatMsg();
-            this.receiveBySocket()
+            this.getMsgBySocket()
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .wrapper {
-        height: 100vh;
-        padding-top: 0.6rem;
-        z-index: 1;
-        ul {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding-bottom: 1.6rem;
-            // touch-action:none !important;
-            li {
-                margin-top: -1rem;
-                padding: 0;
-            }
-        }
-        .input-msg {
-            height: 0.46rem;
-            position: fixed;
-            bottom: 0.03rem;
-            display: flex;
-            width: 100%;
-            z-index: 999;
-            textarea {
-                width: 87.8%;
-                margin: 0 0.06rem;
-                padding-top: 0.07rem;
-                padding-left: 0.06rem;
-                border-radius: 0.02rem;
-                outline: none;
-                resize: none;
-                border: none;
-                overflow-y: hidden;
-                font: 0.16rem/0.18rem 'Microsoft Yahei';
-            }
-            p.btn {
-                font-size: 0.2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                margin-right: 0.06rem;
-                height: 100%;
-                width: 11%;
-                background: #ccc;
-                color: white;
-                border-radius: 0.02rem;
-                cursor: not-allowed;
-                font-family: 'Microsoft Yahei';
-                &.enable {
-                    background: #1E90FF;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
+   @import "../assets/chat.scss";
 </style>

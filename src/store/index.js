@@ -17,13 +17,15 @@ const store = new Vuex.Store({
     groupInfo:[],    //群资料
     groupMember:[],    //群成员
     toUserInfo:[] , //私聊对方的资料
+    someOneInfo:{} //某个用户的用户资料
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
     msgListGetter: state => state.msgList,
     groupInfoGetter:state => state.groupInfo,
     groupMemberGetter:state => state.groupMember,
-    toUserInfoGetter:state => state.toUserInfo
+    toUserInfoGetter:state => state.toUserInfo,
+    someOneInfoGetter:state => state.someOneInfo
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -40,6 +42,9 @@ const store = new Vuex.Store({
     },
     toUserInfoMutation(state, data) {
       state.toUserInfo = data;
+    },
+    someOneInfoMutation(state, data) {
+      state.someOneInfo = data;
     },
   },
   actions: {
@@ -103,7 +108,17 @@ const store = new Vuex.Store({
         console.log("allMsgList", allMsgList);
         commit("msgListMutation", allMsgList);
       }
-    }
+    },
+    //某个用户的用户资料
+    async someOneInfoAction({ commit } , user_id) {
+      console.log('user_id666',user_id)
+      const res = await axios.get("/api/v1/user_info",{
+        params:{
+          user_id:user_id
+        }
+      });
+        commit("someOneInfoMutation", res.data.data.userInfo[0]);
+    },
   }
 });
 export default store;
