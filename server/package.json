@@ -14,22 +14,18 @@
   },
   "dependencies": {
     "async": "0.2.9",
-    "debug": "0.7.2",
     "jsonwebtoken": "^8.1.0",
     "koa": "^2.3.0",
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "0.0.16",
-    "koa-mysql-session": "^0.0.2",
     "koa-router": "^7.2.1",
-    "koa-session-minimal": "^3.0.4",
     "koa-static": "^4.0.0",
     "koa2-cors": "^2.0.5",
     "md5": "^2.2.1",
-    "moment": "^2.18.1",
     "mysql": "2.x",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "socket.io": "^2.0.4"
+    "socket.io": "^2.0.3"
   },
   "devDependencies": {
     "gulp": "^3.9.1",

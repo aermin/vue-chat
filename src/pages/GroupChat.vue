@@ -110,7 +110,7 @@
                     message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
                 })
-                await this.saveGroupMsg();
+                // await this.saveGroupMsg();
             },
     
             saveGroupMsg() {
@@ -161,7 +161,7 @@
                 }, 0)
             }
         },
-        created() {
+        mounted() {
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getChatMsg();

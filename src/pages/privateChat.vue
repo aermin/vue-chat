@@ -3,8 +3,8 @@
     <div class="wrapper">
         <Header goback='true' chatTitle="哈哈i"></Header>
         <ul>
-            <li v-for="item in privateDetail"> 
-                 <ChatItem v-if="fromUserInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
+            <li v-for="item in privateDetail">
+                <ChatItem v-if="fromUserInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
                 <ChatItem v-else :img="item.avator" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
             </li>
         </ul>
@@ -35,12 +35,12 @@
             return {
                 inputMsg: '',
                 privateDetail: [], //私聊相关
-                toUserInfo:{ //被私聊者 
-                    to_user:'',
-                    avator:'',
-                    sex:'',
-                    place:'',
-                    status:''
+                toUserInfo: { //被私聊者 
+                    to_user: '',
+                    avator: '',
+                    sex: '',
+                    place: '',
+                    status: ''
                 },
                 fromUserInfo: {}, //用户自己
                 btnInfo: "发送"
@@ -48,7 +48,7 @@
         },
     
         computed: {
-               ...mapGetters([
+            ...mapGetters([
                 'toUserInfoGetter'
             ])
         },
@@ -61,11 +61,11 @@
                         '/api/v1/private_detail', {
                             params: {
                                 to_user: this.toUserInfo.to_user,
-                                from_user:this.fromUserInfo.user_id
+                                from_user: this.fromUserInfo.user_id
                             }
                         })
                     .then(res => {
-                        console.log('res222',res)
+                        console.log('res222', res)
                         if (res.data.success) {
                             this.privateDetail = res.data.data.privateDetail;
                             // if (!res.data.data.privateMember.includes(this.userInfo.user_id)) { // 如果尚未成为互相朋友，则添加
@@ -77,11 +77,10 @@
                                 element.message = element.message.split(':')[1];
                             });
                             // const  toUserInfo ={
-
+    
                             // }
                             // this.$store.commit('toUserInfoMutation', res.data.data.privateInfo[0])
                             this.refresh()
-                            //  console.log('getPrivateMsg',this.getPrivateMsg);
                         }
     
                     })
@@ -97,20 +96,57 @@
                 if (this.inputMsg.trim() == '') return
                 this.$refs.message.focus()
                 this.btnInfo = '发送中'
+                this.sendBySocket()
+            },
+            async sendBySocket() {
+                // console.log('sendPrivateMsg', this.groupInfoGetter)
+                const data = {
+                    from_user: this.fromUserInfo.user_id, //自己的id
+                    to_user: this.toUserInfo.to_user,
+                    name: this.fromUserInfo.name, //自己的昵称
+                    avator: this.fromUserInfo.avator, //自己的头像
+                    message: this.inputMsg, //消息内容
+                    status:'1', //是否在线 0为不在线 1为在线
+                    time: Date.parse(new Date()) / 1000 //时间
+                }
+                this.privateDetail.push(data); //保存本地
+                socket.emit('sendPrivateMsg', {
+                    from_user: this.fromUserInfo.user_id, //自己的id
+                    to_user: this.toUserInfo.to_user,
+                    name: this.fromUserInfo.name, //自己的昵称
+                    avator: this.fromUserInfo.avator, //自己的头像
+                    message: this.inputMsg, //消息内容
+                    status:'1', //是否在线 0为不在线 1为在线
+                    time: Date.parse(new Date()) / 1000 //时间
+                })
+                // await this.saveGroupMsg();
+            },
+
+            receiveBySocket() {
+                socket.removeAllListeners();
+                 console.log(2212)
+                socket.on('getPrivateMsg', (data) => {
+                    console.log(3312)
+                    // if (data.to_user !== this.fromUserInfo.user_id) return
+                    console.log('getPrivateMsg', data);
+                    data.time = toNomalTime(data.time);
+                    this.privateDetail.push(data);
+                    this.refresh();
+                })
             },
             // 消息置底
             refresh() {
                 setTimeout(() => {
                     window.scrollTo(0, document.body.scrollHeight + 10000)
-                    console.log(111)
                 }, 0)
             }
         },
-    
-        created() {
+        //必须用monted 不然用creat生命周期的话  得到的将是挂载前旧的soket.id 。。是个坑
+        mounted() {
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getPrivateMsg();
+             this.receiveBySocket()
         }
     }
 </script>
