@@ -8,7 +8,7 @@ const router = require('koa-router')(),
  message = require('../controllers/message'),
  groupChat = require ('../controllers/groupChat.js'),
  privateChat = require ('../controllers/privateChat.js');
-
+ userInfo = require ('../controllers/userInfo.js');
 
 router.prefix(`/${baseApi}`)
 router.post('/register', register) //注册
@@ -18,8 +18,9 @@ router.post('/register', register) //注册
         .get('/group_chat' , verify ,groupChat.getGroupDetail) //获取群相关内容
         .post('/group_chat_msg' , verify ,groupChat.saveGroupMsg) // 保存群信息
         .post('/group_chat_relation' , verify ,groupChat.addGroupUserRelation) // 添加群成员
-        .get('/private_detail' , privateChat.getprivateDetail) // 获取私聊相关内容
-        .post('/private_save_msg',privateChat.savePrivateMsg) //保存私聊信息
+        .get('/private_detail'  , verify,  privateChat.getprivateDetail) // 获取私聊相关内容
+        .post('/private_save_msg'  , verify,privateChat.savePrivateMsg) //保存私聊信息
+        .get('/user_info' , verify , userInfo.getUserInfo) // 获取用户资料
 console.log("router");
 
 module.exports = router

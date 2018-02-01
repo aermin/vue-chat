@@ -26,7 +26,7 @@ io.on('connection', (socket) => {
     const socketId = socket.id
 
 	socket.on('login', async (userId) => {
-        console.log('userId',userId)
+        // console.log('userId',userId)
         await socketModel.saveUserSocketId(userId, socketId) ;
         console.log('login',userId);
 	})
@@ -46,11 +46,10 @@ io.on('connection', (socket) => {
 
 	socket.on('sendGroupMsg', async(data) => {
         console.log('sendGroupMsg',data);
-		io.sockets.emit('receiveGroupMsg', data)
+		io.sockets.emit('getGroupMsg', data)
     })
     
     socket.on('disconnect', (data) => {
-        // router.handle(io, socket, { method: 'DELETE', path: '/auth', data: { } }, () => { });
         console.log('disconnect',data);
     });
 })

@@ -1,7 +1,7 @@
 <template>
     <!--  群聊 -->
     <div class="wrapper">
-        <Header goback='true' chatTitle="哈哈i"></Header>
+        <Header goback='true' :chatTitle="someOneInfoGetter.name"></Header>
         <ul>
             <li v-for="item in privateDetail">
                 <ChatItem v-if="fromUserInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
@@ -49,13 +49,14 @@
     
         computed: {
             ...mapGetters([
-                'toUserInfoGetter'
+                'someOneInfoGetter'
             ])
         },
     
         watch: {},
     
         methods: {
+            //获取数据库的消息
             getPrivateMsg() {
                 axios.get(
                         '/api/v1/private_detail', {
@@ -92,13 +93,9 @@
                         });
                     })
             },
+            //发送信息
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
-                this.$refs.message.focus()
-                this.btnInfo = '发送中'
-                this.sendBySocket()
-            },
-            async sendBySocket() {
                 // console.log('sendPrivateMsg', this.groupInfoGetter)
                 const data = {
                     from_user: this.fromUserInfo.user_id, //自己的id
@@ -109,31 +106,37 @@
                     status:'1', //是否在线 0为不在线 1为在线
                     time: Date.parse(new Date()) / 1000 //时间
                 }
-                this.privateDetail.push(data); //保存本地
                 socket.emit('sendPrivateMsg', {
                     from_user: this.fromUserInfo.user_id, //自己的id
-                    to_user: this.toUserInfo.to_user,
+                    to_user: this.toUserInfo.to_user, //对方id
                     name: this.fromUserInfo.name, //自己的昵称
                     avator: this.fromUserInfo.avator, //自己的头像
                     message: this.inputMsg, //消息内容
                     status:'1', //是否在线 0为不在线 1为在线
                     time: Date.parse(new Date()) / 1000 //时间
                 })
-                // await this.saveGroupMsg();
+                // 存此条私聊信息
+                    axios.post('/api/v1/private_save_msg', data)
+                    .then(res => {
+                        console.log('saveGroupMsg', res)
+                    })
+                data.time = toNomalTime(data.time)
+                this.privateDetail.push(data); //保存本地
+                this.refresh();
             },
-
-            receiveBySocket() {
+            // 获取socket消息
+            getMsgBySocket() {
                 socket.removeAllListeners();
-                 console.log(2212)
                 socket.on('getPrivateMsg', (data) => {
-                    console.log(3312)
-                    // if (data.to_user !== this.fromUserInfo.user_id) return
-                    console.log('getPrivateMsg', data);
                     data.time = toNomalTime(data.time);
                     this.privateDetail.push(data);
                     this.refresh();
                 })
             },
+            // //获取to_user 私聊对象的用户资料
+            // someOneInfoAction(){
+                
+            // },
             // 消息置底
             refresh() {
                 setTimeout(() => {
@@ -146,65 +149,12 @@
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getPrivateMsg();
-             this.receiveBySocket()
+             this.getMsgBySocket();
+             this.$store.dispatch('someOneInfoAction',this.toUserInfo.to_user )
         }
     }
 </script>
 
 <style lang="scss" scoped>
-    .wrapper {
-        height: 100vh;
-        padding-top: 0.6rem;
-        z-index: 1;
-        ul {
-            display: flex;
-            flex-direction: column;
-            width: 100%;
-            padding-bottom: 1.6rem;
-            // touch-action:none !important;
-            li {
-                margin-top: -1rem;
-                padding: 0;
-            }
-        }
-        .input-msg {
-            height: 0.46rem;
-            position: fixed;
-            bottom: 0.03rem;
-            display: flex;
-            width: 100%;
-            z-index: 999;
-            textarea {
-                width: 87.8%;
-                margin: 0 0.06rem;
-                padding-top: 0.07rem;
-                padding-left: 0.06rem;
-                border-radius: 0.02rem;
-                outline: none;
-                resize: none;
-                border: none;
-                overflow-y: hidden;
-                font: 0.16rem/0.18rem 'Microsoft Yahei';
-            }
-            p.btn {
-                font-size: 0.2rem;
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                text-align: center;
-                margin-right: 0.06rem;
-                height: 100%;
-                width: 11%;
-                background: #ccc;
-                color: white;
-                border-radius: 0.02rem;
-                cursor: not-allowed;
-                font-family: 'Microsoft Yahei';
-                &.enable {
-                    background: #1E90FF;
-                    cursor: pointer;
-                }
-            }
-        }
-    }
+   @import "../assets/chat.scss";
 </style>
