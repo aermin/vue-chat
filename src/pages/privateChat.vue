@@ -74,7 +74,9 @@
                             // }
                             if (this.privateDetail.length == 0) return
                             this.privateDetail.forEach(element => {
+                                console.log(' element.time1', element.time )
                                 element.time = toNomalTime(element.time);
+                                console.log(' element.time2', element.time )
                                 element.message = element.message.split(':')[1];
                             });
                             // const  toUserInfo ={
@@ -97,37 +99,39 @@
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
                 // console.log('sendPrivateMsg', this.groupInfoGetter)
-                const data = {
-                    from_user: this.fromUserInfo.user_id, //自己的id
-                    to_user: this.toUserInfo.to_user,
-                    name: this.fromUserInfo.name, //自己的昵称
-                    avator: this.fromUserInfo.avator, //自己的头像
-                    message: this.inputMsg, //消息内容
-                    status:'1', //是否在线 0为不在线 1为在线
-                    time: Date.parse(new Date()) / 1000 //时间
-                }
                 socket.emit('sendPrivateMsg', {
                     from_user: this.fromUserInfo.user_id, //自己的id
                     to_user: this.toUserInfo.to_user, //对方id
                     name: this.fromUserInfo.name, //自己的昵称
                     avator: this.fromUserInfo.avator, //自己的头像
                     message: this.inputMsg, //消息内容
-                    status:'1', //是否在线 0为不在线 1为在线
+                    status: '1', //是否在线 0为不在线 1为在线
                     time: Date.parse(new Date()) / 1000 //时间
                 })
-                // 存此条私聊信息
-                    axios.post('/api/v1/private_save_msg', data)
+                const data = {
+                    from_user: this.fromUserInfo.user_id, //自己的id
+                    to_user: this.toUserInfo.to_user, //对方的id
+                    name: this.fromUserInfo.name, //自己的昵称
+                    avator: this.fromUserInfo.avator, //自己的头像
+                    message: this.inputMsg, //消息内容
+                    status: '1', //是否在线 0为不在线 1为在线
+                    time: Date.parse(new Date()) / 1000 //时间
+                }
+                // 存此条私聊信息到数据库
+                axios.post('/api/v1/private_save_msg', data)
                     .then(res => {
-                        console.log('saveGroupMsg', res)
-                    })
-                data.time = toNomalTime(data.time)
-                this.privateDetail.push(data); //保存本地
+                    // 存此条私聊信息到本地
+                    data.time = toNomalTime(data.time)
+                    this.privateDetail.push(data);
+              })
+
                 this.refresh();
             },
             // 获取socket消息
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getPrivateMsg', (data) => {
+                    console.log(data,"24356")
                     data.time = toNomalTime(data.time);
                     this.privateDetail.push(data);
                     this.refresh();
@@ -135,7 +139,7 @@
             },
             // //获取to_user 私聊对象的用户资料
             // someOneInfoAction(){
-                
+    
             // },
             // 消息置底
             refresh() {
@@ -149,12 +153,12 @@
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getPrivateMsg();
-             this.getMsgBySocket();
-             this.$store.dispatch('someOneInfoAction',this.toUserInfo.to_user )
+            this.getMsgBySocket();
+            this.$store.dispatch('someOneInfoAction', this.toUserInfo.to_user)
         }
     }
 </script>
 
 <style lang="scss" scoped>
-   @import "../assets/chat.scss";
+    @import "../assets/chat.scss";
 </style>
