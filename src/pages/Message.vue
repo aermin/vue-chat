@@ -48,10 +48,6 @@
       }
     },
     created() {
-      // axios.get("/api/v1/message")
-      // .then(res => {
-      //   console.log(res + "  msgListActionres");
-      // })
       this.$store.dispatch('msgListAction')
     }
   }
