@@ -6,9 +6,9 @@
 
 技术栈：
 
-前端vue，vue-router,vuex ，vue-cli和axios，做了移动端适配
+前端vue，vue-router,vuex ，vue-cli和axios，做了移动端适配，没有用第三方组件。
 后端用koa2，用gulp构建工具实现自动刷新后端代码运行。
-数据库用mysql，基于Token的jwt认证机制，用socket.io做双向通信；
+数据库用mysql，基于Token的jwt鉴权机制，用socket.io做双向通信；
 
 > 完成功能
 
@@ -30,6 +30,7 @@
 - [ ] 支持聊天代码美化，md语法
 - [ ] 用户上传头像
 - [ ] 性能优化，redis做缓存
+- [ ] 发布到线上
 
 >  使用步骤
 
@@ -56,6 +57,23 @@ npm run dev
 #### 后面也会写几篇博客来详细介绍本项目，希望更好的帮助到入门的小伙伴(大神请略过，或者给些指导建议😄)
 
 ##### 如果对您有帮助，希望给个start，鼓励我继续更新^ ^
+
+> 项目展示  多图预警
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-c0062cc1cfb36b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-dbb59dee60ff2c85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-663df9dfcc2b5317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-6f778fab94a4c865.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-bddb19a92169bbb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-8d794128da179161.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![image.png](http://upload-images.jianshu.io/upload_images/5287253-714608cb351dd624.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 ## Build Setup
