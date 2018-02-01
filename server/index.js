@@ -24,7 +24,7 @@ global.query = query
 
 io.on('connection', (socket) => {
     const socketId = socket.id
-    console.log('socketId',socketId)
+
 	socket.on('login', async (userId) => {
         console.log('userId',userId)
         await socketModel.saveUserSocketId(userId, socketId) ;
@@ -38,10 +38,10 @@ io.on('connection', (socket) => {
 
 	socket.on('sendPrivateMsg', async(data) => {
         console.log('sendPrivateMsg',data);
-		const {to_user} = data ;
-        const res  = await socketModel.getUserSocketId(to_user);
-        const socketid = res[0].socketid;
-		io.to(socketid).emit('receivePrivateMsg', data)
+        const arr  = await socketModel.getUserSocketId(data.to_user);
+        const RowDataPacket = arr[0];
+        const socketid =JSON.parse(JSON.stringify(RowDataPacket)).socketid;
+        io.to(socketid).emit('getPrivateMsg', data);
 	})
 
 	socket.on('sendGroupMsg', async(data) => {
