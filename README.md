@@ -60,7 +60,7 @@ npm run dev
 
 ##### 如果对您有帮助，希望给个start，鼓励我继续更新^ ^
 
-### 鸣谢
+### 材料
 
 [socket.io英文文档](https://socket.io/docs/server-api/)
 
