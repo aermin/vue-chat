@@ -71,9 +71,12 @@
           height: 0.8rem;
           border-radius: 50%;
           margin-right: 0.3rem;
+          display: inline-block;
         }
         .content {
           display: inline-block;
+          margin-left: 0.2rem;
+          max-width: 80%;
           .title {
             font-size: 0.32rem;
             span {
@@ -85,7 +88,16 @@
           }
           .message {
             color: #676767;
-            font-size: 0.28rem;
+            font-size: 0.24rem;
+            max-height: 0.72rem;
+            overflow: hidden;
+            position: relative;
+          }
+          .message :after {
+            content: "...";
+            position: absolute;
+            bottom: 0;
+            right: 0;
           }
         }
       }
