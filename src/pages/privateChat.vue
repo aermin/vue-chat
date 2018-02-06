@@ -148,8 +148,7 @@
                 }, 0)
             }
         },
-        //必须用monted 不然用creat生命周期的话  得到的将是挂载前旧的soket.id 。。是个坑
-        mounted() {
+        created() {
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getPrivateMsg();

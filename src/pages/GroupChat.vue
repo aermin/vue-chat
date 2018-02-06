@@ -155,7 +155,7 @@
                 }, 0)
             }
         },
-        mounted() {
+        created() {
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
             this.getChatMsg();
