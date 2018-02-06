@@ -3,21 +3,22 @@
     padding-top: 0.6rem;
     z-index: 1;
     ul {
-        display: flex;
-        flex-direction: column;
         width: 100%;
         padding-bottom: 1.6rem;
-        // touch-action:none !important;
+        display: flex;
+        display: -webkit-flex;
+        flex-direction: column;
         li {
-            margin-top: -1rem;
-            padding: 0;
+          padding: 0;
+          list-style-type:none;
         }
-    }
+      }
     .input-msg {
         height: 0.46rem;
         position: fixed;
         bottom: 0.03rem;
         display: flex;
+        display: -webkit-flex; /* Safari */
         width: 100%;
         z-index: 999;
         textarea {
@@ -35,6 +36,7 @@
         p.btn {
             font-size: 0.2rem;
             display: flex;
+            display: -webkit-flex; /* Safari */
             align-items: center;
             justify-content: center;
             text-align: center;
