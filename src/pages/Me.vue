@@ -5,12 +5,19 @@
       <p slot="content">{{message}}</p>
     </Message-box>
     <Header :currentTab="currentTab" @showMessageBox="showMessageBox"></Header>
-    <div class="content">
-      <img :src="userInfo.avator" alt="">
+    <ul class="content">
+      <li class="info" @click="goInfo">
+        <img :src="userInfo.avator" alt="">
+        <span>用户名：{{userInfo.name}}</span>
+        <svg class="icon" aria-hidden="true">
+              <use  xlink:href="#icon-right"></use>
+          </svg>
+      </li>
+      <!-- <img :src="userInfo.avator" alt="">
         <p>用户名：{{userInfo.name}}</p>
         <p>性别：{{userInfo.sex}}</p>
-         <p>来自：{{userInfo.place}}</p>
-    </div>
+        <p>来自：{{userInfo.place}}</p> -->
+    </ul>
     <Footer :currentTab="currentTab"></Footer>
   </div>
 </template>
@@ -26,7 +33,7 @@
         visible: false,
         title: "提示",
         message: "",
-        userInfo:{}
+        userInfo: {}
       }
     },
     components: {
@@ -34,6 +41,10 @@
       Footer
     },
     methods: {
+      goInfo(){
+        const path = `/user_info/${this.userInfo.user_id}` ;
+        this.$router.push(path)
+      },
       showMessageBox(value) {
         if (value) {
           this.visible = value;
@@ -46,7 +57,7 @@
       confirm(value) {
         if (value) {
           //登出
-          socket.emit('logout',this.userInfo.user_id)
+          socket.emit('logout', this.userInfo.user_id)
           localStorage.removeItem("userToken");
           localStorage.removeItem("userInfo");
           let self = this;
@@ -63,23 +74,64 @@
     }
   }
 </script>
+
 <style lang="scss" scoped>
-  .content{
-    text-align: center;
-    img{
-      width: 2rem;
-      height: 2rem;
-      border-radius: 50%;
-      margin: 2rem auto;
+  .wrapper {
+    position: relative;
+    padding-top: 0.6rem;
+    ul {
+      position: relative;
+      li {
+        background-color: #fff;
+        margin: 0.3rem 0;
+        list-style-type: none;
+      }
+      .info {
+        img {
+          width: 0.8rem;
+          height: 0.8rem;
+          margin-left: 0.2rem;
+        }
+        span {
+          font-size: 0.2rem;
+          position: absolute;
+          left: 1.3rem;
+          top: 50%;
+          transform: translateY(-50%);
+          -moz-transform: translateY(-50%); //Mozilla内核浏览器：firefox3.5+
+          -webkit-transform: translateY(-50%); //Webkit内核浏览器：Safari and Chrome
+          -o-transform: translateY(-50%); //Opera
+          -ms-transform: translateY(-50%); //IE9
+          // line-height: 0.8rem;
+        }
+        .icon {
+          font-size: 0.4rem;
+          position: absolute;
+          right: 0.2rem;
+          top: 50%;
+          transform: translateY(-50%);
+          -moz-transform: translateY(-50%); //Mozilla内核浏览器：firefox3.5+
+          -webkit-transform: translateY(-50%); //Webkit内核浏览器：Safari and Chrome
+          -o-transform: translateY(-50%); //Opera
+          -ms-transform: translateY(-50%); //IE9
+        }
+      }
     }
-    p{
-
-    font-size: 0.32rem;
-    line-height: 0.8rem;
-    max-width: 80%;
-    margin: 0 auto;
-    color: #4290F7;
-    }
-
+    // .content {
+    //   left: 50%;
+    //   transform: translateX(-50%);
+    //   position: absolute;
+    //   img {
+    //     width: 2rem;
+    //     height: 2rem;
+    //     border-radius: 50%;
+    //     margin: 2rem auto;
+    //   }
+    //   p {
+    //     font-size: 0.32rem;
+    //     line-height: 0.8rem;
+    //     color: #4290F7;
+    //   }
+    // }
   }
 </style>

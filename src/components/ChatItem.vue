@@ -71,7 +71,7 @@
                 padding: 0.12rem;
                 border-radius: 0.1rem;
                 font-size: 0.24rem;
-                line-height: 0.24rem;
+                line-height: 0.34rem;
                 background-color: #fff;
             }
         }
@@ -102,22 +102,15 @@
                 }
             }
             .msg {
-                // display: inline-block;
-                // position: relative;
-                // margin: 2rem;
-                // position: absolute;
-                // right: 1rem;
                 float: right;
                 max-width: 60%;
-                margin-top: 0.2rem;
                 margin-right: 1rem;
                 padding: 0.12rem;
                 border-radius: 0.1rem;
                 font-size: 0.24rem;
-                line-height: 0.24rem;
+                line-height: 0.34rem;
                 background-color: #4290F7;
                 color: #fff;
-                // text-align: right;
             }
         }
     }

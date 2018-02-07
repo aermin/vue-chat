@@ -7,6 +7,7 @@ import Register from "@/pages/Register";
 import Login from "@/pages/Login";
 import GroupChat from "@/pages/GroupChat";
 import PrivateChat from "@/pages/PrivateChat";
+import UserInfo from "@/pages/UserInfo";
 
 import axios from "axios";
 
@@ -48,6 +49,11 @@ const router = new Router({
       path: "/private_chat/:user_id",
       name: "PrivateChat",
       component: PrivateChat
+    },
+    {
+      path: "/user_info/:user_id",
+      name: "UserInfo",
+      component: UserInfo
     },
     {
       path: "/",
