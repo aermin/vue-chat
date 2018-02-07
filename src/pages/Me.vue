@@ -8,15 +8,15 @@
     <ul class="content">
       <li class="info" @click="goInfo">
         <img :src="userInfo.avator" alt="">
-        <span>用户名：{{userInfo.name}}</span>
+        <span>{{userInfo.name}}</span>
         <svg class="icon" aria-hidden="true">
-              <use  xlink:href="#icon-right"></use>
-          </svg>
+                <use  xlink:href="#icon-right"></use>
+            </svg>
       </li>
       <!-- <img :src="userInfo.avator" alt="">
-        <p>用户名：{{userInfo.name}}</p>
-        <p>性别：{{userInfo.sex}}</p>
-        <p>来自：{{userInfo.place}}</p> -->
+          <p>用户名：{{userInfo.name}}</p>
+          <p>性别：{{userInfo.sex}}</p>
+          <p>来自：{{userInfo.place}}</p> -->
     </ul>
     <Footer :currentTab="currentTab"></Footer>
   </div>
@@ -29,7 +29,7 @@
     name: 'message',
     data() {
       return {
-        currentTab: 3,
+        currentTab: 4,
         visible: false,
         title: "提示",
         message: "",
@@ -41,8 +41,8 @@
       Footer
     },
     methods: {
-      goInfo(){
-        const path = `/user_info/${this.userInfo.user_id}` ;
+      goInfo() {
+        const path = `/user_info/${this.userInfo.user_id}`;
         this.$router.push(path)
       },
       showMessageBox(value) {
@@ -78,13 +78,16 @@
 <style lang="scss" scoped>
   .wrapper {
     position: relative;
-    padding-top: 0.6rem;
+       margin-top: 1rem;
     ul {
       position: relative;
       li {
         background-color: #fff;
-        margin: 0.3rem 0;
+           color: #333;
         list-style-type: none;
+        display: flex;
+        display: -webkit-flex;
+        padding: 0.16rem;
       }
       .info {
         img {
@@ -93,7 +96,7 @@
           margin-left: 0.2rem;
         }
         span {
-          font-size: 0.2rem;
+          font-size: 0.28rem;
           position: absolute;
           left: 1.3rem;
           top: 50%;
@@ -102,7 +105,6 @@
           -webkit-transform: translateY(-50%); //Webkit内核浏览器：Safari and Chrome
           -o-transform: translateY(-50%); //Opera
           -ms-transform: translateY(-50%); //IE9
-          // line-height: 0.8rem;
         }
         .icon {
           font-size: 0.4rem;
