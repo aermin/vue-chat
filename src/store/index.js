@@ -21,7 +21,8 @@ const store = new Vuex.Store({
     addAsFriend:{ //加为好友
       user_id:'', //请求方
       other_user_id:'' //被请求方
-    }
+    },
+    newFriend:{} //新朋友列表
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
@@ -30,7 +31,8 @@ const store = new Vuex.Store({
     groupMemberGetter:state => state.groupMember,
     toUserInfoGetter:state => state.toUserInfo,
     someOneInfoGetter:state => state.someOneInfo,
-    addAsFriendGetter:state => state.someOneInfo
+    addAsFriendGetter:state => state.someOneInfo,
+    newFriendGetter:state => state.newFriend
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -53,7 +55,10 @@ const store = new Vuex.Store({
     },
     addAsFriendMutation(state, data) {
       state.addAsFriend = data;
-    }
+    },
+    newFriendMutation(state, data) {
+      state.newFriend = data;
+    },
   },
   actions: {
     //机器人
