@@ -42,7 +42,7 @@ export default {
 
           }
           if (window.screen.width >= 768) {
-              screenRatio(100, 1.5);//字体放大1.5倍
+              screenRatio(100, 1.3);//字体放大1.3倍
           } else {
               screenRatio();
           }
