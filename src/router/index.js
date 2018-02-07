@@ -8,6 +8,7 @@ import Login from "@/pages/Login";
 import GroupChat from "@/pages/GroupChat";
 import PrivateChat from "@/pages/PrivateChat";
 import UserInfo from "@/pages/UserInfo";
+import VerifyReq from "@/pages/VerifyReq";
 
 import axios from "axios";
 
@@ -15,45 +16,50 @@ Vue.use(Router);
 
 const router = new Router({
   routes: [
-    {
+    { // 消息首页
       path: "/message",
       name: "Message",
       component: Message
     },
-    {
+    { //机器人聊天
       path: "/robot",
       name: "Robot",
       component: Robot
     },
-    {
+    { //个人中心
       path: "/me",
       name: "Me",
       component: Me
     },
-    {
+    { //登录
       path: "/login",
       name: "Login",
       component: Login
     },
-    {
+    { //注册
       path: "/register",
       name: "Register",
       component: Register
     },
-    {
+    { //群聊
       path: "/group_chat/:group_id",
       name: "GroupChat",
       component: GroupChat
     },
-    {
+    { //私聊
       path: "/private_chat/:user_id",
       name: "PrivateChat",
       component: PrivateChat
     },
-    {
+    { //用户信息
       path: "/user_info/:user_id",
       name: "UserInfo",
       component: UserInfo
+    },
+    { //加好友请求验证
+      path: "/user_info/verify/:user_id",
+      name: "VerifyReq",
+      component: VerifyReq
     },
     {
       path: "/",
