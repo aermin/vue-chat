@@ -8,12 +8,8 @@
         <div class="content">
             <img :src="userInfo.avator" alt="">
             <p class="href">
-                <span @click="goGithub">
-                            <svg class="icon" aria-hidden="true"><use  xlink:href="#icon-github"></use></svg>
-                        </span>
-                <span @click="goWebsite">
-                            <svg class="icon" aria-hidden="true"><use  xlink:href="#icon-web"></use></svg>
-                        </span>
+                <span @click="goGithub"><svg class="icon" aria-hidden="true"><use  xlink:href="#icon-github"></use></svg></span>
+                <span @click="goWebsite"><svg class="icon" aria-hidden="true"><use  xlink:href="#icon-web"></use></svg></span>
             </p>
             <p v-if="this.isMyFriend">
                 <svg class="icon" aria-hidden="true"><use  xlink:href="#icon-tianjiabeizhu"></use></svg><span>备注</span>：{{this.remark}}
@@ -27,12 +23,13 @@
             <p>
                 <svg class="icon" aria-hidden="true"><use  xlink:href="#icon-placeholder"></use></svg><span>来自</span>：{{userInfo.place}}
             </p>
-    
-            <p>
-    
-            </p>
         </div>
-    
+        <div v-if="this.isMyFriend" class="action">
+            <span class="editor-remark" @click="editorRemark">修改备注</span>
+            <span class="go-chat" @click="goChat">发消息</span>
+            <span class="shield-it" @click="shieldIt">屏蔽此人</span>
+            <span class="de-friended" @click="deFriended">删除好友</span>
+        </div>
     </div>
 </template>
 
@@ -94,9 +91,10 @@
                     });
                 })
             },
+            //点击跳转到对方的gihub
             goGithub() {
                 if (this.userInfo.github) {
-                   window.location.href = this.userInfo.github;
+                    window.location.href = this.userInfo.github;
                 } else {
                     this.$message({
                         message: '对方尚未放他的github链接哦',
@@ -104,9 +102,10 @@
                     });
                 }
             },
+            //点击跳转到对方的网站
             goWebsite() {
                 if (this.userInfo.website) {
-                   window.location.href = this.userInfo.website;
+                    window.location.href = this.userInfo.website;
                 } else {
                     this.$message({
                         message: '对方尚未放他的网站链接哦',
@@ -114,6 +113,19 @@
                     });
                 }
             },
+            //进入聊天页面
+            goChat() {
+                const path = `/private_chat/${this.$route.params.user_id}`
+                this.$router.push(path)
+            },
+            //修改备注
+            editorRemark() {
+    
+            },
+            //屏蔽此人
+            shieldIt() {},
+            //删除好友
+            deFriended() {},
             showMessageBox(value) {
                 if (value) {
                     this.visible = value;
@@ -149,7 +161,6 @@
 <style lang="scss" scoped>
     .wrapper {
         position: relative;
-        background-color: #fff;
         .content {
             left: 50%;
             transform: translateX(-50%);
@@ -165,18 +176,48 @@
                 line-height: 0.8rem;
                 color: #4290F7;
                 .icon {
-                    font-size: 1.4em;
+                    font-size: 1.6em;
                 }
                 span {
-                    font-size: 0.1rem;
+                    font-size: 0.14rem;
                 }
             }
             .href {
                 text-align: center;
                 span {
                     font-size: 0.3rem;
-                    cursor:pointer;
+                    cursor: pointer;
                 }
+            }
+        }
+        .action {
+            position: absolute;
+            width: 100%;
+            top: 8.8rem;
+            text-align: center;
+            span {
+                display: inline-block;
+                font-size: 0.26rem;
+                line-height: 0.26rem;
+                padding: 0.12rem 0;
+                width: 40%;
+                cursor: pointer;
+            }
+            .go-chat {
+                background-color: #4290F7;
+                color: #fff;
+            }
+            .editor-remark {
+                background-color: #fff;
+                color: #4290F7;
+            }
+            .shield-it {
+                background-color: #fff;
+                color: #4290F7;
+            }
+            .de-friended {
+                background-color: #E16762;
+                color: #fff;
             }
         }
     }
