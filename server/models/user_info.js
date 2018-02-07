@@ -25,10 +25,16 @@ let getUserInfo = (user_id)=>{
 }
 
 // 通过要查看的用户id 查询是否是本机用户的好友  如果是 返回user_id 和 remark 备注
-
 let isFriend = (user_id,other_user_id)=>{
     const _sql =  
   'SELECT  * FROM user_user_relation  AS u WHERE  u.user_id = ? AND u.other_user_id = ? ' 
+    return query(_sql, [user_id,other_user_id]);
+}
+
+// 加为好友
+let addAsFriend = (user_id,other_user_id)=>{
+    const _sql =  
+  'INSERT INTO user_user_relation(user_id,other_user_id) VALUES (?,?)' 
     return query(_sql, [user_id,other_user_id]);
 }
 
@@ -36,5 +42,6 @@ module.exports = {
     insertData,
     findDataByName,
     getUserInfo,
-    isFriend
+    isFriend,
+    addAsFriend
 }

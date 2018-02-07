@@ -49,7 +49,7 @@
     
         methods: {
             cancel() {
-                this.$emit("cancel", false);
+                this.$emit("cancel", true);
             },
             confirm() {
                 this.$emit("confirm", true);
@@ -99,7 +99,7 @@
             margin: 0.16rem 0.01rem 0.2rem;
         }
         p {
-            font-size: 0.2rem;
+            font-size: 0.18rem;
             color: rgba(0, 0, 0, 0.808);
             margin-bottom: 0.18rem;
         }
@@ -115,8 +115,8 @@
                 position: absolute;
             }
             p:nth-of-type(1) {
-                border-top: 1px solid #B4B4B4;
-                border-right: 1px solid #B4B4B4;
+                border-top: 0.01rem solid #B4B4B4;
+                border-right: 0.01rem solid #B4B4B4;
                 left: 0;
                 border-radius: 0 0 0 0.1rem;
             }

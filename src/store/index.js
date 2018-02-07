@@ -17,7 +17,11 @@ const store = new Vuex.Store({
     groupInfo:[],    //群资料
     groupMember:[],    //群成员
     toUserInfo:[] , //私聊对方的资料
-    someOneInfo:{} //某个用户的用户资料
+    someOneInfo:{}, //某个用户的用户资料
+    addAsFriend:{ //加为好友
+      user_id:'', //请求方
+      other_user_id:'' //被请求方
+    }
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
@@ -25,7 +29,8 @@ const store = new Vuex.Store({
     groupInfoGetter:state => state.groupInfo,
     groupMemberGetter:state => state.groupMember,
     toUserInfoGetter:state => state.toUserInfo,
-    someOneInfoGetter:state => state.someOneInfo
+    someOneInfoGetter:state => state.someOneInfo,
+    addAsFriendGetter:state => state.someOneInfo
   },
   mutations: {
     robotMsgMutation(state, data) {
@@ -46,6 +51,9 @@ const store = new Vuex.Store({
     someOneInfoMutation(state, data) {
       state.someOneInfo = data;
     },
+    addAsFriendMutation(state, data) {
+      state.addAsFriend = data;
+    }
   },
   actions: {
     //机器人

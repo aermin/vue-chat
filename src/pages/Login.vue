@@ -34,7 +34,6 @@
                 name: "",
                 password: "",
                 visible: false,
-                title: "提示",
                 message: ""
             };
         },
@@ -52,13 +51,12 @@
                             password: this.password
                         })
                         .then(res => {
-          
                                 if (res.data.success) {
-                                    console.log("res.data.success",res.data.success)
-                                    console.log("res.data.userInfo.user_id",res.data.userInfo.user_id)
+                                    //保存soket.io
                                     socket.emit('login',res.data.userInfo.user_id) 
                                     localStorage.setItem("userToken", res.data.token);
                                     localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo) );
+                                    //弹窗
                                     this.visible = true;
                                     this.message = "您已登录成功"
                                 } else {

@@ -1,8 +1,8 @@
 <template>
     <!-- 用户资料 -->
     <div class="wrapper">
-        <Message-box :visible="visible" :title="title" @cancel="cancel" @confirm="confirm">
-            <p slot="content">{{message}}</p>
+        <Message-box :visible="visible" @cancel="cancel" @confirm="confirm">
+            <p slot="content">{{messagebox}}</p>
         </Message-box>
         <Header goback='true' chatTitle="用户资料" @showMessageBox="showMessageBox"></Header>
         <div class="content">
@@ -30,6 +30,9 @@
             <span class="shield-it" @click="shieldIt">屏蔽此人</span>
             <span class="de-friended" @click="deFriended">删除好友</span>
         </div>
+        <div v-else class="action">
+            <span class="add-as-friend" @click="addAsFriend">加为好友</span>
+        </div>
     </div>
 </template>
 
@@ -45,7 +48,8 @@
                 userInfo: {}, //用户信息
                 myInfo: {}, //我的信息
                 remark: '', //备注
-                isMyFriend: false
+                isMyFriend: false, //是否为好友关系
+                messagebox: "" //弹窗内容
             }
         },
         components: {
@@ -113,6 +117,30 @@
                     });
                 }
             },
+            //加为好友
+            addAsFriend() {
+                // axios.post(
+                //         '/api/v1/add_as_friend', {
+                //             user_id: this.myInfo.user_id,
+                //             other_user_id: this.$route.params.user_id
+                //         })
+                //     .then(res => {
+                //           this.visible = true;
+                //         this.message = "好友添加成功"
+                //     }).catch(err => {
+                //         const errorMsg = err.response.data.error
+                //         this.$message({
+                //             message: errorMsg,
+                //             type: "error"
+                //         });
+                //     })
+                this.$store.commit('addAsFriendMutation', {
+                    user_id: this.myInfo.user_id,
+                    other_user_id: this.$route.params.user_id
+                })
+                const path = `/user_info/verify/${this.$route.params.user_id}`
+                this.$router.push(path)
+            },
             //进入聊天页面
             goChat() {
                 const path = `/private_chat/${this.$route.params.user_id}`
@@ -161,6 +189,7 @@
 <style lang="scss" scoped>
     .wrapper {
         position: relative;
+        padding-top: 0.1rem;
         .content {
             left: 50%;
             transform: translateX(-50%);
@@ -199,7 +228,7 @@
                 display: inline-block;
                 font-size: 0.26rem;
                 line-height: 0.26rem;
-                padding: 0.12rem 0;
+                padding: 0.16rem 0;
                 width: 40%;
                 cursor: pointer;
             }
@@ -217,6 +246,10 @@
             }
             .de-friended {
                 background-color: #E16762;
+                color: #fff;
+            }
+            .add-as-friend {
+                background-color: #4290F7;
                 color: #fff;
             }
         }
