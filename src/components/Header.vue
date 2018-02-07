@@ -25,8 +25,10 @@ export default {
       } else if(this.currentTab === 2){
           return '机器人'
       } else if(this.currentTab === 3){
+          return '通讯录'
+      } else if(this.currentTab === 4){
           return '我'
-      } else{
+      }  else{
         return this.chatTitle
       }
     }
