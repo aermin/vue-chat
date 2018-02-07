@@ -48,7 +48,7 @@ export default {
     display: flex;
     flex-direction: row;
     justify-content: center;
-    line-height: 0.6rem;
+    line-height: 0.76rem;
     background: #1E90FF;
     color: white;
     font-size: 0.32rem;

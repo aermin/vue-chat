@@ -21,6 +21,7 @@ router.post('/register', register) //注册
         .get('/private_detail'  , verify,  privateChat.getprivateDetail) // 获取私聊相关内容
         .post('/private_save_msg'  , verify,privateChat.savePrivateMsg) //保存私聊信息
         .get('/user_info' , verify , userInfo.getUserInfo) // 获取用户资料
+        .get('/is_friend' , verify , userInfo.isFriend) // 是否是好友
 console.log("router");
 
 module.exports = router

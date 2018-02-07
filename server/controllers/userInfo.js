@@ -3,7 +3,7 @@ const userModel = require("../models/user_info");
 /**
  *  获取用户信息 （不包括密码）
  * @param
- * @return 用户名，性别，头像，最后登录时间，状态
+ * @return 用户名，性别，头像，最后登录时间，状态等
  */
 
 let getUserInfo = async (ctx, next) => {
@@ -17,6 +17,25 @@ let getUserInfo = async (ctx, next) => {
   };
 };
 
+/**
+ * 通过要查看的用户id 查询是否是本机用户的好友  
+ * @param  user_id  other_user_id 
+ * @return  如果是 返回 user_id  other_user_id 和 remark 备注 
+ *         否则返回空
+ */
+
+let isFriend = async (ctx, next) => {
+  const RowDataPacket = await userModel.isFriend(ctx.query.user_id,ctx.query.other_user_id),
+  isFriend = JSON.parse(JSON.stringify(RowDataPacket));
+  ctx.body = {
+    success: true,
+    data: {
+        isFriend: isFriend
+    }
+  };
+};
+
 module.exports = {
-  getUserInfo
+  getUserInfo,
+  isFriend
 };

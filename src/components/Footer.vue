@@ -3,20 +3,20 @@
   <div class="footer">
     <router-link class="item" to="message">
       <svg class="icon" aria-hidden="true">
-            <use  v-show="currentTab === 1" xlink:href="#icon-message-copy"></use>
-            <use v-show="currentTab !== 1" xlink:href="#icon-message"></use>
+            <use  v-show="currentTab === 1" xlink:href="#icon-messagefill"></use>
+            <use v-show="currentTab !== 1" xlink:href="#icon-message1"></use>
         </svg>
     </router-link>
     <router-link class="item" to="robot">
       <svg class="icon" aria-hidden="true">
-            <use  v-show="currentTab === 2" xlink:href="#icon-robot-copy"></use>
-            <use v-show="currentTab !== 2" xlink:href="#icon-robot"></use>
+            <use  v-show="currentTab === 2" xlink:href="#icon-discoverfill"></use>
+            <use v-show="currentTab !== 2" xlink:href="#icon-discover"></use>
         </svg>
     </router-link>
     <router-link class="item" to="me">
       <svg class="icon" aria-hidden="true">
-            <use  v-show="currentTab === 3" xlink:href="#icon-me-copy"></use>
-            <use v-show="currentTab !== 3" xlink:href="#icon-me"></use>
+            <use  v-show="currentTab === 3" xlink:href="#icon-myfill"></use>
+            <use v-show="currentTab !== 3" xlink:href="#icon-my"></use>
         </svg>
     </router-link>
   </div>
@@ -41,7 +41,7 @@
     font-size: 0.36rem;
     display: flex;
     justify-content: space-between;
-    height: 0.5rem;
+    height: 0.6rem;
     background: white;
     border-top: 0.01rem solid #eee;
     .item {
