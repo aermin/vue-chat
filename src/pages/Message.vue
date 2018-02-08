@@ -4,14 +4,13 @@
     <Header :currentTab="currentTab"></Header>
     <ul>
       <li v-for="data in msgListGetter" @click="enterChat(data.type,data.id)">
-        <img v-if="data.type === 'group'" :src="data.group_avator" alt="群头像" class="img">
-        <img v-if="data.type === 'private'" :src="data.avator" alt="用户头像" class="img">
+        <a v-if="data.type === 'group'" href=""><img :src="data.group_avator" alt="群头像" class="img"><span class="group-unread" v-if="data.unread">{{data.unread}}</span></a>
+        <a v-if="data.type === 'private'" href=""><img :src="data.avator" alt="用户头像" class="img"><span class="private-unread" v-if="data.unread">{{data.unread}}</span></a>
         <div class="content">
           <div v-if="data.type === 'group'" class="title">{{data.group_name}}<span>{{data.time}}</span></div>
           <div v-if="data.type === 'private'" class="title">{{data.name}}<span>{{data.time}}</span></div>
           <div class="message">{{data.message}}</div>
         </div>
-  
       </li>
     </ul>
     <Footer :currentTab="currentTab"></Footer>
@@ -42,13 +41,25 @@
       ])
     },
     methods: {
+      getMsgBySocket() {
+        socket.removeAllListeners();
+        socket.on('getPrivateMsg', (data) => {
+          data.type = 'private'
+          this.$store.commit('updateListMutation', data)
+        })
+        socket.on('getGroupMsg', (data) => {
+          data.type = 'group'
+          this.$store.commit('updateListMutation', data)
+        })
+      },
       enterChat(chatType, chatId) {
         const path = chatType == 'private' ? `/private_chat/${chatId}` : `/group_chat/${chatId}`
         this.$router.push(path)
       }
     },
-    created() {
+    mounted() {
       this.$store.dispatch('msgListAction')
+      this.getMsgBySocket();
     }
   }
 </script>
@@ -56,7 +67,7 @@
 <style lang="scss" scoped>
   .wrapper {
     height: 100vh;
-    padding-top: 0.6rem;
+    padding-top: 0.8rem;
     background-color: #fff;
     z-index: 1;
     ul {
@@ -65,13 +76,44 @@
       li {
         display: flex;
         align-items: center;
-        margin: 0.4rem 0.2rem;
-        .img {
-          width: 0.8rem;
-          height: 0.8rem;
-          border-radius: 50%;
-          margin-right: 0.3rem;
-          display: inline-block;
+        margin: 0rem 0.2rem;
+        list-style-type: none;
+        a {
+          position: relative;
+          .img {
+            width: 0.8rem;
+            height: 0.8rem;
+            margin-right: 0.04rem;
+            border-radius: 50%;
+            display: inline-block;
+          }
+          span {
+            font-size: 0.02rem;
+            border-radius: 50%;
+            padding: 0 0.088rem;
+            position: absolute;
+            top: 0.2rem;
+            left: 0.7rem;
+            color: #fff;
+            z-index: 2;
+          }
+          .private-unread{
+            background-color: red;
+          }
+          .group-unread{
+                background-color: #999;
+          }
+          //  ::after {
+          //   content: "";
+          //   width: 0.26rem;
+          //   height: 0.26rem;
+          //   display: inline-block;
+          //   border-radius: 50%;
+          //   background-color: red;
+          //   position: absolute;
+          //   left: -0.08rem;
+          //   z-index: -1;
+          // }
         }
         .content {
           display: inline-block;

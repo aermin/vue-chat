@@ -14,7 +14,6 @@
             <div v-else class="noCancel">
                 <p @click="confirm">确定</p>
             </div>
-    
         </div>
     
     

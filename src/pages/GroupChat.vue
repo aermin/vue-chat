@@ -140,7 +140,11 @@
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getGroupMsg', (data) => {
-                    if (!data.groupMember.includes(this.userInfo.user_id)) return
+                    if (!data.groupMember.includes(this.userInfo.user_id)){
+                        data.type = 'group';
+                        this.$store.commit('updateListMutation', data)
+                        return
+                    } 
                     console.log('getGroupMsg', data);
                     data.time = toNomalTime(data.time);
                     this.dataList.message.push(data);
