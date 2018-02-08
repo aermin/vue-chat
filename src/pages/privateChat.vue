@@ -133,7 +133,10 @@
                 socket.removeAllListeners();
                 socket.on('getPrivateMsg', (data) => {
                     //如果收到的soket信息不是发给自己的 放弃这条soket
-                    // if(data.to_user != this.fromUserInfo.user_id) return    
+                    // if(data.to_user != this.fromUserInfo.user_id) return 
+                    //本地添加此条信息
+                    data.time = toNomalTime(data.time);
+                    this.privateDetail.push(data);   
                     //如果收到的soket信息不是来自当前聊天者 写入首页信息列表 并return
                     data.type = 'private'
                     if(data.from_user != this.toUserInfo.to_user) {
@@ -146,9 +149,6 @@
                     data.chatOfNow = true;
                     this.$store.commit('updateListMutation', data)
                     }       
-                    //本地添加此条信息
-                    data.time = toNomalTime(data.time);
-                    this.privateDetail.push(data);
                 })
             },
             //将未读信息归零

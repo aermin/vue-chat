@@ -104,7 +104,7 @@
             background-color: red;
           }
           .group-unread {
-            background-color: #999;
+            background-color: #98d1f2;
           }
           //  ::after {
           //   content: "";
