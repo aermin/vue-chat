@@ -44,7 +44,7 @@ let getGroupInfo = function(groupId) {
  */
 
 let saveGroupMsg = function(userId, groupId, message, name, time) {
-  const data = [userId, groupId, `${name}:${message}`, time];
+  const data = [userId, groupId, `${name} : ${message}`, time];
   let _sql =
     " INSERT INTO group_msg(from_user,to_group,message ,time) VALUES(?,?,?,?); ";
   return query(_sql, data);

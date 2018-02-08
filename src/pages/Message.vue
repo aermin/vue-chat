@@ -43,7 +43,7 @@
     methods: {
       getMsgBySocket() {
         socket.removeAllListeners();
-        socket.on('getPrivateMsg', (data) => {
+        socket.on('getPrivateMsg', (data) => { 
           data.type = 'private'
           this.$store.commit('updateListMutation', data)
         })
