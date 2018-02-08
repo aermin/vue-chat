@@ -74,9 +74,8 @@
                             // }
                             if (this.privateDetail.length == 0) return
                             this.privateDetail.forEach(element => {
-                                console.log(' element.time1', element.time )
                                 element.time = toNomalTime(element.time);
-                                console.log(' element.time2', element.time )
+                                // console.log(' element.time2', element.time )
                                 element.message = element.message.split(':')[1];
                             });
                             // const  toUserInfo ={
@@ -131,16 +130,19 @@
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getPrivateMsg', (data) => {
-                    console.log(data,"24356")
+                    //判断收到的soket信息是否为当前聊天者发过来的
+                    if(data.from_user != this.toUserInfo.to_user) {
+                        console.log(data,"updateListMutationdata")
+                        data.type = 'private'
+                        this.$store.commit('updateListMutation', data)
+                        return    
+                    }
                     data.time = toNomalTime(data.time);
+                    //本地添加信息
                     this.privateDetail.push(data);
                     this.refresh();
                 })
             },
-            // //获取to_user 私聊对象的用户资料
-            // someOneInfoAction(){
-    
-            // },
             // 消息置底
             refresh() {
                 setTimeout(() => {
