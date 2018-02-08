@@ -7,7 +7,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
-    firstLoad:true , //是否是第一次加载首页消息页面
+    firstLoad: true, //是否是第一次加载首页消息页面
     robotmsg: [
       // 机器人首语
       {
@@ -25,8 +25,7 @@ const store = new Vuex.Store({
       user_id: "", //请求方
       other_user_id: "" //被请求方
     },
-    newFriend: {}, //新朋友列表
-
+    newFriend: {} //新朋友列表
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
@@ -52,43 +51,58 @@ const store = new Vuex.Store({
     msgListMutation(state, data) {
       state.msgList = data;
     },
+    //未读信息归零
+    resetUnredMutation(state, id) {
+      state.msgList.forEach(ele => {
+        if(ele.id == id){
+            ele.unread = null
+        }
+      })
+    },
     //更新首页消息列表
     updateListMutation(state, data) {
-      // console.log("33333", state.msgList);
       let unread = 0;
-      state.msgList.forEach(ele => {
-        //判断是哪个人
-        if (data.type === "private") {
-          // console.log(ele.other_user_id, " tt ", data.from_user);
+      //判断是哪个人
+      if (data.type === "private") {
+        // console.log(ele.other_user_id, " tt ", data.from_user);
+        state.msgList.forEach(ele => {
           if (ele.other_user_id == data.from_user) {
-            ele.message = data.message;
+            ele.message = data.name + ' : '+data.message;
             ele.time = toNomalTime(data.time);
             ele.name = data.name;
             ele.avator = data.avator;
-            //增加未读消息数
-            if (!ele.unread) { 
-              ele.unread = unread + 1;
-            } else {
-              ele.unread += 1;
-            }
+            //如果是当前的聊天，没必要加未读标识了
+            if (data.chatOfNow) return
+             //增加未读消息数
+              if (!ele.unread) {
+                ele.unread = unread + 1;
+              } else {
+                ele.unread += 1;
+              }
           }
-        } else if (data.type === "group") {
-          // console.log("66data", data);
+        });
+      } else if (data.type === "group") {
+        state.msgList.forEach(ele => {
           //判断是哪个群
           if (ele.group_id == data.groupId) {
-            ele.message = data.message;
+            ele.message = data.name + ' : '+data.message ;
             ele.time = toNomalTime(data.time);
             ele.name = data.name;
             ele.avator = data.avator;
             //增加未读消息数
-            if (!ele.unread) {
-              ele.unread = unread + 1;
+            if (data.chatOfNow) {
+              ele.unread = null;
             } else {
-              ele.unread += 1;
+              if (!ele.unread) {
+                ele.unread = unread + 1;
+              } else {
+                ele.unread += 1;
+              }
             }
           }
-        }
-      });
+        });
+      }
+      // }
     },
     //群资料
     groupInfoMutation(state, data) {
@@ -119,7 +133,8 @@ const store = new Vuex.Store({
     //机器人
     robatMsgAction({ commit }, data) {
       // console.log(data + "  robatMsgAction");
-      axios.get("/api/v1/robot", {
+      axios
+        .get("/api/v1/robot", {
           params: data
         })
         .then(res => {

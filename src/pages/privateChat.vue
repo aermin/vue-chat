@@ -53,7 +53,11 @@
             ])
         },
     
-        watch: {},
+        watch: {
+            privateDetail(){
+                this.refresh();
+            }
+        },
     
         methods: {
             //获取数据库的消息
@@ -82,7 +86,7 @@
     
                             // }
                             // this.$store.commit('toUserInfoMutation', res.data.data.privateInfo[0])
-                            this.refresh()
+                            // this.refresh()
                         }
     
                     })
@@ -123,25 +127,33 @@
                     data.time = toNomalTime(data.time)
                     this.privateDetail.push(data);
               })
-
-                this.refresh();
             },
             // 获取socket消息
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getPrivateMsg', (data) => {
-                    //判断收到的soket信息是否为当前聊天者发过来的
+                    //如果收到的soket信息不是发给自己的 放弃这条soket
+                    // if(data.to_user != this.fromUserInfo.user_id) return    
+                    //如果收到的soket信息不是来自当前聊天者 写入首页信息列表 并return
+                    data.type = 'private'
                     if(data.from_user != this.toUserInfo.to_user) {
                         console.log(data,"updateListMutationdata")
-                        data.type = 'private'
+                        data.chatOfNow = false;
                         this.$store.commit('updateListMutation', data)
-                        return    
-                    }
+                        return
+                    } else{
+                     //soket信息来自当前聊天者 vuex添加此条信息
+                    data.chatOfNow = true;
+                    this.$store.commit('updateListMutation', data)
+                    }       
+                    //本地添加此条信息
                     data.time = toNomalTime(data.time);
-                    //本地添加信息
                     this.privateDetail.push(data);
-                    this.refresh();
                 })
+            },
+            //将未读信息归零
+            resetUnred(){
+                this.$store.commit('resetUnredMutation', this.toUserInfo.to_user)
             },
             // 消息置底
             refresh() {
@@ -153,6 +165,7 @@
         created() {
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.resetUnred();
             this.getPrivateMsg();
             this.getMsgBySocket();
             this.$store.dispatch('someOneInfoAction', this.toUserInfo.to_user)

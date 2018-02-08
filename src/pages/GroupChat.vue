@@ -3,7 +3,7 @@
     <div class="wrapper">
         <Header goback='true' :chatTitle="groupInfoGetter.group_name"></Header>
         <ul>
-            <li v-for="item in dataList.message">
+            <li v-for="item in message">
                 <ChatItem v-if="userInfo.user_id === item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
                 <ChatItem v-else :img="item.avator" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
             </li>
@@ -35,11 +35,9 @@
                 groupInfo: {
                     groupId: '' //群id
                 },
-                dataList: {
-                    groupAvator: '', //群头像
-                    groupMember: [], //群成员id
-                    message: [] //群消息
-                },
+                groupAvator: '', //群头像
+                groupMember: [], //群成员id
+                message: [], //群消息
                 inputMsg: '',
                 userInfo: {},
                 btnInfo: "发送"
@@ -53,7 +51,11 @@
             ])
         },
     
-        watch: {},
+        watch: {
+            message(){
+                this.refresh();
+            }
+        },
         methods: {
             //获取聊天记录
             getChatMsg() {
@@ -65,19 +67,18 @@
                         })
                     .then(res => {
                         if (res.data.success) {
-                            this.dataList.message = res.data.data.groupMsg;
+                            this.message = res.data.data.groupMsg;
                             if (!res.data.data.groupMember.includes(this.userInfo.user_id)) { // 群成员不存在此用户id，则添加
                                 this.addGroupUserRelation();
                             }
-                            if (this.dataList.message.length == 0) return
-                            this.dataList.message.forEach(element => {
+                            if (this.message.length == 0) return
+                            this.message.forEach(element => {
                                 element.time = toNomalTime(element.time);
                                 element.message = element.message.split(':')[1];
                             });
                             this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
                             this.$store.commit('groupMemberMutation', res.data.data.groupMember)
                             this.refresh()
-                            //  console.log('getChatMsg',this.dataList);
                         }
     
                     })
@@ -140,28 +141,39 @@
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getGroupMsg', (data) => {
-                    if (!data.groupMember.includes(this.userInfo.user_id)){
-                        data.type = 'group';
+                    //收到soket群信息 如果该群群成员不包含自己 放弃这条soket
+                    if (!data.groupMember.includes(this.userInfo.user_id)) return ;
+                    //本地添加此条信息
+                    data.time = toNomalTime(data.time);
+                    this.message.push(data);
+                    this.refresh();
+                    //如果收到的soket信息不是来自当前聊天群 写入首页信息列表 并return
+                    data.type = 'group'
+                    if (data.groupId != this.groupInfo.groupId) {
                         this.$store.commit('updateListMutation', data)
                         return
-                    } 
-                    console.log('getGroupMsg', data);
-                    data.time = toNomalTime(data.time);
-                    this.dataList.message.push(data);
-                    this.refresh();
+                    } else {
+                        //soket信息来自当前聊天者 vuex添加此条信息
+                        data.chatOfNow = true;
+                        this.$store.commit('updateListMutation', data)
+                    }
                 })
+            },
+            //将未读信息归零
+            resetUnred() {
+                this.$store.commit('resetUnredMutation', this.groupInfo.groupId)
             },
             // 消息置底
             refresh() {
                 setTimeout(() => {
                     window.scrollTo(0, document.body.scrollHeight + 10000)
-                    console.log(111)
                 }, 0)
             }
         },
         created() {
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.resetUnred();
             this.getChatMsg();
             this.getMsgBySocket()
         }
@@ -169,5 +181,5 @@
 </script>
 
 <style lang="scss" scoped>
-   @import "../assets/chat.scss";
+    @import "../assets/chat.scss";
 </style>
