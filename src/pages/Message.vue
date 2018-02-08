@@ -25,7 +25,7 @@
     mapGetters
   } from 'vuex'
   export default {
-    name: 'message',
+    // name: 'message',
     data() {
       return {
         currentTab: 1
@@ -57,9 +57,12 @@
         this.$router.push(path)
       }
     },
-    mounted() {
-      this.$store.dispatch('msgListAction')
+    created() {
       this.getMsgBySocket();
+      if (this.$store.state.firstLoad) {
+        this.$store.dispatch('msgListAction')
+        this.$store.commit('firstLoadMutation', false)
+      }
     }
   }
 </script>
@@ -97,11 +100,11 @@
             color: #fff;
             z-index: 2;
           }
-          .private-unread{
+          .private-unread {
             background-color: red;
           }
-          .group-unread{
-                background-color: #999;
+          .group-unread {
+            background-color: #999;
           }
           //  ::after {
           //   content: "";

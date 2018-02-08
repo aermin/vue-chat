@@ -7,6 +7,7 @@ Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
+    firstLoad:true , //是否是第一次加载首页消息页面
     robotmsg: [
       // 机器人首语
       {
@@ -24,7 +25,8 @@ const store = new Vuex.Store({
       user_id: "", //请求方
       other_user_id: "" //被请求方
     },
-    newFriend: {} //新朋友列表
+    newFriend: {}, //新朋友列表
+
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
@@ -38,6 +40,10 @@ const store = new Vuex.Store({
     newFriendGetter: state => state.newFriend
   },
   mutations: {
+    //是否是第一次加载首页消息页面
+    firstLoadMutation(state, data) {
+      state.firstLoad = data;
+    },
     //机器人消息
     robotMsgMutation(state, data) {
       state.robotmsg.push(data);
@@ -112,7 +118,7 @@ const store = new Vuex.Store({
   actions: {
     //机器人
     robatMsgAction({ commit }, data) {
-      console.log(data + "  robatMsgAction");
+      // console.log(data + "  robatMsgAction");
       axios.get("/api/v1/robot", {
           params: data
         })
@@ -149,7 +155,7 @@ const store = new Vuex.Store({
     // 消息首页列表
     async msgListAction({ commit }) {
       const res = await axios.get("/api/v1/message");
-      console.log("res", res);
+      // console.log("res", res);
       if (res.data.success) {
         const groupList = res.data.data.groupList;
         const privateList = res.data.data.privateList;
@@ -169,13 +175,14 @@ const store = new Vuex.Store({
         allMsgList.sort((a, b) => {
           return b.time - a.time;
         });
-        console.log("allMsgList", allMsgList);
+        // console.log("allMsgList", allMsgList);
+        console.log("msgListMutation执行了", allMsgList);
         commit("msgListMutation", allMsgList);
       }
     },
     //某个用户的用户资料
     async someOneInfoAction({ commit }, user_id) {
-      console.log("user_id666", user_id);
+      // console.log("user_id666", user_id);
       const res = await axios.get("/api/v1/user_info", {
         params: {
           user_id: user_id
@@ -185,7 +192,7 @@ const store = new Vuex.Store({
     },
     //获取新朋友列表
     async newFriendAction({ commit }, user_id) {
-      console.log("user_id666", user_id);
+      // console.log("user_id666", user_id);
       const res = await axios.get("/api/v1/user_info", {
         params: {
           user_id: user_id
