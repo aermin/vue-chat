@@ -78,7 +78,6 @@
                             });
                             this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
                             this.$store.commit('groupMemberMutation', res.data.data.groupMember)
-                            this.refresh()
                         }
     
                     })
@@ -146,7 +145,6 @@
                     //本地添加此条信息
                     data.time = toNomalTime(data.time);
                     this.message.push(data);
-                    this.refresh();
                     //如果收到的soket信息不是来自当前聊天群 写入首页信息列表 并return
                     data.type = 'group'
                     if (data.groupId != this.groupInfo.groupId) {
