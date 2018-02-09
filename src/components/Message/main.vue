@@ -47,8 +47,8 @@
 
 <style lang="scss" scoped>
   .tips {
-    position: absolute;
-    top: 0.2rem;
+    position: fixed;
+    top: 0.23rem;
     left: 50%;
     font-size: 0.14rem;
     transform: translate(-50%, 0);

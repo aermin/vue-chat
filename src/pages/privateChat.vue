@@ -42,6 +42,8 @@
                     place: '',
                     status: ''
                 },
+                isMyFriend: false, //他是否是我的好友
+                isHisFriend: false, //我是否是他的好友
                 fromUserInfo: {}, //用户自己
                 btnInfo: "发送"
             }
@@ -54,7 +56,7 @@
         },
     
         watch: {
-            privateDetail(){
+            privateDetail() {
                 this.refresh();
             }
         },
@@ -73,20 +75,11 @@
                         console.log('res222', res)
                         if (res.data.success) {
                             this.privateDetail = res.data.data.privateDetail;
-                            // if (!res.data.data.privateMember.includes(this.userInfo.user_id)) { // 如果尚未成为互相朋友，则添加
-                            //     this.addGroupUserRelation;
-                            // }
                             if (this.privateDetail.length == 0) return
                             this.privateDetail.forEach(element => {
                                 element.time = toNomalTime(element.time);
-                                // console.log(' element.time2', element.time )
                                 element.message = element.message.split(':')[1];
                             });
-                            // const  toUserInfo ={
-    
-                            // }
-                            // this.$store.commit('toUserInfoMutation', res.data.data.privateInfo[0])
-                            // this.refresh()
                         }
     
                     })
@@ -101,7 +94,27 @@
             //发送信息
             sendMessage() {
                 if (this.inputMsg.trim() == '') return
-                // console.log('sendPrivateMsg', this.groupInfoGetter)
+                if (!this.isMyFriend) {
+                    console.log('isnotMyFriend')
+                    this.$message({
+                        message: 'ta还不是您的好友，请先加ta为好友',
+                        type: "error"
+                    });
+                    return
+                }
+                if (!this.isHisFriend) {
+                    console.log('isnoHisFriend')
+                    this.$message({
+                        message: '您还不是ta的好友，请先加ta为好友',
+                        type: "error"
+                    });
+                    return
+                }
+                this.sendMsgBySocket();
+                this.saveMsgByDB();
+            },
+            //用socket发消息
+            sendMsgBySocket() {
                 socket.emit('sendPrivateMsg', {
                     from_user: this.fromUserInfo.user_id, //自己的id
                     to_user: this.toUserInfo.to_user, //对方id
@@ -111,6 +124,9 @@
                     status: '1', //是否在线 0为不在线 1为在线
                     time: Date.parse(new Date()) / 1000 //时间
                 })
+            },
+            //用数据库存消息
+            saveMsgByDB() {
                 const data = {
                     from_user: this.fromUserInfo.user_id, //自己的id
                     to_user: this.toUserInfo.to_user, //对方的id
@@ -123,36 +139,54 @@
                 // 存此条私聊信息到数据库
                 axios.post('/api/v1/private_save_msg', data)
                     .then(res => {
-                    // 存此条私聊信息到本地
-                    data.time = toNomalTime(data.time)
-                    this.privateDetail.push(data);
-              })
+                        // 存此条私聊信息到本地
+                        data.time = toNomalTime(data.time)
+                        this.privateDetail.push(data);
+                    })
             },
             // 获取socket消息
             getMsgBySocket() {
                 socket.removeAllListeners();
                 socket.on('getPrivateMsg', (data) => {
-                    //如果收到的soket信息不是发给自己的 放弃这条soket
+                    //如果收到的soket信息不是发给自己的 放弃这条soket 没必要了 因为私聊是点对点发送的
                     // if(data.to_user != this.fromUserInfo.user_id) return 
-                    //本地添加此条信息
-                    data.time = toNomalTime(data.time);
-                    this.privateDetail.push(data);   
                     //如果收到的soket信息不是来自当前聊天者 写入首页信息列表 并return
                     data.type = 'private'
-                    if(data.from_user != this.toUserInfo.to_user) {
-                        console.log(data,"updateListMutationdata")
+                    if (data.from_user != this.toUserInfo.to_user) {
+                        console.log(data, "updateListMutationdata")
                         data.chatOfNow = false;
                         this.$store.commit('updateListMutation', data)
                         return
-                    } else{
-                     //soket信息来自当前聊天者 vuex添加此条信息
-                    data.chatOfNow = true;
-                    this.$store.commit('updateListMutation', data)
-                    }       
+                    } else {
+                        //soket信息来自当前聊天者 vuex添加此条信息
+                        data.chatOfNow = true;
+                        this.$store.commit('updateListMutation', data)
+                    }
+                    //本地添加此条信息
+                    data.time = toNomalTime(data.time);
+                    this.privateDetail.push(data);
+                })
+            },
+            // 查询此用户与我的关系
+            isFriend() {
+                axios.get('/api/v1/is_friend', {
+                    params: {
+                        user_id: this.fromUserInfo.user_id,
+                        other_user_id: this.toUserInfo.to_user
+                    }
+                }).then(res => {
+                    this.isMyFriend = res.data.data.isMyFriend.length !== 0 ? true : false;
+                    this.isHisFriend = res.data.data.isHisFriend.length !== 0 ? true : false;
+                }).catch(err => {
+                    const errorMsg = err.response.data.error
+                    this.$message({
+                        message: errorMsg,
+                        type: "error"
+                    });
                 })
             },
             //将未读信息归零
-            resetUnred(){
+            resetUnred() {
                 this.$store.commit('resetUnredMutation', this.toUserInfo.to_user)
             },
             // 消息置底
@@ -165,6 +199,7 @@
         created() {
             this.toUserInfo.to_user = this.$route.params.user_id;
             this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+            this.isFriend();
             this.resetUnred();
             this.getPrivateMsg();
             this.getMsgBySocket();

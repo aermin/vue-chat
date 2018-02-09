@@ -25,15 +25,21 @@ let getUserInfo = async (ctx, next) => {
  */
 
 let isFriend = async (ctx, next) => {
-  const RowDataPacket = await userModel.isFriend(
+  const RowDataPacket1 = await userModel.isFriend(
       ctx.query.user_id,
       ctx.query.other_user_id
     ),
-    isFriend = JSON.parse(JSON.stringify(RowDataPacket));
+    RowDataPacket2 = await userModel.isFriend(
+      ctx.query.other_user_id,
+      ctx.query.user_id
+    ),
+    isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
+    isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
   ctx.body = {
     success: true,
     data: {
-      isFriend: isFriend
+      isMyFriend: isMyFriend,
+      isHisFriend:isHisFriend
     }
   };
 };

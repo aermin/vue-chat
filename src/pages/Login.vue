@@ -1,8 +1,8 @@
 <template>
     <!--  登录 -->
     <div class="login">
-        <Message-box :visible="visible" :title="title" @confirm="confirm" :hasCancel=false>
-            <p slot="content">{{message}}</p>
+        <Message-box :visible="this.messageBox.visible"  @confirm="confirm" :hasCancel='this.messageBox.hasCancel'>
+            <p slot="content">{{this.messageBox.message}}</p>
         </Message-box>
         <div class="wrapper fadeInDown">
             <div id="formContent">
@@ -33,8 +33,14 @@
             return {
                 name: "",
                 password: "",
-                visible: false,
-                message: ""
+                // visible: false,
+                // message: "",
+                messageBox: {
+                    visible: false,
+                    message: "", //弹窗内容
+                    hasCancel: true, //弹窗是否有取消键
+                    messageBoxEvent: "" // 弹窗事件名称
+                }
             };
         },
     
@@ -57,8 +63,9 @@
                                     localStorage.setItem("userToken", res.data.token);
                                     localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo) );
                                     //弹窗
-                                    this.visible = true;
-                                    this.message = "您已登录成功"
+                                    this.messageBox.messageBoxEvent = 'loginOut'
+                                    this.messageBox.visible = true;
+                                    this.messageBox.message = "您已登录成功"
                                 } else {
                                     this.$message({
                                         message: res.data.message,
@@ -82,7 +89,7 @@
                 }
             },
             confirm(value) {
-                if (value) {
+                if (value === 'loginOut') {
                     let self = this;
                     setTimeout(function() {
                         self.$router.push({
