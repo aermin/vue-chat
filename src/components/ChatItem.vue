@@ -56,6 +56,7 @@
                 top: 50%;
                 left: 0.2rem;
                 transform: translateY(-50%);
+                cursor: pointer;
             }
             .nt {
                 font-size: 0.2rem;

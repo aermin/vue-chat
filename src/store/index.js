@@ -35,7 +35,7 @@ const store = new Vuex.Store({
     groupMemberGetter: state => state.groupMember,
     toUserInfoGetter: state => state.toUserInfo,
     someOneInfoGetter: state => state.someOneInfo,
-    addAsFriendGetter: state => state.someOneInfo,
+    addAsFriendGetter: state => state.addAsFriend,
     newFriendGetter: state => state.newFriend
   },
   mutations: {
@@ -126,7 +126,7 @@ const store = new Vuex.Store({
     },
     //新朋友列表
     newFriendMutation(state, data) {
-      state.newFriend.push(data);
+      state.newFriend = data;
     }
   },
   actions: {
@@ -189,8 +189,6 @@ const store = new Vuex.Store({
         allMsgList.sort((a, b) => {
           return b.time - a.time;
         });
-        // console.log("allMsgList", allMsgList);
-        console.log("msgListMutation执行了", allMsgList);
         commit("msgListMutation", allMsgList);
       }
     },
@@ -207,12 +205,13 @@ const store = new Vuex.Store({
     //获取新朋友列表
     async newFriendAction({ commit }, user_id) {
       // console.log("user_id666", user_id);
-      const res = await axios.get("/api/v1/user_info", {
+      const res = await axios.get("/api/v1/get_newfriends", {
         params: {
           user_id: user_id
         }
       });
-      commit("someOneInfoMutation", res.data.data.userInfo[0]);
+      console.log('newFriendAction',res)
+      commit("newFriendMutation", res.data.data.newFriends);
     }
   }
 });

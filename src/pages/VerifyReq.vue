@@ -1,11 +1,11 @@
 <template>
     <div class="wrapper">
-        <Message-box :visible="visible" @confirm="confirm" @cancel ="cancel" >
-            <p slot="content">{{messagebox}}</p>
+        <Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :hasCancel="this.messageBox.hasCancel" @cancel="cancel" @confirm="confirm">
+            <p slot="content">{{this.messageBox.message}}</p>
         </Message-box>
         <Header goback='true' chatTitle="用户资料"></Header>
         <p>你需要发送验证申请，等对方通过</p>
-        <textarea rows="5" v-model="message"></textarea>
+        <textarea rows="5" v-model="textAreaContent"></textarea>
         <p class="send-btn" @click="send">发送</p>
     </div>
 </template>
@@ -24,16 +24,20 @@
     
         data() {
             return {
-                message: "你好，我想加你为好友",
-                visible: false,
-                messagebox: "",
-                fromUserInfo:{}
+                textAreaContent: "您好，我想加您为好友",
+                messageBox: {
+                    visible: false,
+                    message: "", //弹窗内容
+                    hasCancel: true, //弹窗是否有取消键
+                    messageBoxEvent: "" //弹窗事件名称
+                },
+                fromUserInfo: {}
             }
         },
         computed: {
-            ...mapGetters([
-                'addAsFriendGetter'
-            ])
+            // ...mapGetters([
+            //     'addAsFriendGetter'
+            // ])
         },
     
         watch: {},
@@ -41,27 +45,38 @@
         methods: {
             send() {
                 socket.emit('sendRequest', {
-                    from_user:this.addAsFriendGetter.user_id,
-                    to_user: this.addAsFriendGetter.other_user_id, //对方id
-                    name:this.fromUserInfo.name,
-                    avator:this.fromUserInfo.avator,
-                    sex:this.fromUserInfo.sex,
-                    message: this.message,
+                    from_user: this.fromUserInfo.user_id,
+                    to_user: this.$route.params.user_id, //对方id
+                    name: this.fromUserInfo.name,
+                    avator: this.fromUserInfo.avator,
+                    sex: this.fromUserInfo.sex,
+                    content: this.textAreaContent,
                     time: Date.parse(new Date()) / 1000 //时间
                 })
-                this.visible = true;
-                this.messagebox = "发送成功，等候回复哦"
+                //db持久化储存
+                axios.post(
+                        '/api/v1/insert_newfriends', {
+                            from_user: this.fromUserInfo.user_id,
+                            to_user: this.$route.params.user_id, //对方id
+                            content: this.textAreaContent,
+                            time: Date.parse(new Date()) / 1000, //时间
+                            status: 0
+                        })
+                    .catch(err => {
+                        console.log('err', err)
+                    })
+                this.messageBox.messageBoxEvent = 'send'
+                this.messageBox.visible = true;
+                this.messageBox.message = "发送成功，等候回复哦"
             },
             confirm(value) {
-                if(value){
-                   const path = `/user_info/${this.$route.params.user_id}`
-                this.$router.push(path)  
+                if (value === 'send') {
+                    const path = `/user_info/${this.$route.params.user_id}`
+                    this.$router.push(path)
                 }
             },
-            cancel(value){
-                if (value) {
-                    this.visible = false;
-                }
+            cancel(value) {
+                this.messageBox.visible = false;
             }
         },
     
