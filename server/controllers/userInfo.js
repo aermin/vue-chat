@@ -61,8 +61,80 @@ let addAsFriend = async (ctx, next) => {
     });
 };
 
+
+/**
+ * 删除好友
+ * @param  user_id  本机用户id
+ *         other_user_id  对方id
+ * @return
+ */
+let delFriend = async (ctx, next) => {
+  await userModel.delFriend(ctx.query.user_id, ctx.query.other_user_id)
+     .then(result => {
+      console.log("delFriend", result);
+      if (result) {
+        ctx.body = {
+          success: true
+        };
+        console.log("删除好友成功");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+/**
+ * 屏蔽好友
+ * @param  status   0为不屏蔽  1为屏蔽
+ *         user_id  本机用户id
+ *         other_user_id  对方id
+ * @return
+ */
+let shieldFriend = async (ctx, next) => {
+  await userModel.delFriend(ctx.request.body.status,ctx.request.body.user_id, ctx.request.body.other_user_id)
+     .then(result => {
+      console.log("shieldFriend", result);
+      if (result) {
+        ctx.body = {
+          success: true
+        };
+        console.log("(取消)屏蔽好友成功");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
+/**
+ * 修改备注
+ * @param  remark   备注
+ *         user_id  本机用户id
+ *         other_user_id  对方id
+ * @return
+ */
+let editorRemark = async (ctx, next) => {
+  await userModel.editorRemark(ctx.request.body.remark,ctx.request.body.user_id, ctx.request.body.other_user_id)
+     .then(result => {
+      console.log("editorRemark", result);
+      if (result) {
+        ctx.body = {
+          success: true
+        };
+        console.log("修改备注成功");
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+};
+
 module.exports = {
   getUserInfo,
   isFriend,
-  addAsFriend
+  addAsFriend,
+  delFriend,
+  shieldFriend,
+  editorRemark
 };
