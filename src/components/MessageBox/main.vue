@@ -24,6 +24,9 @@
     export default {
         name: 'MessageBox',
         props: {
+            messageBoxEvent: {
+                type: String
+            },
             visible: {
                 type: Boolean,
                 default: false
@@ -48,10 +51,10 @@
     
         methods: {
             cancel() {
-                this.$emit("cancel", true);
+                this.$emit("cancel", this.messageBoxEvent);
             },
             confirm() {
-                this.$emit("confirm", true);
+                this.$emit("confirm", this.messageBoxEvent);
             }
         }
     }
