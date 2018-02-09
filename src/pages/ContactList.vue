@@ -1,13 +1,13 @@
 <template>
   <div class="wrapper">
     <Header :currentTab="currentTab"></Header>
-    <p class="new-friend">
+    <router-link class="new-friend" to="contact_list/new_friends">
       <svg class="icon img" aria-hidden="true"> <use  xlink:href="#icon-pengyouquan"></use></svg><span>新朋友</span>
       <svg class="icon enter" aria-hidden="true"> <use  xlink:href="#icon-right"></use></svg>
-    </p>
+    </router-link>
     <p class="tab"><span :class="friend" @click="showFriends">朋友</span><span :class="group" @click="showGroups">群组</span></p>
     <ul>
-      
+  
     </ul>
     <Footer :currentTab="currentTab"></Footer>
   </div>
@@ -16,6 +16,7 @@
 <script>
   import Header from '../components/Header.vue'
   import Footer from '../components/Footer.vue'
+  import axios from "axios"
   export default {
     components: {
       Header,
@@ -25,8 +26,8 @@
     data() {
       return {
         currentTab: 3,
-        friend:"hover",
-        group:""
+        friend: "hover",
+        group: ""
       }
     },
   
@@ -35,17 +36,28 @@
     watch: {},
   
     methods: {
-      showFriends(){
+      showFriends() {
         this.friend = "hover";
-        this.group ='';
+        this.group = '';
       },
-      showGroups(){
+      showGroups() {
         this.friend = '';
-        this.group  = "hover";
+        this.group = "hover";
+      },
+      // 获取socket消息
+      getMsgBySocket() {
+        socket.removeAllListeners();
+        socket.on('getresponse', (data) => {
+          console.log('getresponse', data);
+          // 存vuex
+          this.$store.commit('newFriendMutation', data)
+        })
       }
     },
   
-    mounted() {}
+    mounted() {
+      this.getMsgBySocket();
+    }
   }
 </script>
 
@@ -59,6 +71,7 @@
       display: -webkit-flex;
       padding: 0.16rem;
       margin-bottom: 0.16rem;
+      text-decoration:none;
       .icon {
         font-size: 0.4rem;
         line-height: 0.4rem;
@@ -85,9 +98,9 @@
       span {
         padding: 0.16rem;
       }
-      .hover{
+      .hover {
         color: #1E90FF;
-        border-bottom:0.03rem solid #1E90FF;
+        border-bottom: 0.03rem solid #1E90FF;
       }
     }
   }

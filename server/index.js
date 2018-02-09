@@ -50,6 +50,7 @@ io.on("connection", socket => {
     const arr = await socketModel.getUserSocketId(data.to_user);
     const RowDataPacket = arr[0];
     const socketid = JSON.parse(JSON.stringify(RowDataPacket)).socketid;
+    console.log('给谁的socketid',socketid)
     io.to(socketid).emit("getresponse", data);
   });
 

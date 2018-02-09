@@ -10,6 +10,7 @@ import PrivateChat from "@/pages/PrivateChat";
 import UserInfo from "@/pages/UserInfo";
 import VerifyReq from "@/pages/VerifyReq";
 import ContactList from "@/pages/ContactList";
+import NewFriends from "@/pages/NewFriends";
 
 import axios from "axios";
 
@@ -36,6 +37,10 @@ const router = new Router({
     { //通讯录
       path: "/contact_list",
       component: ContactList
+    },
+    {
+      path: "/contact_list/new_friends",
+      component: NewFriends
     },
     { //个人中心
       path: "/me",

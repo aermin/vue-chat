@@ -31,12 +31,19 @@ let isFriend = (user_id,other_user_id)=>{
     return query(_sql, [user_id,other_user_id]);
 }
 
-// 加为好友
+// 加为好友 单方面
 let addAsFriend = (user_id,other_user_id)=>{
     const _sql =  
   'INSERT INTO user_user_relation(user_id,other_user_id) VALUES (?,?)' 
     return query(_sql, [user_id,other_user_id]);
 }
+
+//两边都互加为好友
+// let addFriendEachOther = (user_id,other_user_id)=>{
+//     const _sql =  
+//   'INSERT INTO user_user_relation(user_id,other_user_id) VALUES (?,?)' 
+//     return query(_sql, [user_id,other_user_id]);
+// }
 
 // 删除好友
 let delFriend = (user_id,other_user_id)=>{

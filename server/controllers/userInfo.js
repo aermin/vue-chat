@@ -39,34 +39,50 @@ let isFriend = async (ctx, next) => {
     success: true,
     data: {
       isMyFriend: isMyFriend,
-      isHisFriend:isHisFriend
+      isHisFriend: isHisFriend
     }
   };
 };
 
 /**
  * 加为好友
- * @param  user_id  本机用户id
- *         other_user_id  对方id
+ * @param  user_id  本机用户
+ *         other_user_id  本机用户的朋友（对方）
  * @return
  *
  */
-let addAsFriend = async (ctx, next) => {
-  await userModel.addAsFriend(ctx.request.body.user_id, ctx.request.body.other_user_id)
-    .then(result => {
-      console.log("addAsFriend", result);
-      if (result) {
-        ctx.body = {
-          success: true
-        };
-        console.log("添加好友成功");
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+let agreeBeFriend = async (ctx, next) => {
+  const RowDataPacket1 = await userModel.isFriend(
+      ctx.request.body.user_id,
+      ctx.request.body.other_user_id
+    ),
+    RowDataPacket2 = await userModel.isFriend(
+      ctx.request.body.other_user_id,
+      ctx.request.body.user_id
+    ),
+    isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
+    isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
+  console.log("isMyFriend", isMyFriend);
+  console.log("isHisFriend", isHisFriend);
+  //变成本机用户的朋友
+  if (isMyFriend.length === 0) {
+    await userModel.addAsFriend(
+      ctx.request.body.user_id,
+      ctx.request.body.other_user_id
+    );
+  }
+  //本机用户变成ta的朋友
+  if (isHisFriend.length === 0) {
+    await userModel.addAsFriend(
+      ctx.request.body.other_user_id,
+      ctx.request.body.user_id
+    );
+  }
+  ctx.body = {
+    success: true
+  };
+  console.log("添加好友成功");
 };
-
 
 /**
  * 删除好友
@@ -75,8 +91,9 @@ let addAsFriend = async (ctx, next) => {
  * @return
  */
 let delFriend = async (ctx, next) => {
-  await userModel.delFriend(ctx.query.user_id, ctx.query.other_user_id)
-     .then(result => {
+  await userModel
+    .delFriend(ctx.query.user_id, ctx.query.other_user_id)
+    .then(result => {
       console.log("delFriend", result);
       if (result) {
         ctx.body = {
@@ -98,8 +115,13 @@ let delFriend = async (ctx, next) => {
  * @return
  */
 let shieldFriend = async (ctx, next) => {
-  await userModel.delFriend(ctx.request.body.status,ctx.request.body.user_id, ctx.request.body.other_user_id)
-     .then(result => {
+  await userModel
+    .delFriend(
+      ctx.request.body.status,
+      ctx.request.body.user_id,
+      ctx.request.body.other_user_id
+    )
+    .then(result => {
       console.log("shieldFriend", result);
       if (result) {
         ctx.body = {
@@ -121,8 +143,13 @@ let shieldFriend = async (ctx, next) => {
  * @return
  */
 let editorRemark = async (ctx, next) => {
-  await userModel.editorRemark(ctx.request.body.remark,ctx.request.body.user_id, ctx.request.body.other_user_id)
-     .then(result => {
+  await userModel
+    .editorRemark(
+      ctx.request.body.remark,
+      ctx.request.body.user_id,
+      ctx.request.body.other_user_id
+    )
+    .then(result => {
       console.log("editorRemark", result);
       if (result) {
         ctx.body = {
@@ -139,7 +166,7 @@ let editorRemark = async (ctx, next) => {
 module.exports = {
   getUserInfo,
   isFriend,
-  addAsFriend,
+  agreeBeFriend,
   delFriend,
   shieldFriend,
   editorRemark

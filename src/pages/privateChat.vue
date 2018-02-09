@@ -1,5 +1,5 @@
 <template>
-    <!--  群聊 -->
+    <!--  私聊 -->
     <div class="wrapper">
         <Header goback='true' :chatTitle="someOneInfoGetter.name"></Header>
         <ul>
@@ -97,7 +97,7 @@
                 if (!this.isMyFriend) {
                     console.log('isnotMyFriend')
                     this.$message({
-                        message: 'ta还不是您的好友，请先加ta为好友',
+                        message: 'ta不是您的好友，请先加ta为好友',
                         type: "error"
                     });
                     return
@@ -105,7 +105,7 @@
                 if (!this.isHisFriend) {
                     console.log('isnoHisFriend')
                     this.$message({
-                        message: '您还不是ta的好友，请先加ta为好友',
+                        message: '您不是ta的好友，请先加ta为好友',
                         type: "error"
                     });
                     return
