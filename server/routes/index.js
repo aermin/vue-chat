@@ -23,6 +23,9 @@ router.post('/register', register) //注册
         .get('/user_info' , verify , userInfo.getUserInfo) // 获取用户资料
         .get('/is_friend' , verify , userInfo.isFriend) // 是否是好友
         .post('/add_as_friend' , verify , userInfo.addAsFriend) // 加为好友
+        .delete('/del_friend' , verify , userInfo.delFriend) // 删除好友
+        .put('/shield_friend' , verify , userInfo.shieldFriend) // 屏蔽好友
+        .put('/editor_remark' , verify , userInfo.editorRemark) // 修改备注
 console.log("router");
 
 module.exports = router

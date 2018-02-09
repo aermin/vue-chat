@@ -1,10 +1,10 @@
 <template>
     <!-- 用户资料 -->
     <div class="wrapper">
-        <Message-box :visible="visible" @cancel="cancel" @confirm="confirm">
-            <p slot="content">{{messagebox}}</p>
+        <Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :hasCancel="this.messageBox.hasCancel" @cancel="cancel" @confirm="confirm">
+            <p slot="content">{{this.messageBox.message}}</p>
         </Message-box>
-        <Header goback='true' chatTitle="用户资料" @showMessageBox="showMessageBox"></Header>
+        <Header goback='true' chatTitle="用户资料"></Header>
         <div class="content">
             <img :src="userInfo.avator" alt="">
             <p class="href">
@@ -42,14 +42,16 @@
     export default {
         data() {
             return {
-                visible: false,
-                title: "提示",
-                message: "",
                 userInfo: {}, //用户信息
                 myInfo: {}, //我的信息
                 remark: '', //备注
                 isMyFriend: false, //是否为好友关系
-                messagebox: "" //弹窗内容
+                messageBox: {
+                    visible: false,
+                    message: "", //弹窗内容
+                    hasCancel: true, //弹窗是否有取消键
+                    messageBoxEvent: ""
+                }
             }
         },
         components: {
@@ -148,33 +150,40 @@
             },
             //修改备注
             editorRemark() {
-    
+                this.$root.reload();
             },
             //屏蔽此人
             shieldIt() {},
             //删除好友
-            deFriended() {},
-            showMessageBox(value) {
-                if (value) {
-                    this.visible = value;
-                    this.message = "确定要退出登录？"
-                }
+            deFriended() {
+                this.messageBox.messageBoxEvent = 'delFriend'
+                this.messageBox.visible = true;
+                this.messageBox.message = "确定要删除此好友？"
             },
             cancel(value) {
-                this.visible = value;
+                this.messageBox.visible = false;
             },
             confirm(value) {
-                if (value) {
-                    //登出
-                    socket.emit('logout', this.userInfo.user_id)
-                    localStorage.removeItem("userToken");
-                    localStorage.removeItem("userInfo");
-                    let self = this;
-                    setTimeout(function() {
-                        self.$router.push({
-                            path: "/login"
+                if (value === 'delFriend') {
+                    axios.delete('/api/v1/del_friend', {
+                        params: {
+                            user_id: this.myInfo.user_id,
+                            other_user_id: this.$route.params.user_id
+                        }
+                    }).then(res => {
+                        this.messageBox.visible = false;
+                        this.$message({
+                            message: '删除此好友成功',
+                            type: "success"
                         });
-                    }, 1000);
+                        this.isMyFriend = false;
+                    }).catch(err => {
+                        const errorMsg = err.response.data.error
+                        this.$message({
+                            message: errorMsg,
+                            type: "error"
+                        });
+                    })
                 }
             }
         },
