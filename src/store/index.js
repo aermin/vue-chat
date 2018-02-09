@@ -25,7 +25,7 @@ const store = new Vuex.Store({
       user_id: "", //请求方
       other_user_id: "" //被请求方
     },
-    newFriend: {} //新朋友列表
+    newFriend: [] //新朋友列表
   },
   getters: {
     robotMsgGetter: state => state.robotmsg,
@@ -126,15 +126,14 @@ const store = new Vuex.Store({
     },
     //新朋友列表
     newFriendMutation(state, data) {
-      state.newFriend = data;
+      state.newFriend.push(data);
     }
   },
   actions: {
     //机器人
     robatMsgAction({ commit }, data) {
       // console.log(data + "  robatMsgAction");
-      axios
-        .get("/api/v1/robot", {
+      axios.get("/api/v1/robot", {
           params: data
         })
         .then(res => {

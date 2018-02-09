@@ -1,13 +1,15 @@
 <template>
     <div class="chat-item">
         <div v-if="!me" class="otherchat">
-            <img :src="img" alt="" class="img">
+            <!-- <a :href="href" ><img :src="img" alt="" class="img"></a> -->
+            <img :src="img" alt="" class="img" @click="lookInfo">
             <div class="nt"><span v-if="name">{{name}}</span><span v-if="time">{{time}}</span></div>
             <div class="msg">{{msg}}</div>
         </div>
     
         <div v-if="me" class="mychat">
-            <img :src="img" alt="" class="img">
+            <!-- <a :href="href"><img :src="img" alt="" class="img"></a> -->
+            <img :src="img" alt="" class="img" @click="lookInfo">
             <div class="nt"><span v-if="time">{{time}}</span><span v-if="name">{{name}}</span></div>
             <div class="msg">{{msg}}</div>
 
@@ -20,7 +22,7 @@
 <script>
     export default {
         name: 'chat-item',
-        props: ['me', 'name', 'img', 'msg', 'time'],
+        props: ['me', 'name', 'img', 'msg', 'time','href'],
         components: {},
         data() {
             return {};
@@ -30,7 +32,12 @@
     
         watch: {},
     
-        methods: {}
+        methods: {
+            lookInfo(){
+                console.log('href',this.href)
+                this.$router.push(`/user_info/${this.href}`)
+            }
+        }
     }
 </script>
 
