@@ -50,7 +50,7 @@
                     visible: false,
                     message: "", //弹窗内容
                     hasCancel: true, //弹窗是否有取消键
-                    messageBoxEvent: ""
+                    messageBoxEvent: "" //弹窗事件名称
                 }
             }
         },
@@ -150,7 +150,6 @@
             },
             //修改备注
             editorRemark() {
-                this.$root.reload();
             },
             //屏蔽此人
             shieldIt() {},

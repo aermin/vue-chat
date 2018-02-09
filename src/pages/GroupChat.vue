@@ -142,9 +142,6 @@
                 socket.on('getGroupMsg', (data) => {
                     //收到soket群信息 如果该群群成员不包含自己 放弃这条soket
                     if (!data.groupMember.includes(this.userInfo.user_id)) return ;
-                    //本地添加此条信息
-                    data.time = toNomalTime(data.time);
-                    this.message.push(data);
                     //如果收到的soket信息不是来自当前聊天群 写入首页信息列表 并return
                     data.type = 'group'
                     if (data.groupId != this.groupInfo.groupId) {
@@ -155,6 +152,9 @@
                         data.chatOfNow = true;
                         this.$store.commit('updateListMutation', data)
                     }
+                    //本地添加此条信息
+                    data.time = toNomalTime(data.time);
+                    this.message.push(data);
                 })
             },
             //将未读信息归零

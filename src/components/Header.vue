@@ -58,7 +58,7 @@ export default {
     position: fixed;
     top: 0;
     width: 100%;
-    z-index: 999;
+    z-index: 9;
     .icon{
       position: absolute;
       top: 50%;
