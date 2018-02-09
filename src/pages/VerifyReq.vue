@@ -26,7 +26,8 @@
             return {
                 message: "你好，我想加你为好友",
                 visible: false,
-                messagebox: ""
+                messagebox: "",
+                fromUserInfo:{}
             }
         },
         computed: {
@@ -40,7 +41,11 @@
         methods: {
             send() {
                 socket.emit('sendRequest', {
+                    from_user:this.addAsFriendGetter.user_id,
                     to_user: this.addAsFriendGetter.other_user_id, //对方id
+                    name:this.fromUserInfo.name,
+                    avator:this.fromUserInfo.avator,
+                    sex:this.fromUserInfo.sex,
                     message: this.message,
                     time: Date.parse(new Date()) / 1000 //时间
                 })
@@ -60,7 +65,9 @@
             }
         },
     
-        mounted() {}
+        mounted() {
+            this.fromUserInfo = JSON.parse(localStorage.getItem("userInfo"));
+        }
     }
 </script>
 
