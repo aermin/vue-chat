@@ -71,7 +71,7 @@
             },
             confirm(value) {
                 if (value === 'send') {
-                    const path = `/user_info/${this.$route.params.user_id}`
+                    const path = `/message`
                     this.$router.push(path)
                 }
             },

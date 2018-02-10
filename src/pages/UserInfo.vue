@@ -41,6 +41,9 @@
         <div v-if="this.isMyFriend === false && this.isHisFriend === true && this.isAddingMe === false " class="action">
             <span class="add-as-friend" @click="enterReqPage">加为好友</span>
         </div>
+         <div v-if="this.isMyFriend === false && this.isHisFriend === false && this.isAddingMe === false " class="action">
+            <span class="add-as-friend" @click="enterReqPage">加为好友</span>
+        </div>
     </div>
 </template>
 

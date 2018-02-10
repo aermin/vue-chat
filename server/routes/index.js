@@ -28,7 +28,8 @@ router.post('/register', register) //注册
         .put('/editor_remark' , verify , userInfo.editorRemark) // 修改备注
         .get('/get_newfriends', verify , newFriends.getnewFriends) // 获取新朋友通知
         .post('/insert_newfriends' , verify , newFriends.insertNewFriends) // 添加我的新好友通知
-        .put('/update_newfriends' , verify , newFriends.updateNewFriends) 
+        .put('/update_newfriends' , verify , newFriends.updateNewFriends)  // 更新 新好友状态  是否已被同意加好友
+        .get('/find_people' , verify , userInfo.findUIByName) //通过用户名搜索加人，此接口返回用户信息
 
 
 
