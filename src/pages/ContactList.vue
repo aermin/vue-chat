@@ -44,19 +44,11 @@
         this.friend = '';
         this.group = "hover";
       },
-      // 获取socket消息
-      getMsgBySocket() {
-        socket.removeAllListeners();
-        socket.on('getresponse', (data) => {
-          console.log('getresponse', data);
-          // 存vuex
-          this.$store.commit('newFriendMutation', data)
-        })
-      }
+
     },
   
     mounted() {
-      this.getMsgBySocket();
+      // this.getMsgBySocket();
     }
   }
 </script>

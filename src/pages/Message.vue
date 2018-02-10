@@ -41,24 +41,12 @@
       ])
     },
     methods: {
-      getMsgBySocket() {
-        socket.removeAllListeners();
-        socket.on('getPrivateMsg', (data) => { 
-          data.type = 'private'
-          this.$store.commit('updateListMutation', data)
-        })
-        socket.on('getGroupMsg', (data) => {
-          data.type = 'group'
-          this.$store.commit('updateListMutation', data)
-        })
-      },
       enterChat(chatType, chatId) {
         const path = chatType == 'private' ? `/private_chat/${chatId}` : `/group_chat/${chatId}`
         this.$router.push(path)
       }
     },
     created() {
-      this.getMsgBySocket();
       if (this.$store.state.firstLoad) {
         this.$store.dispatch('msgListAction')
         this.$store.commit('firstLoadMutation', false)
