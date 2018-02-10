@@ -11,6 +11,13 @@ let findDataByName = function (  name ) {
     let _sql = 'SELECT * FROM user_info WHERE name= ? '
     return query( _sql,name)
 }
+
+// 通过用户名查找用户信息 user_info 不包括密码
+let findUIByName = function (  name ) {
+    let _sql = 'SELECT id ,name ,sex,avator,place,github FROM user_info WHERE name = ? '
+    return query( _sql,name)
+}
+
 // 通过用户id查找用户信息 user_info 包括密码
 let findDataByUserid = function (  userid ) {
     let _sql = 'SELECT * FROM user_info WHERE id= ? '
@@ -70,6 +77,7 @@ let editorRemark = (remark,user_id,other_user_id)=>{
 module.exports = {
     insertData,
     findDataByName,
+    findUIByName,
     getUserInfo,
     isFriend,
     addAsFriend,

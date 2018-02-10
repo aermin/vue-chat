@@ -4,9 +4,9 @@
             <use  xlink:href="#icon-back"></use>
       </svg>
   <div>{{title}}</div>
-        <!-- <svg v-show="currentTab === 3" class="icon logout" aria-hidden="true" @click="showMessageBox">
-            <use  xlink:href="#icon-ico-exit"></use>
-        </svg> -->
+        <svg v-show="currentTab === 1 || currentTab === 3" class="icon add" aria-hidden="true" @click="add">
+            <use  xlink:href="#icon-add"></use>
+        </svg>
 </div>
 </template>
 
@@ -34,9 +34,9 @@ export default {
     }
   },
   methods:{
-    // showMessageBox(){
-    //        this.$emit("showMessageBox", true);
-    // },
+    add(){
+          this.$router.push("/add");
+    },
     goBack(){
         this.$router.back();
     }
@@ -66,9 +66,10 @@ export default {
       -moz-transform:  translateY(-50%);
       -webkit-transform:  translateY(-50%);
     }
-    // .logout{
-    //     right: 0.2rem;
-    // }
+    .add{
+        font-size: 0.36rem;
+        right: 0.2rem;
+    }
     .goback{
       left: 0.2rem;
     }

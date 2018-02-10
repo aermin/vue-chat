@@ -11,6 +11,8 @@ import UserInfo from "@/pages/UserInfo";
 import VerifyReq from "@/pages/VerifyReq";
 import ContactList from "@/pages/ContactList";
 import NewFriends from "@/pages/NewFriends";
+import Add from "@/pages/Add";
+import AddSeach from "@/pages/AddSeach";
 
 import axios from "axios";
 
@@ -61,6 +63,18 @@ const router = new Router({
     { //加好友请求验证
       path: "/user_info/verify/:user_id",
       component: VerifyReq
+    },
+    { //加人或进群
+      path: "/add",
+      component: Add
+    },
+    { //搜人
+      path: "/add_seach/user/:username",
+      component: AddSeach
+    },
+    { //搜群
+      path: "/add_seach/group/:groupname",
+      component: AddSeach
     },
     {
       path: "/",
