@@ -24,13 +24,13 @@ let getGroupMember = function(groupId) {
 };
 /**
  * 获取群资料
- * @param   groupId
+ * @param   arr 包括 groupId  goupName 至少一个
  * @return
  */
-let getGroupInfo = function(groupId) {
+let getGroupInfo = function(arr) {
   let _sql =
-    " SELECT group_name , group_notice ,group_avator ,group_creater ,creater_time FROM group_info  WHERE id = ? ;";
-  return query(_sql, groupId);
+    " SELECT id , group_name , group_notice ,group_avator ,group_creater ,creater_time FROM group_info  WHERE id = ? OR group_name = ? ;";
+  return query(_sql, arr);
 };
 
 /**
