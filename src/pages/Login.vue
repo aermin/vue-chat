@@ -1,7 +1,7 @@
 <template>
     <!--  登录 -->
     <div class="login">
-        <Message-box :visible="this.messageBox.visible"  @confirm="confirm" :hasCancel='this.messageBox.hasCancel'>
+        <Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel= false>
             <p slot="content">{{this.messageBox.message}}</p>
         </Message-box>
         <div class="wrapper fadeInDown">
@@ -51,27 +51,26 @@
         methods: {
             login() {
                 if (this.name !== "" && this.password !== "") {
-                    axios
-                        .post("/api/v1/login", {
+                    axios.post("/api/v1/login", {
                             name: this.name,
                             password: this.password
                         })
                         .then(res => {
-                                if (res.data.success) {
-                                    //保存soket.io
-                                    socket.emit('login',res.data.userInfo.user_id) 
-                                    localStorage.setItem("userToken", res.data.token);
-                                    localStorage.setItem("userInfo",JSON.stringify(res.data.userInfo) );
-                                    //弹窗
-                                    this.messageBox.messageBoxEvent = 'loginOut'
-                                    this.messageBox.visible = true;
-                                    this.messageBox.message = "您已登录成功"
-                                } else {
-                                    this.$message({
-                                        message: res.data.message,
-                                        type: "error"
-                                    });
-                                }
+                            if (res.data.success) {
+                                //保存soket.io
+                                socket.emit('login', res.data.userInfo.user_id)
+                                localStorage.setItem("userToken", res.data.token);
+                                localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
+                                //弹窗
+                                this.messageBox.messageBoxEvent = 'login'
+                                this.messageBox.visible = true;
+                                this.messageBox.message = "您已登录成功"
+                            } else {
+                                this.$message({
+                                    message: res.data.message,
+                                    type: "error"
+                                });
+                            }
                         })
                         .catch(err => {
                             const errorMsg = err.response.data.error;
@@ -89,13 +88,10 @@
                 }
             },
             confirm(value) {
-                if (value === 'loginOut') {
-                    let self = this;
-                    setTimeout(function() {
-                        self.$router.push({
-                         path: "/message"
-                        });
-                    }, 1000);
+                console.log('confirm',value)
+                if (value === 'login') {
+                    this.messageBox.visible = false;
+                    this.$router.push("/message");
                 }
             }
         }
