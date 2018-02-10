@@ -9,7 +9,7 @@
             </li>
         </ul>
         <div class="input-msg">
-            <textarea v-model="inputMsg" @keydown.enter.prevent="sendMessage"></textarea>
+            <textarea  v-model="inputMsg" @keydown.enter.prevent="sendMessage"></textarea>
             <p class="btn" :class="{'enable':inputMsg!=''}" @click="sendMessage">{{btnInfo}}</p>
         </div>
     </div>
@@ -68,18 +68,18 @@
                     .then(res => {
                         if (res.data.success) {
                             this.message = res.data.data.groupMsg;
-                            if (!res.data.data.groupMember.includes(this.userInfo.user_id)) { // 群成员不存在此用户id，则添加
-                                this.addGroupUserRelation();
-                            }
+                            this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
+                            this.$store.commit('groupMemberMutation', res.data.data.groupMember)
+                            // // // 群成员不存在此用户id，则添加
+                            // if (!res.data.data.groupMember.includes(this.userInfo.user_id)) {
+                            //     this.addGroupUserRelation();
+                            // }
                             if (this.message.length == 0) return
                             this.message.forEach(element => {
                                 element.time = toNomalTime(element.time);
                                 element.message = element.message.split(':')[1];
                             });
-                            this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
-                            this.$store.commit('groupMemberMutation', res.data.data.groupMember)
                         }
-    
                     })
                     .catch(err => {
                         const errorMsg = err.response.data.error
@@ -90,10 +90,13 @@
                     })
             },
             //发送信息
-            sendMessage() {
+            async sendMessage() {
                 if (this.inputMsg.trim() == '') return
+                 if (!this.groupMemberGetter.includes(this.userInfo.user_id)) {
+                       await this.addGroupUserRelation();
+                }
                 console.log('sendGroupMsg', this.groupInfoGetter)
-                socket.emit('sendGroupMsg', {
+                let data = {
                     groupId: this.groupInfo.groupId, //群id
                     group_name: this.groupInfoGetter.group_name, //群名称
                     group_avator: this.groupInfoGetter.group_avator, //群头像
@@ -103,22 +106,22 @@
                     avator: this.userInfo.avator, //自己的头像
                     message: this.inputMsg, //消息内容
                     time: Date.parse(new Date()) / 1000 //时间
-                })
+                }
+                socket.emit('sendGroupMsg', data)
                 this.saveGroupMsg();
+
             },
             //保存此条信息到数据库
             saveGroupMsg() {
-                axios.post(
-                        '/api/v1/group_chat_msg', {
+                axios.post( '/api/v1/group_chat_msg', {
                             userId: this.userInfo.user_id,
                             groupId: this.groupInfo.groupId,
                             message: this.inputMsg,
                             name: this.userInfo.name,
                             time: Date.parse(new Date()) / 1000
+                        }).then((res)=>{
+                            this.inputMsg = '';
                         })
-                    .then(res => {
-                        console.log('saveGroupMsg', res)
-                    })
             },
     
             // 把发了言的新成员加入群名单
@@ -142,20 +145,23 @@
                 socket.on('getGroupMsg', (data) => {
                      console.log('聊天内获取群聊消息', data);
                     //收到soket群信息 如果该群群成员不包含自己 放弃这条soket
-                    if (!data.groupMember.includes(this.userInfo.user_id)) return ;
+                    // if (!data.groupMember.includes(this.userInfo.user_id)) return ;
+                    console.log('this.groupMemberGetter',this.groupMemberGetter)
+                    if (!this.groupMemberGetter.includes(this.userInfo.user_id)) return ;
+                    console.log('群群成员包含自己 收了soket');
                     //如果收到的soket信息不是来自当前聊天群 写入首页信息列表 并return
                     data.type = 'group'
                     if (data.groupId != this.groupInfo.groupId) {
                         this.$store.commit('updateListMutation', data)
                         return
                     } else {
-                        //soket信息来自当前聊天者 vuex添加此条信息
+                        //soket信息来自当前聊天群 vuex添加此条信息
                         data.chatOfNow = true;
                         this.$store.commit('updateListMutation', data)
+                        //本地添加此条信息
+                        data.time = toNomalTime(data.time);
+                        this.message.push(data);
                     }
-                    //本地添加此条信息
-                    data.time = toNomalTime(data.time);
-                    this.message.push(data);
                 })
             },
             //将未读信息归零
@@ -169,11 +175,11 @@
                 }, 0)
             }
         },
-        created() {
+        async created() {
             this.groupInfo.groupId = this.$route.params.group_id;
             this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
+             await this.getChatMsg();
             this.resetUnred();
-            this.getChatMsg();
             this.getMsgBySocket()
         }
     }

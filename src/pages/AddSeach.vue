@@ -1,17 +1,9 @@
 <template>
     <div class="wrapper">
         <Header goback='true' :chatTitle="chatTitle"></Header>
-        <!-- <ul>
-                                <li  v-for="data in datalist">
-                                    <img :src="data.avator" alt="">
-                                    <div>
-                                        <span>{{data.name}}</span>
-                                    </div>
-                                </li>
-                            </ul> -->
         <ul>
-            <li v-for="data in datalist">
-                <div @click="enterIt(data.id)">
+            <li v-if="userDataList !== []" v-for="data in userDataList">
+                <div @click="enterUserCard(data.id)">
                     <img :src="data.avator" alt="">
                     <div class="content">
                         <p>{{data.name}}
@@ -22,7 +14,19 @@
                             <svg v-if="data.place" class="icon" aria-hidden="true"> <use  xlink:href="#icon-placeholder"></use></svg> {{data.place}}
                             <svg v-if="data.github" class="icon" aria-hidden="true"> <use  xlink:href="#icon-github"></use></svg> {{data.github}}
                         </p>
-                        <!-- <p>{{data.content}}</p> -->
+                    </div>
+                </div>
+            </li>
+            <li v-if="groupDataList !== []" v-for="data in groupDataList">
+                <div @click="enterGroupCard(data.id)">
+                    <img :src="data.group_avator" alt="">
+                    <div class="content">
+                        <p class="group-creater">{{data.group_name}} <svg class="icon" aria-hidden="true"> <use  xlink:href="#icon-group_fill"></use></svg>
+                            <span> {{data.group_creater}}</span>
+                        </p>
+                        <p>
+                            <span>群公告：{{data.group_notice}}</span>
+                        </p>
                     </div>
                 </div>
             </li>
@@ -41,7 +45,8 @@
         data() {
             return {
                 chatTitle: "查找中...",
-                datalist: []
+                userDataList: [],
+                groupDataList: []
             }
         },
     
@@ -57,9 +62,11 @@
                     this.chatTitle = "查找结果（人）";
                     this.findPeople(username)
                 } else if (groupname) {
-    
+                    this.chatTitle = "查找结果（群）";
+                    this.findGroup(groupname);
                 }
             },
+            //找人
             findPeople(username) {
                 axios.get('/api/v1/find_people', {
                     params: {
@@ -67,21 +74,26 @@
                     }
                 }).then(res => {
                     console.log('findPeople', res)
-                    this.datalist = res.data.data.userInfo;
+                    this.userDataList = res.data.data.userInfo;
                 })
             },
-            enterIt(val) {
+            //找群
+            findGroup(groupname) {
+                axios.get('/api/v1/get_group_info', {
+                    params: {
+                        groupName: groupname
+                    }
+                }).then(res => {
+                    console.log('findGroup', res)
+                    this.groupDataList = res.data.data.groupInfo;
+                })
+            },
+            enterUserCard(val) {
                 this.$router.push(`/user_info/${val}`)
             },
-            // findPeople(username) {
-            //     axios.get('/api/v1/find_people', {
-            //         params: {
-            //             name: username
-            //         }
-            //     }).then(res => {
-            //         console.log('findPeople', res)
-            //     })
-            // }
+            enterGroupCard(val) {
+                this.$router.push(`/group_info/${val}`)
+            }
         },
     
         mounted() {
@@ -93,6 +105,13 @@
 <style lang="scss" scoped>
     .wrapper {
         padding-top: 0.7rem;
+        position: relative;
+        .can-find {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
         ul {
             margin-top: 0.2rem;
             li {
@@ -126,7 +145,15 @@
                             height: 0.36rem;
                             margin: 0 0.1rem;
                         }
-                        // margin-bottom: 0.02rem;
+                    }
+                    .group-creater {
+                        .icon {
+                            width: 0.4rem !important;
+                            height: 0.4rem !important;
+                        }
+                        span {
+                            font-size: 0.22rem;
+                        }
                     }
                 }
             }

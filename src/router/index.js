@@ -13,6 +13,7 @@ import ContactList from "@/pages/ContactList";
 import NewFriends from "@/pages/NewFriends";
 import Add from "@/pages/Add";
 import AddSeach from "@/pages/AddSeach";
+import GroupInfo from "@/pages/GroupInfo";
 
 import axios from "axios";
 
@@ -56,9 +57,13 @@ const router = new Router({
       path: "/register",
       component: Register
     },
-    { //用户信息
+    { //用户信息卡
       path: "/user_info/:user_id",
       component: UserInfo
+    },
+    { //群信息卡
+      path: "/group_info/:group_id",
+      component: GroupInfo
     },
     { //加好友请求验证
       path: "/user_info/verify/:user_id",
