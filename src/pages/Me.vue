@@ -1,23 +1,26 @@
 <template>
   <!-- 我 -->
   <div class="wrapper">
-    <Message-box :visible="visible" :title="title" @cancel="cancel" @confirm="confirm">
-      <p slot="content">{{message}}</p>
+    <Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :hasCancel="this.messageBox.hasCancel" @cancel="cancel" @confirm="confirm">
+      <p slot="content">{{this.messageBox.message}}</p>
     </Message-box>
-    <Header :currentTab="currentTab" @showMessageBox="showMessageBox"></Header>
+    <Header :currentTab="currentTab"></Header>
     <ul class="content">
       <li class="info" @click="goInfo">
         <img :src="userInfo.avator" alt="">
         <span>{{userInfo.name}}</span>
         <svg class="icon" aria-hidden="true">
-                <use  xlink:href="#icon-right"></use>
-            </svg>
+                          <use  xlink:href="#icon-right"></use>
+                      </svg>
       </li>
       <!-- <img :src="userInfo.avator" alt="">
-          <p>用户名：{{userInfo.name}}</p>
-          <p>性别：{{userInfo.sex}}</p>
-          <p>来自：{{userInfo.place}}</p> -->
+                    <p>用户名：{{userInfo.name}}</p>
+                    <p>性别：{{userInfo.sex}}</p>
+                    <p>来自：{{userInfo.place}}</p> -->
     </ul>
+    <div class="action" @click="logout">
+      <span class="logout">退出登录</span>
+    </div>
     <Footer :currentTab="currentTab"></Footer>
   </div>
 </template>
@@ -30,9 +33,12 @@
     data() {
       return {
         currentTab: 4,
-        visible: false,
-        title: "提示",
-        message: "",
+        messageBox: {
+          visible: false,
+          message: "", //弹窗内容
+          hasCancel: true, //弹窗是否有取消键
+          messageBoxEvent: "" //弹窗事件名称
+        },
         userInfo: {}
       }
     },
@@ -45,17 +51,16 @@
         const path = `/user_info/${this.userInfo.user_id}`;
         this.$router.push(path)
       },
-      showMessageBox(value) {
-        if (value) {
-          this.visible = value;
-          this.message = "确定要退出登录？"
-        }
+      logout() {
+        this.messageBox.messageBoxEvent = 'logOut'
+        this.messageBox.visible = true;
+        this.messageBox.message = "确定退出？"
       },
       cancel(value) {
-        this.visible = value;
+         this.messageBox.visible = false;
       },
       confirm(value) {
-        if (value) {
+      if (value === 'logOut') {
           //登出
           socket.emit('logout', this.userInfo.user_id)
           localStorage.removeItem("userToken");
@@ -78,12 +83,12 @@
 <style lang="scss" scoped>
   .wrapper {
     position: relative;
-       margin-top: 1rem;
+    margin-top: 1rem;
     ul {
       position: relative;
       li {
         background-color: #fff;
-           color: #333;
+        color: #333;
         list-style-type: none;
         display: flex;
         display: -webkit-flex;
@@ -117,6 +122,24 @@
           -o-transform: translateY(-50%); //Opera
           -ms-transform: translateY(-50%); //IE9
         }
+      }
+    }
+    .action {
+      position: absolute;
+      width: 100%;
+      top: 7.6rem;
+      text-align: center;
+      span {
+        display: inline-block;
+        font-size: 0.26rem;
+        line-height: 0.26rem;
+        padding: 0.16rem 0;
+        width: 40%;
+        cursor: pointer;
+      }
+      .logout {
+        background-color: #4290F7;
+        color: #fff;
       }
     }
     // .content {
