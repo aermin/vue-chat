@@ -138,8 +138,9 @@
             },
             // 获取socket消息
             getMsgBySocket() {
-                socket.removeAllListeners();
+                socket.removeAllListeners('getGroupMsg');
                 socket.on('getGroupMsg', (data) => {
+                     console.log('聊天内获取群聊消息', data);
                     //收到soket群信息 如果该群群成员不包含自己 放弃这条soket
                     if (!data.groupMember.includes(this.userInfo.user_id)) return ;
                     //如果收到的soket信息不是来自当前聊天群 写入首页信息列表 并return

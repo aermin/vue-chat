@@ -48,7 +48,6 @@
         methods: {
             // 获取socket消息
             getMsgBySocket() {
-                socket.removeAllListeners();
                 socket.on('getresponse', (data) => {
                     console.log('getresponse', data);
                     this.$store.commit('newFriendMutation', data)
