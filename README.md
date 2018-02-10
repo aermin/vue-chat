@@ -2,7 +2,7 @@
 
 ### 介绍
 
-这是我的毕设项目，目前大功能基本跑通，现在开源出来，接下去将继续不断完善😄
+这是我的毕设项目，产品参照qq，微信，TIM，目前大功能基本跑通，现在开源出来，接下去将继续不断完善😄
 
 技术栈：
 
@@ -29,7 +29,9 @@
 - [x] 好友请求通知
 - [x] 删除好友
 - [x] 未读消息提示
+
 -----------------2018.02.10
+
 - [ ] 搜索用户，群组
 - [ ] 展示群成员
 - [ ] 聊天发表情
@@ -79,13 +81,26 @@ npm run dev
 
 > 项目展示  多图预警
 
+![新好友通知.jpg](http://upload-images.jianshu.io/upload_images/5287253-87b6516a9fc87235.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+![首页消息列表.jpg](http://upload-images.jianshu.io/upload_images/5287253-acdd7d5d49f7c61d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![我](http://upload-images.jianshu.io/upload_images/5287253-b40279c205891a4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
+![好友索隆.png](http://upload-images.jianshu.io/upload_images/5287253-9053c9e09c6d452c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![好友乔治](http://upload-images.jianshu.io/upload_images/5287253-878f2b8c3607d8c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+![好友中的我.png](http://upload-images.jianshu.io/upload_images/5287253-11ddf1044bcf5730.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-c0062cc1cfb36b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-dbb59dee60ff2c85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-663df9dfcc2b5317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-6f778fab94a4c865.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-bddb19a92169bbb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
@@ -93,6 +108,8 @@ npm run dev
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-8d794128da179161.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![image.png](http://upload-images.jianshu.io/upload_images/5287253-714608cb351dd624.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+
+
 
 
 ## Build Setup
