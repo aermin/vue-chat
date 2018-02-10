@@ -1,5 +1,6 @@
 <template>
     <div class="wrapper">
+        <Header goback='true' chatTitle="新好友通知"></Header>
         <ul>
             <li v-for="data in newFriendGetter">
                 <div @click="enterIt(data.from_user)">
@@ -11,7 +12,7 @@
                 </div>
     
                 <div class="result">
-                    <span v-if="data.status === 0" class="agree-btn" @click="agreeReq(data.from_user)">同意</span>
+                    <span v-if="data.status === 0" class="agree-btn" @click="agreeBeFriend(data.from_user)">同意</span>
                     <span v-if="data.status === 1">已通过验证</span>
                 </div>
             </li>
@@ -20,16 +21,15 @@
 </template>
 
 <script>
+    import Header from '../components/Header.vue'
     import axios from "axios"
     import {
         mapGetters
     } from 'vuex'
     export default {
-        name: '',
-    
-        props: {},
-    
-        components: {},
+        components: {
+            Header
+        },
     
         data() {
             return {
@@ -38,7 +38,8 @@
         },
         computed: {
             ...mapGetters([
-                'newFriendGetter'
+                'newFriendGetter',
+    
             ])
         },
     
@@ -56,17 +57,36 @@
             enterIt(val) {
                 this.$router.push(`/user_info/${val}`)
             },
-            agreeReq(val) {
-                axios.put('/api/v1/update_newfriends', {
+            //同意加好友
+            async agreeBeFriend(val) {
+                await axios.post('/api/v1/be_friend', {
+                    user_id: this.userInfo.user_id,
+                    other_user_id: val
+                })
+                this.updateNewFriends(val);
+            },
+            //更新验证状态
+            async updateNewFriends(val) {
+                await axios.put('/api/v1/update_newfriends', {
                     from_user: val,
                     to_user: this.userInfo.user_id
-                }).then((res) => {
-                    this.newFriendGetter.forEach((ele) => {
-                        if (ele.from_user == val) {
-                            ele.status = 1;
-                        }
-                    })
                 })
+                let data = {};
+                this.newFriendGetter.forEach((ele) => {
+                    if (ele.from_user == val) {
+                        ele.status = 1;
+                        data = {
+                            avator: ele.avator,
+                            from_user: ele.from_user,
+                            message: ele.content,
+                            time: ele.time,
+                            name: ele.name,
+                            type: "private"
+                        }
+                    }
+                })
+                // console.log('updateListMutationdata', data)
+                this.$store.commit('updateListMutation', data)
             }
         },
         created() {
@@ -78,6 +98,7 @@
 
 <style lang="scss" scoped>
     .wrapper {
+        padding-top: 0.7rem;
         ul {
             margin-top: 0.2rem;
             li {
