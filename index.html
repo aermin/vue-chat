@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html>
+
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -7,16 +8,17 @@
     <!-- <script src=></script> -->
     <script src="http://at.alicdn.com/t/font_541713_u03uqs1c2691kyb9.js"></script>
   </head>
+
   <body>
     <div id="app"></div>
     <script src="http://ooytyiziz.bkt.clouddn.com/socket.io.js"></script>
     <script>
       const socket = io('http://localhost:3000');
       const userInfo = JSON.parse(localStorage.getItem("userInfo"))
-      if(userInfo){
-          socket.emit('update',userInfo.user_id);
+      if (userInfo) {
+        socket.emit('update', userInfo.user_id);
       }
-      
-     </script>
+    </script>
   </body>
+
 </html>
