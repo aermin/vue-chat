@@ -1,5 +1,5 @@
 <template>
-    <!-- 用户资料 -->
+    <!-- 群资料 -->
     <div class="wrapper">
         <Header goback='true' chatTitle="群资料"></Header>
         <div class="content">
