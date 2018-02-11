@@ -41,7 +41,7 @@
 	<div v-if="this.isMyFriend === false && this.isHisFriend === true && this.isAddingMe === false " class="action">
 		<span class="add-as-friend" @click="enterReqPage">加为好友</span>
 	</div>
-	<div v-if="this.isMyFriend === false && this.isHisFriend === false && this.isAddingMe === false " class="action">
+	<div v-if="this.isMyFriend === false && this.isHisFriend === false && this.isAddingMe === false && this.isMe === false" class="action">
 		<span class="add-as-friend" @click="enterReqPage">加为好友</span>
 	</div>
 </div>
@@ -62,6 +62,7 @@ export default {
 			isMyFriend: false, //他是否是我的好友
 			isHisFriend: false, //我是否是他的好友
 			isAddingMe: false,
+			isMe: false,
 			messageBox: {
 				visible: false, //弹窗是否显示
 				title: "提示", //弹窗名称
@@ -239,6 +240,7 @@ export default {
 	},
 	async created() {
 		this.myInfo = JSON.parse(localStorage.getItem("userInfo"));
+		this.isMe = this.myInfo.user_id == this.$route.params.user_id ? true : false;
 		await this.$store.dispatch('newFriendAction', this.myInfo.user_id)
 		await this.isAddingMeFun();
 		await this.isFriend();
