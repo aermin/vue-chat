@@ -63,6 +63,16 @@ export default {
 					group_id = str.substring(0, str.length - 1);
 				this.group_id = group_id;
 				// console.log('this.group_id', this.group_id)
+				const data = {
+					message: "创建群成功！",
+					time: this.groupInfo.creater_time,
+					group_name: this.groupInfo.group_name,
+					group_avator: this.groupInfo.group_avator,
+					type: "group",
+					id: this.group_id,
+					group_id: this.group_id
+				}
+				this.$store.commit('updateListMutation', data)
 				this.joinGroup();
 			})
 
@@ -81,7 +91,7 @@ export default {
 		confirm(value) {
 			if (value === 'createGroup') {
 				this.$router.push({
-					path: `/group_info/${this.group_id}`
+					path: `/message`
 				});
 			}
 		}
