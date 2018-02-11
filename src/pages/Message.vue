@@ -81,6 +81,8 @@ export default {
         background-color: #fff;
         padding-bottom: 0.5rem;
         li {
+            display: -webkit-box;
+            display: -ms-flexbox;
             display: flex;
             align-items: center;
             margin: 0 0.2rem;
@@ -95,7 +97,7 @@ export default {
                     display: inline-block;
                 }
                 span {
-                    font-size: 0.02rem;
+                    font-size: 0.2rem;
                     border-radius: 50%;
                     padding: 0 0.088rem;
                     position: absolute;

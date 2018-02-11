@@ -68,6 +68,7 @@ const store = new Vuex.Store({
 			//添加
 			if (data.action === "push") {
 				data.unread = unread + 1;
+				console.log('push', data)
 				state.msgList.push(data);
 				console.log('push', state.msgList)
 				return
@@ -84,7 +85,7 @@ const store = new Vuex.Store({
 			//替换更新
 			if (data.type === "private") {
 				state.msgList.forEach(ele => {
-					//判断是哪个人
+					//判断是哪个人  对方发的
 					if (ele.other_user_id == data.from_user) {
 						ele.message = data.name + ' : ' + data.message;
 						ele.time = data.time;
@@ -98,6 +99,11 @@ const store = new Vuex.Store({
 						} else {
 							ele.unread += 1;
 						}
+					} else if (ele.other_user_id == data.to_user) { //自己发的
+						ele.message = data.name + ' : ' + data.message;
+						ele.time = data.time;
+						ele.name = data.name;
+						ele.avator = data.avator;
 					}
 				});
 			} else if (data.type === "group") {
@@ -195,19 +201,18 @@ const store = new Vuex.Store({
 		}) {
 			// console.log('msgListAction')
 			const res = await axios.get("/api/v1/message");
-			// console.log("res", res);
+			console.log("res", res);
 			if (res.data.success) {
 				const groupList = res.data.data.groupList;
 				const privateList = res.data.data.privateList;
 				groupList.forEach(element => {
 					element.type = "group";
-					element.time = toNomalTime(element.time);
+					element.time = element.time ? toNomalTime(element.time) : toNomalTime(element.creater_time);
 					element.id = element.group_id;
-					// element.unread = 0;
 				});
 				privateList.forEach(element => {
 					element.type = "private";
-					element.time = toNomalTime(element.time);
+					element.time = element.time ? toNomalTime(element.time) : toNomalTime(element.be_friend_time);
 					element.id = element.other_user_id;
 					// element.unread = 0;
 				});
