@@ -1,4 +1,5 @@
 const groupInfo = require("../models/groupInfo");
+const uuidv1 = require('uuid/v1');
 
 /**
  * 加入群
@@ -44,15 +45,14 @@ let isInGroup = async (ctx, next) => {
  * @return {Promise}       [description]
  */
 let createGroup = async (ctx, next) => {
-	const arr = [ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.group_avator, ctx.request.body.group_creater, ctx.request.body.creater_time];
+	const uuid = uuidv1();
+	console.log('uuid', uuid)
+	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.group_avator, ctx.request.body.group_creater, ctx.request.body.creater_time];
 	await groupInfo.createGroup(arr);
-	const RowDataPacket = await groupInfo.getGroupId(),
-		group_id = JSON.parse(JSON.stringify(RowDataPacket));
-	console.log('group_id', group_id)
 	ctx.body = {
 		success: true,
 		data: {
-			group_id: group_id
+			group_id: uuid
 		}
 	};
 };

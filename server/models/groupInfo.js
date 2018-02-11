@@ -17,17 +17,17 @@ let isInGroup = (user_id, group_id) => {
 
 // 建群
 let createGroup = (arr) => {
-	let _sql = "INSERT INTO group_info (group_name,group_notice,group_avator,group_creater,creater_time) VALUES (?,?,?,?,?)"
+	let _sql = "INSERT INTO group_info (group_id,group_name,group_notice,group_avator,group_creater,creater_time) VALUES (?,?,?,?,?,?)"
 	return query(_sql, arr)
 }
-let getGroupId = () => {
-	let _sql = " SELECT LAST_INSERT_ID()"
-	return query(_sql)
-}
+// let getGroupId = () => {
+// 	let _sql = " SELECT LAST_INSERT_ID()"
+// 	return query(_sql)
+// }
 
 module.exports = {
 	joinGroup,
 	isInGroup,
-	createGroup,
-	getGroupId
+	createGroup
+	// getGroupId
 };
