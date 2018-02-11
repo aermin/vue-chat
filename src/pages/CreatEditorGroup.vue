@@ -69,6 +69,7 @@ export default {
 					group_name: this.groupInfo.group_name,
 					group_avator: this.groupInfo.group_avator,
 					type: "group",
+					action: "push",
 					id: this.group_id,
 					group_id: this.group_id
 				}

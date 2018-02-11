@@ -64,13 +64,18 @@ const store = new Vuex.Store({
 		//更新首页消息列表
 		updateListMutation(state, data) {
 			let unread = 0;
-			//判断是哪个人
+			data.time = toNomalTime(data.time);
+			if (data.action === "push") {
+				state.msgList.push(data);
+				console.log('push', state.msgList)
+				return
+			}
 			if (data.type === "private") {
-				// console.log(ele.other_user_id, " tt ", data.from_user);
 				state.msgList.forEach(ele => {
+					//判断是哪个人
 					if (ele.other_user_id == data.from_user) {
 						ele.message = data.name + ' : ' + data.message;
-						ele.time = toNomalTime(data.time);
+						ele.time = data.time;
 						ele.name = data.name;
 						ele.avator = data.avator;
 						//如果是当前的聊天，没必要加未读标识了
@@ -88,7 +93,7 @@ const store = new Vuex.Store({
 					//判断是哪个群
 					if (ele.group_id == data.groupId) {
 						ele.message = data.name + ' : ' + data.message;
-						ele.time = toNomalTime(data.time);
+						ele.time = data.time;
 						ele.group_name = data.group_name;
 						ele.group_avator = data.group_avator;
 						ele.id = data.groupId;
