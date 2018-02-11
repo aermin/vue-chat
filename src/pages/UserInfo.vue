@@ -214,6 +214,11 @@ export default {
 					}
 				}).then(res => {
 					this.messageBox.visible = false;
+					const data = {
+						action: "delete",
+						id: this.$route.params.user_id
+					}
+					this.$store.commit('updateListMutation', data)
 					this.$message({
 						message: '删除此好友成功',
 						type: "success"
