@@ -115,15 +115,18 @@ export default {
 		},
 		//用socket发消息
 		sendMsgBySocket() {
-			socket.emit('sendPrivateMsg', {
+			const data = {
 				from_user: this.fromUserInfo.user_id, //自己的id
 				to_user: this.toUserInfo.to_user, //对方id
 				name: this.fromUserInfo.name, //自己的昵称
 				avator: this.fromUserInfo.avator, //自己的头像
 				message: this.inputMsg, //消息内容
+				type: 'private',
 				status: '1', //是否在线 0为不在线 1为在线
 				time: Date.parse(new Date()) / 1000 //时间
-			})
+			};
+			socket.emit('sendPrivateMsg', data)
+			this.$store.commit('updateListMutation', data);
 		},
 		//用数据库存消息
 		saveMsgByDB() {
@@ -139,6 +142,7 @@ export default {
 			// 存此条私聊信息到数据库
 			axios.post('/api/v1/private_save_msg', data)
 				.then(res => {
+					this.inputMsg = '';
 					// 存此条私聊信息到本地
 					data.time = toNomalTime(data.time)
 					this.privateDetail.push(data);
@@ -152,20 +156,20 @@ export default {
 				//如果收到的soket信息不是发给自己的 放弃这条soket 没必要了 因为私聊是点对点发送的
 				// if(data.to_user != this.fromUserInfo.user_id) return
 				//如果收到的soket信息不是来自当前聊天者 写入首页信息列表 并return
-				data.type = 'private'
-				console.log(data.from_user, '!=', this.toUserInfo.to_user)
+
+				// console.log(data.from_user, '!=', this.toUserInfo.to_user)
+				// 	//soket信息不是来自当前聊天者 vuex添加此条信息 有未读提示
 				if (data.from_user != this.toUserInfo.to_user) {
 					console.log(data, "updateListMutationdata")
 					data.chatOfNow = false;
 					this.$store.commit('updateListMutation', data)
 					return
 				} else {
-					//soket信息来自当前聊天者 vuex添加此条信息
+					//soket信息来自当前聊天者 vuex添加此条信息 没未读提示
 					data.chatOfNow = true;
 					this.$store.commit('updateListMutation', data)
 				}
 				//本地添加此条信息
-				data.time = toNomalTime(data.time);
 				this.privateDetail.push(data);
 			})
 		},

@@ -119,11 +119,11 @@ export default {
 				time: Date.parse(new Date()) / 1000 //时间
 			}
 			socket.emit('sendGroupMsg', data)
-			this.saveGroupMsg();
+			this.saveMsgByDB();
 
 		},
 		//保存此条信息到数据库
-		saveGroupMsg() {
+		saveMsgByDB() {
 			axios.post('/api/v1/group_chat_msg', {
 				userId: this.userInfo.user_id,
 				groupId: this.groupInfo.groupId,
