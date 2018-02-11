@@ -4,7 +4,7 @@ const {
 
 // 通过user_id查找首页群列表
 let getGroupList = function(user_id) {
-	let _sql = `SELECT r.group_id ,i.group_name , i.group_avator ,
+	let _sql = `SELECT r.group_id ,i.group_name , i.creater_time, i.group_avator ,
     (SELECT g.message  FROM group_msg AS g  WHERE g.to_group = r.group_id  ORDER BY TIME DESC   LIMIT 1 )  AS message ,
     (SELECT g.time  FROM group_msg AS g  WHERE g.to_group = r.group_id  ORDER BY TIME DESC   LIMIT 1 )  AS time
     FROM  group_user_relation AS r  inner join group_info AS i on r.group_id = i.group_id   WHERE r.user_id = ? `
