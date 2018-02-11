@@ -95,13 +95,16 @@ npm run dev
 github貌似没展示完全gif图
 可直接戳链接查看
 
-[airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+[gif链接1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+
 ![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
 
-[airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+[gif链接2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+
 ![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
 
-[airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+[gif链接3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+
 ![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
 
