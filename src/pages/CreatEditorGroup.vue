@@ -56,13 +56,7 @@ export default {
 			this.groupInfo.group_creater = this.userInfo.name;
 			axios.post('/api/v1/create_group', this.groupInfo).then((res) => {
 				console.log('res', res)
-				const f = res.data.data.group_id[0],
-					b = JSON.stringify(f),
-					arr = b.split(":"),
-					str = arr[1],
-					group_id = str.substring(0, str.length - 1);
-				this.group_id = group_id;
-				// console.log('this.group_id', this.group_id)
+				this.group_id = res.data.data.group_id;
 				const data = {
 					message: "创建群成功！",
 					time: this.groupInfo.creater_time,
