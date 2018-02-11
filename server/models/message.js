@@ -13,7 +13,7 @@ let getGroupList = function(user_id) {
 
 // 通过user_id查找首页私聊列表
 let getPrivateList = function(user_id) {
-	let _sql = ` SELECT r.other_user_id  ,i.name , i.avator ,
+	let _sql = ` SELECT r.other_user_id  ,i.name , i.avator , r.time as be_friend_time,
     (SELECT p.message  FROM private__msg AS p
     WHERE (p.to_user = r.other_user_id and p.from_user = r.user_id) or  (p.from_user = r.other_user_id and p.to_user = r.user_id)  ORDER BY p.time DESC   LIMIT 1 )  AS message ,
     (SELECT p.time  FROM private__msg AS p  WHERE  (p.to_user = r.other_user_id and p.from_user = r.user_id) or  (p.from_user = r.other_user_id and p.to_user = r.user_id)   ORDER BY p.time DESC   LIMIT 1 )  AS time

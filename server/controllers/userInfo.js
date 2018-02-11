@@ -85,14 +85,16 @@ let agreeBeFriend = async (ctx, next) => {
 	if (isMyFriend.length === 0) {
 		await userModel.addAsFriend(
 			ctx.request.body.user_id,
-			ctx.request.body.other_user_id
+			ctx.request.body.other_user_id,
+			ctx.request.body.time
 		);
 	}
 	//本机用户变成ta的朋友
 	if (isHisFriend.length === 0) {
 		await userModel.addAsFriend(
 			ctx.request.body.other_user_id,
-			ctx.request.body.user_id
+			ctx.request.body.user_id,
+			ctx.request.body.time
 		);
 	}
 	ctx.body = {

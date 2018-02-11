@@ -212,7 +212,7 @@ const store = new Vuex.Store({
 				});
 				privateList.forEach(element => {
 					element.type = "private";
-					element.time = toNomalTime(element.time);
+					element.time = element.time ? toNomalTime(element.time) : toNomalTime(element.be_friend_time);
 					element.id = element.other_user_id;
 					// element.unread = 0;
 				});
