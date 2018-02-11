@@ -21,6 +21,8 @@ router.post('/register', register) //注册
 	.post('/group_chat_relation', verify, groupChat.addGroupUserRelation) //群添加成员并返回群成员
 	.post('/create_group', verify, groupInfo.createGroup) // 建群
 	.post('/join_group', verify, groupInfo.joinGroup) // 加入群
+	.get('/is_in_group', verify, groupInfo.isInGroup) // 看某个用户是否在某个群中(根据返回的数组长度是不是为零就知道)
+	.delete('/exit_group', verify, groupInfo.exitGroup) // 退群
 	.get('/private_detail', verify, privateChat.getprivateDetail) // 获取私聊相关内容
 	.post('/private_save_msg', verify, privateChat.savePrivateMsg) //保存私聊信息
 	.get('/user_info', verify, userInfo.getUserInfo) // 获取用户资料
