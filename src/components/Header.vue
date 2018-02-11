@@ -10,13 +10,16 @@
 	<svg v-show="groupInfo" class="icon add" aria-hidden="true" @click="lookGroupInfo">
             <use  xlink:href="#icon-group_fill-copy"></use>
     </svg>
+	<svg v-show="userInfo" class="icon add" aria-hidden="true" @click="lookUserInfo">
+            <use  xlink:href="#icon-group_fill-copy"></use>
+    </svg>
 </div>
 </template>
 
 <script>
 export default {
 	name: 'Header',
-	props: ['currentTab', 'chatTitle', 'goback', 'groupInfo'],
+	props: ['currentTab', 'chatTitle', 'goback', 'groupInfo', 'userInfo'],
 	data() {
 		return {}
 	},
@@ -41,6 +44,10 @@ export default {
 		},
 		lookGroupInfo() {
 			const path = `/group_info/${this.$route.params.group_id}`;
+			this.$router.push(path);
+		},
+		lookUserInfo() {
+			const path = `/user_info/${this.$route.params.user_id}`;
 			this.$router.push(path);
 		},
 		goBack() {
