@@ -49,7 +49,9 @@
 - [ ] 性能优化，redis做缓存
 - [ ] 发布到线上
 
-### 使用步骤
+### 使用步骤 
+
+（注意下到本地后如果要体验soket.io通信互聊，用两个浏览器各打开一个账号，不能用同一个浏览器，因为我用localstorage缓存账户信息）
 
 Fork 或者 下载本项目
 
@@ -87,11 +89,13 @@ npm run dev
 
 [聊天机器人api](http://www.tuling123.com/)
 
-> 项目展示  多图预警（页面太多，没放全）
+> 项目展示 （交互很多挺细，没放全，有兴趣的伙伴可以下到本地跑起来看看）
 
+![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
 
+![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
 
-
+![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
 
 ## Build Setup
