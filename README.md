@@ -92,10 +92,16 @@ npm run dev
 
 > 项目展示 （交互很多挺细，没放全，有兴趣的伙伴可以下到本地跑起来看看）
 
+github貌似没展示完全gif图
+可直接戳链接查看
+
+[airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
 ![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
 
+[airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
 ![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
 
+[airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 ![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
 
