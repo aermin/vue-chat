@@ -64,15 +64,26 @@ export default {
 						params: {
 							groupId: this.groupInfo.groupId
 						}
-					})
-				.then((res) => {
+					}).then((res) => {
 					if (res.data.success) {
 						this.message = res.data.data.groupMsg;
 						this.$store.commit('groupInfoMutation', res.data.data.groupInfo[0])
 						this.$store.commit('groupMemberMutation', res.data.data.groupMember)
-						// // // 群成员不存在此用户id，则添加
+						// 群成员不存在此用户id，则添加
 						if (!res.data.data.groupMember.includes(this.userInfo.user_id)) {
 							this.addGroupUserRelation();
+							const data = {
+								action: "push",
+								message: "您已成功加入此群！",
+								group_avator: this.groupInfoGetter.group_avator,
+								group_name: this.groupInfoGetter.group_name,
+								time: this.groupInfoGetter.creater_time,
+								group_id: this.groupInfoGetter.group_id,
+								type: "group",
+								id: this.groupInfoGetter.group_id
+							}
+							// this.$store.commit('updateListMutation', data)
+							this.$store.commit('updateListMutation', data)
 						}
 						if (this.message.length == 0) return
 						this.message.forEach(element => {
@@ -127,17 +138,16 @@ export default {
 		// 把发了言的新成员加入群名单
 		addGroupUserRelation() {
 			axios.post(
-					'/api/v1/group_chat_relation', {
-						userId: this.userInfo.user_id,
-						groupId: this.groupInfo.groupId
-					})
-				.then(res => {
-					console.log('group_chat_relation', res)
-					if (res.data.success) {
-						// 更新群成员
-						this.$store.commit('groupMemberMutation', res.data.data.groupMember)
-					}
-				})
+				'/api/v1/group_chat_relation', {
+					userId: this.userInfo.user_id,
+					groupId: this.groupInfo.groupId
+				}).then(res => {
+				console.log('group_chat_relation', res)
+				if (res.data.success) {
+					// 更新群成员
+					this.$store.commit('groupMemberMutation', res.data.data.groupMember)
+				}
+			})
 		},
 		// 获取socket消息
 		getMsgBySocket() {
