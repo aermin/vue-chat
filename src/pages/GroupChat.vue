@@ -1,7 +1,7 @@
 <template>
 <!--  群聊 -->
 <div class="wrapper">
-	<Header goback='true' :chatTitle="groupInfoGetter.group_name"></Header>
+	<Header goback='true' groupInfo='true' :chatTitle="groupInfoGetter.group_name"></Header>
 	<ul>
 		<li v-for="item in message">
 			<ChatItem v-if="userInfo.user_id === item.from_user" :href="item.from_user" :img="item.avator" me="true" :msg="item.message" :name="item.name" :time="item.time"></ChatItem>
