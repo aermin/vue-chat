@@ -84,7 +84,7 @@ const store = new Vuex.Store({
 			//替换更新
 			if (data.type === "private") {
 				state.msgList.forEach(ele => {
-					//判断是哪个人
+					//判断是哪个人  对方发的
 					if (ele.other_user_id == data.from_user) {
 						ele.message = data.name + ' : ' + data.message;
 						ele.time = data.time;
@@ -98,6 +98,11 @@ const store = new Vuex.Store({
 						} else {
 							ele.unread += 1;
 						}
+					} else if (ele.other_user_id == data.to_user) { //自己发的
+						ele.message = data.name + ' : ' + data.message;
+						ele.time = data.time;
+						ele.name = data.name;
+						ele.avator = data.avator;
 					}
 				});
 			} else if (data.type === "group") {
