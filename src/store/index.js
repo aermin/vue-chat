@@ -66,6 +66,7 @@ const store = new Vuex.Store({
 			let unread = 0;
 			data.time = toNomalTime(data.time);
 			if (data.action === "push") {
+				data.unread = unread + 1;
 				state.msgList.push(data);
 				console.log('push', state.msgList)
 				return
@@ -182,6 +183,7 @@ const store = new Vuex.Store({
 		async msgListAction({
 			commit
 		}) {
+			console.log('msgListAction')
 			const res = await axios.get("/api/v1/message");
 			// console.log("res", res);
 			if (res.data.success) {

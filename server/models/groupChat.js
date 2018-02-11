@@ -31,7 +31,7 @@ let getGroupMember = function(groupId) {
  */
 let getGroupInfo = function(arr) {
 	let _sql =
-		" SELECT id , group_name , group_notice ,group_avator ,group_creater ,creater_time FROM group_info  WHERE id = ? OR group_name = ? ;";
+		" SELECT group_id , group_name , group_notice ,group_avator ,group_creater ,creater_time FROM group_info  WHERE group_id = ? OR group_name = ? ;";
 	return query(_sql, arr);
 };
 
