@@ -32,8 +32,16 @@
 
 -----------------2018.02.10  吐槽一下，不得不佩服qq，微信的用户体验，功能细节挺多。。。。。还有，春节快到了，找我玩(茬)的bug也不少呀ಥ_ಥ
 
-- [ ] 搜索用户，群组
-- [ ] 展示群成员
+- [x] 搜索用户，群组
+- [x] 创建群
+- [x] 群资料卡
+- [x] 加群
+- [x] 退群
+- [x] 修改备注
+
+-----------------2018.02.11 一开始我只想做个简单的即时通讯而已的（认真脸），为啥抑制不住洪荒之力 orz 。暂时停更功能，先写毕设去了，毕业要紧毕业要紧🎓
+
+- [ ] 通讯录展示
 - [ ] 聊天发表情
 - [ ] 聊天发图片
 - [ ] 支持聊天代码美化，md语法
@@ -79,35 +87,9 @@ npm run dev
 
 [聊天机器人api](http://www.tuling123.com/)
 
-> 项目展示  多图预警
-
-![新好友通知.jpg](http://upload-images.jianshu.io/upload_images/5287253-87b6516a9fc87235.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+> 项目展示  多图预警（页面太多，没放全）
 
 
-![首页消息列表.jpg](http://upload-images.jianshu.io/upload_images/5287253-acdd7d5d49f7c61d.jpg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![我](http://upload-images.jianshu.io/upload_images/5287253-b40279c205891a4c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-![好友索隆.png](http://upload-images.jianshu.io/upload_images/5287253-9053c9e09c6d452c.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![好友乔治](http://upload-images.jianshu.io/upload_images/5287253-878f2b8c3607d8c9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![好友中的我.png](http://upload-images.jianshu.io/upload_images/5287253-11ddf1044bcf5730.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-c0062cc1cfb36b73.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-dbb59dee60ff2c85.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-663df9dfcc2b5317.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-bddb19a92169bbb8.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-8d794128da179161.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
-
-![image.png](http://upload-images.jianshu.io/upload_images/5287253-714608cb351dd624.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
 
