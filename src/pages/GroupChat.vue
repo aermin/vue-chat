@@ -157,7 +157,7 @@ export default {
 					data.chatOfNow = true;
 					this.$store.commit('updateListMutation', data)
 					//本地添加此条信息
-					data.time = toNomalTime(data.time);
+					// console.log('data.time', data.time)
 					this.message.push(data);
 				}
 			})

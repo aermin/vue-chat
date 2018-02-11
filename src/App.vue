@@ -64,19 +64,6 @@ export default {
 				// 存vuex
 				this.$store.commit('newFriendMutation', data)
 			})
-		},
-		// 获取私聊和群的消息
-		getMsgBySocket() {
-			socket.on('getPrivateMsg', (data) => {
-				console.log('app获取私聊消息', data);
-				data.type = 'private'
-				this.$store.commit('updateListMutation', data)
-			})
-			socket.on('getGroupMsg', (data) => {
-				console.log('app获取群消息', data);
-				data.type = 'group'
-				this.$store.commit('updateListMutation', data)
-			})
 		}
 	},
 	created() {
@@ -117,8 +104,6 @@ export default {
 		}
 	},
 	mounted() {
-		// await this.$store.dispatch('msgListAction')
-		this.getMsgBySocket();
 		this.getReqBySocket();
 	}
 }
