@@ -1,15 +1,18 @@
 <template>
     <div class="chat-item">
         <div v-if="!me" class="otherchat">
-            <img :src="img" alt="" class="img">
+            <!-- <a :href="href" ><img :src="img" alt="" class="img"></a> -->
+            <img :src="img" alt="" class="img" @click="lookInfo">
             <div class="nt"><span v-if="name">{{name}}</span><span v-if="time">{{time}}</span></div>
             <div class="msg">{{msg}}</div>
         </div>
     
         <div v-if="me" class="mychat">
-                <div class="nt"><span v-if="time">{{time}}</span><span v-if="name">{{name}}</span></div>
-                <div class="msg">{{msg}}</div>
-            <img :src="img" alt="" class="img">
+            <!-- <a :href="href"><img :src="img" alt="" class="img"></a> -->
+            <img :src="img" alt="" class="img" @click="lookInfo">
+            <div class="nt"><span v-if="time">{{time}}</span><span v-if="name">{{name}}</span></div>
+            <div class="msg">{{msg}}</div>
+
         </div>
     
     
@@ -19,7 +22,7 @@
 <script>
     export default {
         name: 'chat-item',
-        props: ['me', 'name', 'img', 'msg', 'time'],
+        props: ['me', 'name', 'img', 'msg', 'time','href'],
         components: {},
         data() {
             return {};
@@ -29,32 +32,37 @@
     
         watch: {},
     
-        methods: {}
+        methods: {
+            lookInfo(){
+                console.log('href',this.href)
+                this.$router.push(`/user_info/${this.href}`)
+            }
+        }
     }
 </script>
 
 <style lang="scss" scoped>
     .chat-item {
-        position: relative;
         width: 100%;
+        margin: 0.7rem 0;
         .otherchat {
-            position: relative;
-            display: flex;
-            display: -webkit-flex; /* Safari */
-            align-items: center;
             width: 100%;
+            position: relative;
             .img {
                 width: 0.6rem;
                 height: 0.6rem;
                 border-radius: 50%;
-                margin: 0 0.1rem;
+                position: absolute;
+                top: 50%;
+                left: 0.2rem;
+                transform: translateY(-50%);
+                cursor: pointer;
             }
             .nt {
                 font-size: 0.2rem;
-                left: 0.8rem;
-                top: -0.1rem;
+                left: 1rem;
+                top: -0.4rem;
                 position: absolute;
-                line-height: 0.4rem;
                 color: #686868;
                 span {
                     padding-right: 0.1rem;
@@ -64,49 +72,51 @@
                 }
             }
             .msg {
-                max-width: 70%;
-                margin-top: 0.4rem;
+                float: left;
+                max-width: 60%;
+                // margin-top: 0.2rem;
+                margin-left: 1rem;
                 padding: 0.12rem;
                 border-radius: 0.1rem;
                 font-size: 0.24rem;
+                line-height: 0.34rem;
                 background-color: #fff;
-                color: #424242;
-                text-align: left;
             }
         }
         .mychat {
-            display: flex;
-            display: -webkit-flex; /* Safari */
-            align-items: center;
-            justify-content: flex-end;
-            text-align: right;
+            width: 100%;
+            position: relative;
             .img {
-                min-width: 0.6rem;
+                width: 0.6rem;
                 height: 0.6rem;
                 border-radius: 50%;
-                margin: 0 0.1rem;
+                right: 0;
+                position: absolute;
+                top: 50%;
+                right: 0.2rem;
+                transform: translateY(-50%);
             }
             .nt {
                 font-size: 0.2rem;
-                right: 0.8rem;
-                top: -0.1rem;
+                right:1rem;
+                top: -0.4rem;
                 position: absolute;
-                line-height: 0.4rem;
                 color: #686868;
                 span {
-                    padding-right: 0.1rem;
+                    padding-left: 0.1rem;
                 }
                 span:nth-child(1) {
                     font-size: 0.1rem;
                 }
             }
             .msg {
-                text-align: left;
-                max-width: 70%;
-                margin-top: 0.4rem;
+                float: right;
+                max-width: 60%;
+                margin-right: 1rem;
                 padding: 0.12rem;
                 border-radius: 0.1rem;
                 font-size: 0.24rem;
+                line-height: 0.34rem;
                 background-color: #4290F7;
                 color: #fff;
             }
