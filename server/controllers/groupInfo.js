@@ -39,7 +39,7 @@ let isInGroup = async (ctx, next) => {
 };
 
 /**
- * [isInGroup 建群]
+ * [createGroup 建群]
  * @param  {[type]}   ctx  [群名，群公告，群头像，创建人，创建时间]
  * @param  {Function} next [description]
  * @return {Promise}       [description]
@@ -57,8 +57,23 @@ let createGroup = async (ctx, next) => {
 	};
 };
 
+/**
+ * [delGroup 退出群]
+ * @param  {[type]}   ctx  [用户id，群id]
+ * @param  {Function} next [description]
+ * @return {Promise}       [success: true]
+ */
+let exitGroup = async (ctx, next) => {
+	await groupInfo.exitGroup(ctx.query.user_id, ctx.query.group_id);
+	ctx.body = {
+		success: true
+	};
+	console.log('退群成功')
+};
+
 module.exports = {
 	joinGroup,
 	isInGroup,
-	createGroup
+	createGroup,
+	exitGroup
 };

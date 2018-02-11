@@ -65,12 +65,23 @@ const store = new Vuex.Store({
 		updateListMutation(state, data) {
 			let unread = 0;
 			data.time = toNomalTime(data.time);
+			//添加
 			if (data.action === "push") {
 				data.unread = unread + 1;
 				state.msgList.push(data);
 				console.log('push', state.msgList)
 				return
 			}
+			//删除
+			if (data.action === "delete") {
+				for (var i = 0; i < state.msgList.length; i++) {
+					if (state.msgList[i].id == data.id) {
+						state.msgList.splice(i, 1);
+					};
+				}
+				return
+			}
+			//替换更新
 			if (data.type === "private") {
 				state.msgList.forEach(ele => {
 					//判断是哪个人
@@ -148,8 +159,7 @@ const store = new Vuex.Store({
 			// console.log(data + "  robatMsgAction");
 			axios.get("/api/v1/robot", {
 					params: data
-				})
-				.then(res => {
+				}).then(res => {
 					if (res) {
 						if (res.data.data.code === 100000) {
 							commit("robotMsgMutation", {
@@ -183,7 +193,7 @@ const store = new Vuex.Store({
 		async msgListAction({
 			commit
 		}) {
-			console.log('msgListAction')
+			// console.log('msgListAction')
 			const res = await axios.get("/api/v1/message");
 			// console.log("res", res);
 			if (res.data.success) {
@@ -230,7 +240,7 @@ const store = new Vuex.Store({
 					user_id: user_id
 				}
 			});
-			console.log('newFriendAction', res)
+			// console.log('newFriendAction', res)
 			commit("newFriendMutation", res.data.data.newFriends);
 		}
 	}
