@@ -170,7 +170,6 @@ export default {
 					this.$store.commit('updateListMutation', data)
 				}
 				//本地添加此条信息
-				data.time = toNomalTime(data.time);
 				this.privateDetail.push(data);
 			})
 		},
