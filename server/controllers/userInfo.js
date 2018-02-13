@@ -43,12 +43,12 @@ let findUIByName = async (ctx, next) => {
 
 let isFriend = async (ctx, next) => {
 	const RowDataPacket1 = await userModel.isFriend(
-			ctx.query.user_id,
+			ctx.user_id,
 			ctx.query.other_user_id
 		),
 		RowDataPacket2 = await userModel.isFriend(
 			ctx.query.other_user_id,
-			ctx.query.user_id
+			ctx.user_id
 		),
 		isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
 		isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
@@ -70,12 +70,12 @@ let isFriend = async (ctx, next) => {
  */
 let agreeBeFriend = async (ctx, next) => {
 	const RowDataPacket1 = await userModel.isFriend(
-			ctx.request.body.user_id,
+			ctx.user_id,
 			ctx.request.body.other_user_id
 		),
 		RowDataPacket2 = await userModel.isFriend(
 			ctx.request.body.other_user_id,
-			ctx.request.body.user_id
+			ctx.user_id
 		),
 		isMyFriend = JSON.parse(JSON.stringify(RowDataPacket1)),
 		isHisFriend = JSON.parse(JSON.stringify(RowDataPacket2));
@@ -84,7 +84,7 @@ let agreeBeFriend = async (ctx, next) => {
 	//变成本机用户的朋友
 	if (isMyFriend.length === 0) {
 		await userModel.addAsFriend(
-			ctx.request.body.user_id,
+			ctx.user_id,
 			ctx.request.body.other_user_id,
 			ctx.request.body.time
 		);
@@ -93,7 +93,7 @@ let agreeBeFriend = async (ctx, next) => {
 	if (isHisFriend.length === 0) {
 		await userModel.addAsFriend(
 			ctx.request.body.other_user_id,
-			ctx.request.body.user_id,
+			ctx.user_id,
 			ctx.request.body.time
 		);
 	}
@@ -110,7 +110,7 @@ let agreeBeFriend = async (ctx, next) => {
  * @return
  */
 let delFriend = async (ctx, next) => {
-	await userModel.delFriend(ctx.query.user_id, ctx.query.other_user_id)
+	await userModel.delFriend(ctx.user_id, ctx.query.other_user_id)
 		.then(result => {
 			if (result) {
 				ctx.body = {
@@ -160,7 +160,7 @@ let shieldFriend = async (ctx, next) => {
 let editorRemark = async (ctx, next) => {
 	await userModel.editorRemark(
 			ctx.request.body.remark,
-			ctx.request.body.user_id,
+			ctx.user_id,
 			ctx.request.body.other_user_id
 		).then(result => {
 			console.log("editorRemark", result);

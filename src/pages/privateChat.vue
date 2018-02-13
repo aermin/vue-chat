@@ -67,8 +67,8 @@ export default {
 			axios.get(
 					'/api/v1/private_detail', {
 						params: {
-							to_user: this.toUserInfo.to_user,
-							from_user: this.fromUserInfo.user_id
+							to_user: this.toUserInfo.to_user
+							// from_user: this.fromUserInfo.user_id
 						}
 					})
 				.then(res => {
@@ -131,7 +131,7 @@ export default {
 		//用数据库存消息
 		saveMsgByDB() {
 			const data = {
-				from_user: this.fromUserInfo.user_id, //自己的id
+				// from_user: this.fromUserInfo.user_id, //自己的id
 				to_user: this.toUserInfo.to_user, //对方的id
 				name: this.fromUserInfo.name, //自己的昵称
 				avator: this.fromUserInfo.avator, //自己的头像
@@ -177,7 +177,7 @@ export default {
 		isFriend() {
 			axios.get('/api/v1/is_friend', {
 				params: {
-					user_id: this.fromUserInfo.user_id,
+					// user_id: this.fromUserInfo.user_id,
 					other_user_id: this.toUserInfo.to_user
 				}
 			}).then(res => {
