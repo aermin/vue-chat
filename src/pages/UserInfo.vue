@@ -98,7 +98,7 @@ export default {
 		isFriend() {
 			axios.get('/api/v1/is_friend', {
 				params: {
-					user_id: this.myInfo.user_id,
+					// user_id: this.myInfo.user_id,
 					other_user_id: this.$route.params.user_id
 				}
 			}).then(res => {
@@ -181,7 +181,7 @@ export default {
 		//同意加好友
 		async agreeBeFriend() {
 			await axios.post('/api/v1/be_friend', {
-				user_id: this.myInfo.user_id,
+				// user_id: this.myInfo.user_id,
 				other_user_id: this.$route.params.user_id
 			})
 			await this.updateNewFriends();
@@ -193,8 +193,8 @@ export default {
 		//更新验证状态
 		async updateNewFriends() {
 			await axios.put('/api/v1/update_newfriends', {
-				from_user: this.$route.params.user_id,
-				to_user: this.myInfo.user_id
+				from_user: this.$route.params.user_id
+				// to_user: this.myInfo.user_id
 			})
 		},
 		//弹窗取消事件
@@ -209,7 +209,7 @@ export default {
 			if (value === 'delFriend') {
 				axios.delete('/api/v1/del_friend', {
 					params: {
-						user_id: this.myInfo.user_id,
+						// user_id: this.myInfo.user_id,
 						other_user_id: this.$route.params.user_id
 					}
 				}).then(res => {
@@ -234,7 +234,7 @@ export default {
 			if (value.messageBoxEvent === 'editorRemark') {
 				axios.put('/api/v1/editor_remark', {
 					remark: value.canInputText,
-					user_id: this.myInfo.user_id,
+					// user_id: this.myInfo.user_id,
 					other_user_id: this.$route.params.user_id
 				}).then((res) => {
 					this.remark = value.canInputText;

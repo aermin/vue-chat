@@ -75,7 +75,6 @@ export default {
 		//把自己加进这个群中
 		joinGroup() {
 			axios.post('/api/v1/join_group', {
-				user_id: this.userInfo.user_id,
 				group_id: this.group_id
 			}).then((res) => {
 				this.messageBox.messageBoxEvent = 'createGroup'

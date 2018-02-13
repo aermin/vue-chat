@@ -125,7 +125,6 @@ export default {
 		//保存此条信息到数据库
 		saveMsgByDB() {
 			axios.post('/api/v1/group_chat_msg', {
-				userId: this.userInfo.user_id,
 				groupId: this.groupInfo.groupId,
 				message: this.inputMsg,
 				name: this.userInfo.name,
@@ -135,11 +134,10 @@ export default {
 			})
 		},
 
-		// 把发了言的新成员加入群名单
+		// 把新成员加入群名单
 		addGroupUserRelation() {
 			axios.post(
 				'/api/v1/group_chat_relation', {
-					userId: this.userInfo.user_id,
 					groupId: this.groupInfo.groupId
 				}).then(res => {
 				console.log('group_chat_relation', res)
