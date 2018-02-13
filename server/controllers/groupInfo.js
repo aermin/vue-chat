@@ -9,7 +9,7 @@ const uuidv1 = require('uuid/v1');
  */
 
 let joinGroup = async (ctx, next) => {
-	await groupInfo.joinGroup(ctx.request.body.user_id, ctx.request.body.group_id)
+	await groupInfo.joinGroup(ctx.user_id, ctx.request.body.group_id)
 		.then((res) => {
 			ctx.body = {
 				success: true
@@ -26,7 +26,7 @@ let joinGroup = async (ctx, next) => {
  */
 let isInGroup = async (ctx, next) => {
 	const RowDataPacket = await groupInfo.isInGroup(
-			ctx.query.user_id,
+			ctx.user_id,
 			ctx.query.group_id
 		),
 		group_user = JSON.parse(JSON.stringify(RowDataPacket));
@@ -47,7 +47,7 @@ let isInGroup = async (ctx, next) => {
 let createGroup = async (ctx, next) => {
 	const uuid = uuidv1();
 	console.log('uuid', uuid)
-	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.group_avator, ctx.request.body.group_creater, ctx.request.body.creater_time];
+	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.name, ctx.user_id, ctx.request.body.creater_time];
 	await groupInfo.createGroup(arr);
 	ctx.body = {
 		success: true,
@@ -64,7 +64,7 @@ let createGroup = async (ctx, next) => {
  * @return {Promise}       [success: true]
  */
 let exitGroup = async (ctx, next) => {
-	await groupInfo.exitGroup(ctx.query.user_id, ctx.query.group_id);
+	await groupInfo.exitGroup(ctx.user_id, ctx.query.group_id);
 	ctx.body = {
 		success: true
 	};

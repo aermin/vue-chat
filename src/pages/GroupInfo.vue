@@ -63,7 +63,7 @@ export default {
 		isInGroup() {
 			axios.get('/api/v1/is_in_group', {
 				params: {
-					user_id: this.userInfo.user_id,
+					// user_id: this.userInfo.user_id,
 					group_id: this.$route.params.group_id
 				}
 			}).then((res) => {
@@ -73,7 +73,7 @@ export default {
 		exitGroup() {
 			axios.delete('/api/v1/exit_group', {
 				params: {
-					user_id: this.userInfo.user_id,
+					// user_id: this.userInfo.user_id,
 					group_id: this.$route.params.group_id
 				}
 			}).then((res) => {
