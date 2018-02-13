@@ -72,7 +72,7 @@ let getGroupDetail = async (ctx, next) => {
  * @return
  */
 let saveGroupMsg = async (ctx, next) => {
-	const userId = ctx.request.body.userId,
+	const userId = ctx.user_id,
 		groupId = ctx.request.body.groupId,
 		message = ctx.request.body.message,
 		name = ctx.request.body.name,
@@ -99,7 +99,7 @@ let saveGroupMsg = async (ctx, next) => {
  * @return 群成员
  */
 let addGroupUserRelation = async (ctx, next) => {
-	const userId = ctx.request.body.userId,
+	const userId = ctx.user_id,
 		groupId = ctx.request.body.groupId;
 	await groupChatModel.addGroupUserRelation(userId, groupId);
 	const RowDataPacket = await groupChatModel.getGroupMember(groupId),

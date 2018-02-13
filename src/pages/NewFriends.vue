@@ -61,7 +61,7 @@ export default {
 		async agreeBeFriend(val) {
 			this.time = Date.parse(new Date()) / 1000;
 			await axios.post('/api/v1/be_friend', {
-				user_id: this.userInfo.user_id,
+				// user_id: this.userInfo.user_id,
 				other_user_id: val,
 				time: this.time //时间
 			})
@@ -70,8 +70,8 @@ export default {
 		//更新验证状态
 		async updateNewFriends(val) {
 			await axios.put('/api/v1/update_newfriends', {
-				from_user: val,
-				to_user: this.userInfo.user_id
+				from_user: val
+				// to_user: this.userInfo.user_id
 			})
 			let data = {};
 			this.newFriendGetter.forEach((ele) => {

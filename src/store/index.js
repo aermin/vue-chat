@@ -240,11 +240,7 @@ const store = new Vuex.Store({
 			commit
 		}, user_id) {
 			// console.log("user_id666", user_id);
-			const res = await axios.get("/api/v1/get_newfriends", {
-				params: {
-					user_id: user_id
-				}
-			});
+			const res = await axios.get("/api/v1/get_newfriends");
 			// console.log('newFriendAction', res)
 			commit("newFriendMutation", res.data.data.newFriends);
 		}
