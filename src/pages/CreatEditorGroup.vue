@@ -33,7 +33,7 @@ export default {
 			groupInfo: {
 				group_name: "",
 				group_notice: "",
-				group_avator: "../../static/peoples1.jpg",
+				group_avator: "/static/peoples1.jpg",
 				group_creater: "",
 				creater_time: ""
 			},
