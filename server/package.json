@@ -19,7 +19,7 @@
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "0.0.16",
     "koa-router": "^7.2.1",
-    "koa-static": "^4.0.0",
+    "koa-static": "^4.0.2",
     "koa2-cors": "^2.0.5",
     "md5": "^2.2.1",
     "mysql": "2.x",
