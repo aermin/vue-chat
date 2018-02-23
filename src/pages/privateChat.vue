@@ -131,7 +131,7 @@ export default {
 		//用数据库存消息
 		saveMsgByDB() {
 			const data = {
-				// from_user: this.fromUserInfo.user_id, //自己的id
+				from_user: this.fromUserInfo.user_id, //自己的id
 				to_user: this.toUserInfo.to_user, //对方的id
 				name: this.fromUserInfo.name, //自己的昵称
 				avator: this.fromUserInfo.avator, //自己的头像
@@ -145,6 +145,7 @@ export default {
 					this.inputMsg = '';
 					// 存此条私聊信息到本地
 					data.time = toNomalTime(data.time)
+					console.log('saveMsgByDBdata', data)
 					this.privateDetail.push(data);
 				})
 		},
