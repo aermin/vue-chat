@@ -4,7 +4,7 @@
 	<Header :currentTab="currentTab"></Header>
 	<ul>
 		<li v-for="msg in robotMsgGetter">
-			<ChatItem v-if="msg.user" img="/static/robot.gif" :msg="msg.message" :name="msg.user" :time="time"></ChatItem>
+			<ChatItem v-if="msg.user" img="http://ooytyiziz.bkt.clouddn.com/robot.gif" :msg="msg.message" :name="msg.user" :time="time"></ChatItem>
 			<ChatItem v-if="!msg.user" me="true" :img=img :msg="msg.message" :time="time"></ChatItem>
 		</li>
 	</ul>

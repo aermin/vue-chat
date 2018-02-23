@@ -41,7 +41,7 @@ const router = new Router({
 			path: "/contact_list",
 			component: ContactList
 		},
-		{
+		{ //加好友通知
 			path: "/contact_list/new_friends",
 			component: NewFriends
 		},
