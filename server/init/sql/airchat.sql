@@ -7,7 +7,7 @@
 #
 # Host: localhost (MySQL 5.6.35)
 # Database: airchat
-# Generation Time: 2018-02-22 11:01:31 +0000
+# Generation Time: 2018-02-23 10:14:21 +0000
 # ************************************************************
 
 
@@ -30,7 +30,7 @@ CREATE TABLE `group_info` (
   `group_id` char(100) NOT NULL,
   `group_name` varchar(20) NOT NULL DEFAULT '交流群' COMMENT '群名称',
   `group_notice` varchar(100) NOT NULL DEFAULT '欢迎大家入群交流~' COMMENT '群公告',
-  `group_avator` varchar(50) NOT NULL DEFAULT '../../static/peoples1.jpg' COMMENT '群头像',
+  `group_avator` varchar(50) NOT NULL DEFAULT 'http://ooytyiziz.bkt.clouddn.com/peoples1.jpg' COMMENT '群头像',
   `group_creater` varchar(10) NOT NULL DEFAULT '' COMMENT '群创建人',
   `creater_time` int(11) NOT NULL COMMENT '群创建时间',
   PRIMARY KEY (`id`)
@@ -41,7 +41,7 @@ LOCK TABLES `group_info` WRITE;
 
 INSERT INTO `group_info` (`id`, `group_id`, `group_name`, `group_notice`, `group_avator`, `group_creater`, `creater_time`)
 VALUES
-	(1,'8eeccfc0-0f1e-11e8-892e-5ba8fc68dc36','交流群','交流群','/static/peoples1.jpg','罗宾',1518348455);
+	(1,'8eeccfc0-0f1e-11e8-892e-5ba8fc68dc36','交流群','交流群','http://ooytyiziz.bkt.clouddn.com/peoples1.jpg','罗宾',1518348455);
 
 /*!40000 ALTER TABLE `group_info` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -155,7 +155,8 @@ VALUES
 	(2,14,1,'罗宾 : 你好呀路飞',1518348331),
 	(3,14,1,'罗宾 : 我建个群去 ，你待会加哈    叫 交流群',1518348364),
 	(6,1,14,'路飞 : 咋把我删了呢，重新加一下',1518351218),
-	(7,14,1,'罗宾 : 额 误删.',1518351226);
+	(7,14,1,'罗宾 : 额 误删.',1518351226),
+	(8,14,1,'罗宾 : 在么',1519377863);
 
 /*!40000 ALTER TABLE `private__msg` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -170,8 +171,8 @@ CREATE TABLE `user_info` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` varchar(20) NOT NULL DEFAULT 'NOT NULL' COMMENT '用户名',
   `password` varchar(40) NOT NULL DEFAULT 'NOT NULL' COMMENT '密码',
-  `sex` varchar(2) NOT NULL DEFAULT '女' COMMENT '性别',
-  `avator` varchar(100) NOT NULL DEFAULT '../../static/people6.jpg' COMMENT '头像',
+  `sex` varchar(2) NOT NULL DEFAULT '男' COMMENT '性别',
+  `avator` varchar(100) NOT NULL DEFAULT 'http://ooytyiziz.bkt.clouddn.com/people5.jpg' COMMENT '头像',
   `place` varchar(50) DEFAULT NULL COMMENT '来自哪里',
   `last_login` int(10) NOT NULL COMMENT '最后登陆时间',
   `status` tinyint(1) NOT NULL DEFAULT '0' COMMENT '在线状态,0离线,1在线',
@@ -187,11 +188,11 @@ LOCK TABLES `user_info` WRITE;
 
 INSERT INTO `user_info` (`id`, `name`, `password`, `sex`, `avator`, `place`, `last_login`, `status`, `socketid`, `website`, `github`, `intro`)
 VALUES
-	(1,'路飞','6512bd43d9caa6e02c990b0a82652dca','男','/static/people1.jpg','厦门',0,0,'GOqp_CBpF3geRq9UAAAZ','','https://github.com/Hxvin',NULL),
-	(2,'索隆','b6d767d2f8ed5d21a44b0e5886680cb9','男','/static/people2.jpg','深圳',0,0,'l12EoQ8PbnmvupNQAAAP',NULL,'',NULL),
-	(3,'乔治','182be0c5cdcd5072bb1864cdee4d3d6e','女','/static/people3.jpg','杭州',0,0,'ue0dCyN0zAyJurW-AABQ',NULL,NULL,NULL),
-	(4,'罗','f7177163c833dff4b38fc8d2872f1ec6','女','/static/people4.jpg','',0,0,'67kamGg8ibMLEjpZAAAD',NULL,NULL,NULL),
-	(14,'罗宾','b6d767d2f8ed5d21a44b0e5886680cb9','女','/static/people6.jpg',NULL,0,0,'KsmnbhAy1-FIs3ZZAAAi',NULL,NULL,NULL);
+	(1,'路飞','6512bd43d9caa6e02c990b0a82652dca','男','http://ooytyiziz.bkt.clouddn.com/people1.jpg','厦门',0,0,'tIckUQsrpFm_Wki0AAAF','','https://github.com/Hxvin',NULL),
+	(2,'索隆','b6d767d2f8ed5d21a44b0e5886680cb9','男','http://ooytyiziz.bkt.clouddn.com/people2.jpg','深圳',0,0,'l12EoQ8PbnmvupNQAAAP',NULL,'',NULL),
+	(3,'乔治','182be0c5cdcd5072bb1864cdee4d3d6e','女','http://ooytyiziz.bkt.clouddn.com/people3.jpg','杭州',0,0,'ue0dCyN0zAyJurW-AABQ',NULL,NULL,NULL),
+	(4,'罗','f7177163c833dff4b38fc8d2872f1ec6','女','http://ooytyiziz.bkt.clouddn.com/people4.jpg','',0,0,'67kamGg8ibMLEjpZAAAD',NULL,NULL,NULL),
+	(14,'罗宾','b6d767d2f8ed5d21a44b0e5886680cb9','女','http://ooytyiziz.bkt.clouddn.com/people6.jpg',NULL,0,0,'9sictmm25dBk8tj2AAAC',NULL,NULL,NULL);
 
 /*!40000 ALTER TABLE `user_info` ENABLE KEYS */;
 UNLOCK TABLES;
