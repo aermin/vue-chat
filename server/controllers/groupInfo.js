@@ -47,7 +47,7 @@ let isInGroup = async (ctx, next) => {
 let createGroup = async (ctx, next) => {
 	const uuid = uuidv1();
 	console.log('uuid', uuid)
-	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.name, ctx.user_id, ctx.request.body.creater_time];
+	const arr = [uuid, ctx.request.body.group_name, ctx.request.body.group_notice, ctx.request.body.group_avator, ctx.name, ctx.request.body.creater_time];
 	await groupInfo.createGroup(arr);
 	ctx.body = {
 		success: true,
