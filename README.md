@@ -58,9 +58,9 @@
 
 ### 使用步骤 
 
-##### 本次开发我用了三个git分支，分别是主分支master ，开发分支dev ， 线上分支online，如果你要fork到你的本地跑，请fork master分支 。如果你想看看我是怎么打包发布上线的，请切换到online分支，查看那个名为"打包上线"的commit，你可以看到我为了打包上线做了哪些修改。
+#### 本次开发我用了三个git分支，分别是主分支master ，开发分支dev ， 线上分支online，如果你要fork到你的本地跑，请fork master分支 。如果你想看看我是怎么打包发布上线的，请切换到online分支，查看那个名为"打包上线"的commit，你可以看到我为了打包上线做了哪些修改。
 
-关于如何打包上线到云主机，可以看看我的这篇总结文章[airchat 打包上线小记](https://github.com/hxvin/blog/issues/new)
+关于如何打包上线到云主机，可以看看我的这篇总结文章[airchat 打包上线小记](https://github.com/hxvin/blog/issues/28)
 
 （注意下到本地后如果要体验soket.io通信互聊，用两个浏览器各打开一个账号，不能用同一个浏览器，因为我用localstorage缓存账户信息）
 
