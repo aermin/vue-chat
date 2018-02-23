@@ -52,33 +52,31 @@ export default {
 		login() {
 			if (this.name !== "" && this.password !== "") {
 				axios.post("/api/v1/login", {
-						name: this.name,
-						password: this.password
-					})
-					.then(res => {
-						if (res.data.success) {
-							//保存soket.io
-							socket.emit('login', res.data.userInfo.user_id)
-							localStorage.setItem("userToken", res.data.token);
-							localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
-							//弹窗
-							this.messageBox.messageBoxEvent = 'login'
-							this.messageBox.visible = true;
-							this.messageBox.message = "您已登录成功"
-						} else {
-							this.$message({
-								message: res.data.message,
-								type: "error"
-							});
-						}
-					})
-					.catch(err => {
-						console.log(err)
-						// this.$message({
-						// 	message: err,
-						// 	type: "error"
-						// });
-					});
+					name: this.name,
+					password: this.password
+				}).then(res => {
+					if (res.data.success) {
+						//保存soket.io
+						socket.emit('login', res.data.userInfo.user_id)
+						localStorage.setItem("userToken", res.data.token);
+						localStorage.setItem("userInfo", JSON.stringify(res.data.userInfo));
+						//弹窗
+						this.messageBox.messageBoxEvent = 'login'
+						this.messageBox.visible = true;
+						this.messageBox.message = "您已登录成功"
+					} else {
+						this.$message({
+							message: res.data.message,
+							type: "error"
+						});
+					}
+				}).catch(err => {
+					console.log(err)
+					// this.$message({
+					// 	message: err,
+					// 	type: "error"
+					// });
+				});
 			} else {
 				const message = this.name === "" ? "请输入用户名" : "请输入密码";
 				this.$message({
