@@ -21,6 +21,23 @@
 
 ![群聊](http://ww1.sinaimg.cn/large/005LrMU0gy1foqqe5r8apj309206zt9l.jpg)
 
+### 项目展示 (部分)
+
+github貌似没展示完全gif图
+可直接戳链接查看
+
+[gif链接1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+
+![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+
+[gif链接2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+
+![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+
+[gif链接3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+
+![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+
 ### 进度
 
 开始 -----------------2018.01.13
@@ -112,20 +129,5 @@ npm run dev
 
 [聊天机器人api](http://www.tuling123.com/)
 
-### 项目展示 （交互很多挺细，没放全，有兴趣的伙伴可以下到本地跑起来看看）
 
-github貌似没展示完全gif图
-可直接戳链接查看
-
-[gif链接1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
-
-![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
-
-[gif链接2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
-
-![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
-
-[gif链接3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
-
-![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
