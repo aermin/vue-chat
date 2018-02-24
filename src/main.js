@@ -12,7 +12,7 @@ Vue.use(Components);
 
 Vue.config.productionTip = false
 
-axios.defaults.baseURL = 'http://localhost:3000'
+// axios.defaults.baseURL = '127.0.0.1:3000'
 axios.interceptors.request.use(
 	config => {
 		const token = localStorage.getItem('userToken');
