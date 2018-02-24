@@ -25,13 +25,16 @@ import ChatItem from '../components/ChatItem.vue'
 import axios from "axios";
 import {
 	mapGetters
-} from 'vuex'
+} from 'vuex';
+import {
+	toNomalTime
+} from "../utils/transformTime";
 export default {
 	name: 'Robot',
 	data() {
 		return {
 			currentTab: 2,
-			time: "2017",
+			time: toNomalTime(Date.parse(new Date()) / 1000),
 			inputMsg: "",
 			img: "",
 			isScrollToBottom: true
@@ -73,6 +76,9 @@ export default {
 		this.img = userInfo.avator;
 	},
 	mounted() {
+		// const date = Date.parse(new Date());
+		// console.log('date', date)
+		// this.time = ;
 		setTimeout(() => {
 			this.refresh();
 		}, 200)
