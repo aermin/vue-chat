@@ -1,10 +1,13 @@
 <template>
 <!--  注册 -->
 <div class="login">
+	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=false>
+		<p slot="content">{{this.messageBox.message}}</p>
+	</Message-box>
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 			<router-link to="/login">
-				<h2 class="inactive underlineHover"> 登录 </h2>
+				<h2 class="inactive"> 登录 </h2>
 			</router-link>
 			<h2 class="active">注册 </h2>
 
@@ -29,6 +32,12 @@ export default {
 		return {
 			name: '',
 			password: '',
+			messageBox: {
+				visible: false,
+				message: "", //弹窗内容
+				hasCancel: true, //弹窗是否有取消键
+				messageBoxEvent: "" // 弹窗事件名称
+			}
 		}
 	},
 	methods: {
@@ -42,16 +51,10 @@ export default {
 					console.log(res);
 					if (res) {
 						if (res.data.success) {
-							this.$message({
-								message: res.data.message,
-								type: "success"
-							});
-							let self = this;
-							setTimeout(function() {
-								self.$router.push({
-									path: "/login"
-								});
-							}, 4000);
+							//弹窗
+							this.messageBox.messageBoxEvent = 'register'
+							this.messageBox.visible = true;
+							this.messageBox.message = res.data.message;
 						} else {
 							this.$message({
 								message: res.data.message,
@@ -61,11 +64,10 @@ export default {
 					}
 				}).catch(err => {
 					console.log(err)
-					// const errorMsg = err.response.data.error
-					// this.$message({
-					// 	message: errorMsg,
-					// 	type: "error"
-					// });
+					this.$message({
+						message: '服务器出错啦',
+						type: "error"
+					});
 				})
 			} else {
 				const message = this.name === "" ? "请输入用户名" : "请输入密码";
@@ -75,6 +77,12 @@ export default {
 				});
 			}
 
+		},
+		confirm(value) {
+			if (value === 'register') {
+				this.messageBox.visible = false;
+				this.$router.push("/login");
+			}
 		}
 	}
 }

@@ -1,14 +1,14 @@
 <template>
 <!--  登录 -->
 <div class="login">
-	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=f alse>
+	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=false>
 		<p slot="content">{{this.messageBox.message}}</p>
 	</Message-box>
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 			<h2 class="active"> 登录 </h2>
 			<router-link to="/register">
-				<h2 class="inactive underlineHover"> 注册 </h2>
+				<h2 class="inactive"> 注册 </h2>
 			</router-link>
 			<div class="fadeIn first">
 				<img src="../assets/icon.svg" id="icon" alt="User Icon" />
@@ -73,10 +73,10 @@ export default {
 					}
 				}).catch(err => {
 					console.log(err)
-					// this.$message({
-					// 	message: err,
-					// 	type: "error"
-					// });
+					this.$message({
+						message: '服务器出错啦',
+						type: "error"
+					});
 				});
 			} else {
 				const message = this.name === "" ? "请输入用户名" : "请输入密码";
