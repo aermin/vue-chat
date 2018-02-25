@@ -85,7 +85,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-    height: 100vh;
+    // height: 100vh;
     padding-top: 0.6rem;
     z-index: 1;
     ul {
@@ -102,7 +102,7 @@ export default {
     .input-msg {
         height: 0.46rem;
         position: fixed;
-        bottom: 0.5rem;
+        bottom: 0.62rem;
         display: flex;
         width: 100%;
         z-index: 999;
