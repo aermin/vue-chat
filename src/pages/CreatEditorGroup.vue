@@ -100,10 +100,6 @@ export default {
 .wrapper {
     position: relative;
     padding-top: 0.1rem;
-    display: -webkit-box;
-    display: -ms-flexbox;
-    display: flex;
-    justify-content: center;
     .content {
         div {
             text-align: center;
@@ -117,7 +113,7 @@ export default {
         }
         p {
             font-size: 0.32rem;
-            margin-bottom: 0.6rem;
+            margin: 0 20% 0.6rem;
         }
         :nth-child(1) {
             line-height: 0.6rem;
