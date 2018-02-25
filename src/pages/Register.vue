@@ -1,9 +1,14 @@
 <template>
 <!--  注册 -->
 <div class="login">
+	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=false>
+		<p slot="content">{{this.messageBox.message}}</p>
+	</Message-box>
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
-			<h2 class="inactive underlineHover" @click="$router.push('/login')"> 登录 </h2>
+			<router-link to="/login">
+				<h2 class="inactive"> 登录 </h2>
+			</router-link>
 			<h2 class="active">注册 </h2>
 
 			<div class="fadeIn first">
@@ -12,7 +17,7 @@
 
 			<form>
 				<input type="text" class="fadeIn second" v-model="name" placeholder="用户名">
-				<input type="text" class="fadeIn third" v-model="password" placeholder="密码">
+				<input type="password" class="fadeIn third" v-model="password" placeholder="密码">
 				<input type="submit" @click="register" class="fadeIn fourth" value="注册">
 			</form>
 		</div>
@@ -27,6 +32,12 @@ export default {
 		return {
 			name: '',
 			password: '',
+			messageBox: {
+				visible: false,
+				message: "", //弹窗内容
+				hasCancel: true, //弹窗是否有取消键
+				messageBoxEvent: "" // 弹窗事件名称
+			}
 		}
 	},
 	methods: {
@@ -40,16 +51,10 @@ export default {
 					console.log(res);
 					if (res) {
 						if (res.data.success) {
-							this.$message({
-								message: res.data.message,
-								type: "success"
-							});
-							let self = this;
-							setTimeout(function() {
-								self.$router.push({
-									path: "/login"
-								});
-							}, 3000);
+							//弹窗
+							this.messageBox.messageBoxEvent = 'register'
+							this.messageBox.visible = true;
+							this.messageBox.message = res.data.message;
 						} else {
 							this.$message({
 								message: res.data.message,
@@ -72,6 +77,12 @@ export default {
 				});
 			}
 
+		},
+		confirm(value) {
+			if (value === 'register') {
+				this.messageBox.visible = false;
+				this.$router.push("/login");
+			}
 		}
 	}
 }

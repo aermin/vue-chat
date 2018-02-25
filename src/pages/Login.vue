@@ -1,21 +1,22 @@
 <template>
 <!--  登录 -->
 <div class="login">
-	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=f alse>
+	<Message-box :visible="this.messageBox.visible" :messageBoxEvent="this.messageBox.messageBoxEvent" @confirm="confirm" :hasCancel=false>
 		<p slot="content">{{this.messageBox.message}}</p>
 	</Message-box>
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 			<h2 class="active"> 登录 </h2>
-			<h2 class="inactive underlineHover" @click="$router.push('/register')">注册 </h2>
-
+			<router-link to="/register">
+				<h2 class="inactive"> 注册 </h2>
+			</router-link>
 			<div class="fadeIn first">
 				<img src="../assets/icon.svg" id="icon" alt="User Icon" />
 			</div>
 
 			<form>
 				<input type="text" class="fadeIn second" placeholder="用户名" v-model="name">
-				<input type="text" class="fadeIn third" placeholder="密码" v-model="password">
+				<input type="password" class="fadeIn third" placeholder="密码" v-model="password">
 				<input type="submit" @click="login" class="fadeIn fourth" value="登录">
 			</form>
 		</div>

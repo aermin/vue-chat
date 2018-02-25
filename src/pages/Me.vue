@@ -81,7 +81,7 @@ export default {
 <style lang="scss" scoped>
 .wrapper {
     position: relative;
-    margin-top: 1rem;
+    padding-top: 1rem;
     ul {
         position: relative;
         li {
