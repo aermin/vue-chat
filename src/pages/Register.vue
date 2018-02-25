@@ -7,7 +7,7 @@
 	<div class="wrapper fadeInDown">
 		<div id="formContent">
 			<router-link to="/login">
-				<h2 class="inactive underlineHover"> 登录 </h2>
+				<h2 class="inactive"> 登录 </h2>
 			</router-link>
 			<h2 class="active">注册 </h2>
 
@@ -17,7 +17,7 @@
 
 			<form>
 				<input type="text" class="fadeIn second" v-model="name" placeholder="用户名">
-				<input type="text" class="fadeIn third" v-model="password" placeholder="密码">
+				<input type="password" class="fadeIn third" v-model="password" placeholder="密码">
 				<input type="submit" @click="register" class="fadeIn fourth" value="注册">
 			</form>
 		</div>
