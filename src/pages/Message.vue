@@ -73,7 +73,7 @@ export default {
 
 <style lang="scss" scoped>
 .wrapper {
-    height: 100vh;
+    // height: 100vh;
     padding-top: 0.8rem;
     background-color: #fff;
     z-index: 1;
