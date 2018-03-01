@@ -119,6 +119,22 @@ npm run dev
 
 ### 材料
 
+#### 自己总结的 
+
+[web移动端适配方案](https://github.com/hxvin/blog/issues/8)
+
+[airchat 打包上线小记](https://github.com/hxvin/blog/issues/28)
+
+[token，Json web token（jwt）](https://github.com/hxvin/blog/issues/24)
+
+[web移动端页面怎么调试](https://github.com/hxvin/blog/issues/9)
+
+[本地mysql客户端连接centos的数据库](https://github.com/hxvin/blog/issues/7)
+
+文章都在[我的博客](https://github.com/hxvin/blog)上，欢迎star我的博客😄
+
+#### 第三方的(在此感谢) 
+
 [socket.io英文文档](https://socket.io/docs/server-api/)
 
 [socket.io中文文档](https://zhuanlan.zhihu.com/p/29148869)
