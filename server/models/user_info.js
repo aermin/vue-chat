@@ -20,6 +20,12 @@ let findUIByName = function(name) {
 	return query(_sql, name)
 }
 
+//修改我的信息
+let editorInfo = function(data) {
+	let _sql = ' UPDATE  user_info SET github = ?,website = ?,sex = ?,place = ? WHERE id = ? ; '
+	return query(_sql, data)
+}
+
 // 通过用户id查找用户信息 user_info 包括密码
 let findDataByUserid = function(userid) {
 	let _sql = 'SELECT * FROM user_info WHERE id= ? '
@@ -85,5 +91,6 @@ module.exports = {
 	addAsFriend,
 	delFriend,
 	shieldFriend,
-	editorRemark
+	editorRemark,
+	editorInfo
 }
