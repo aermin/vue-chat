@@ -27,7 +27,8 @@ const store = new Vuex.Store({
 			user_id: "", //请求方
 			other_user_id: "" //被请求方
 		},
-		newFriend: [] //新朋友列表
+		newFriend: [], //新朋友列表
+		myInfo: {} //我的信息
 	},
 	getters: {
 		robotMsgGetter: state => state.robotmsg,
@@ -38,7 +39,8 @@ const store = new Vuex.Store({
 		toUserInfoGetter: state => state.toUserInfo,
 		someOneInfoGetter: state => state.someOneInfo,
 		addAsFriendGetter: state => state.addAsFriend,
-		newFriendGetter: state => state.newFriend
+		newFriendGetter: state => state.newFriend,
+		myInfoGetter: state => state.myInfo,
 	},
 	mutations: {
 		//是否是第一次加载首页消息页面
@@ -48,6 +50,10 @@ const store = new Vuex.Store({
 		//机器人消息
 		robotMsgMutation(state, data) {
 			state.robotmsg.push(data);
+		},
+		//我的信息
+		myInfoMutation(state, data) {
+			state.myInfo = data;
 		},
 		//首页消息列表
 		msgListMutation(state, data) {

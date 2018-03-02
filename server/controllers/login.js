@@ -32,6 +32,9 @@ module.exports = async (ctx, next) => {
 					name: res[0]["name"],
 					user_id: res[0]["id"],
 					sex: res[0]["sex"],
+					website: res[0]["website"],
+					github: res[0]["github"],
+					intro: res[0]["intro"],
 					avator: res[0]["avator"],
 					place: res[0]["place"],
 					socketId: res[0]["socketid"]
