@@ -26,6 +26,12 @@ let findDataByUserid = function(userid) {
 	return query(_sql, [userid])
 }
 
+//修改我的信息
+let editorInfo = function(data) {
+	let _sql = ' UPDATE  user_info SET github = ?,website = ?,sex = ?,place = ? WHERE id = ? ; '
+	return query(_sql, data)
+}
+
 // 通过用户id查找用户信息 user_info 包括用户名，性别，头像，最后登录时间，状态等，不包括密码
 let getUserInfo = (user_id) => {
 	const _sql =
@@ -85,5 +91,6 @@ module.exports = {
 	addAsFriend,
 	delFriend,
 	shieldFriend,
-	editorRemark
+	editorRemark,
+	editorInfo
 }

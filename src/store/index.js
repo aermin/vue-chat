@@ -27,7 +27,8 @@ const store = new Vuex.Store({
 			user_id: "", //请求方
 			other_user_id: "" //被请求方
 		},
-		newFriend: [] //新朋友列表
+		newFriend: [], //新朋友列表
+		myInfo: {} //我的信息
 	},
 	getters: {
 		robotMsgGetter: state => state.robotmsg,
@@ -38,7 +39,8 @@ const store = new Vuex.Store({
 		toUserInfoGetter: state => state.toUserInfo,
 		someOneInfoGetter: state => state.someOneInfo,
 		addAsFriendGetter: state => state.addAsFriend,
-		newFriendGetter: state => state.newFriend
+		newFriendGetter: state => state.newFriend,
+		myInfoGetter: state => state.myInfo,
 	},
 	mutations: {
 		//是否是第一次加载首页消息页面
@@ -52,6 +54,10 @@ const store = new Vuex.Store({
 		//首页消息列表
 		msgListMutation(state, data) {
 			state.msgList = data;
+		},
+		//我的信息
+		myInfoMutation(state, data) {
+			state.myInfo = data;
 		},
 		//未读信息归零
 		resetUnredMutation(state, id) {
@@ -181,6 +187,11 @@ const store = new Vuex.Store({
 						} else if (res.data.data.code === 302000) {
 							commit("robotMsgMutation", {
 								message: "暂不支持此类对话",
+								user: "robot"
+							});
+						} else if (res.data.data.code === 40004) {
+							commit("robotMsgMutation", {
+								message: "今日机器人免费聊天次数已用光",
 								user: "robot"
 							});
 						} else {

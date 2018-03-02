@@ -176,6 +176,32 @@ let editorRemark = async (ctx, next) => {
 		});
 };
 
+/**
+ * 修改备注
+ * @param  github   github
+ * 			website website
+ * 			sex 性别
+ * 			place 来自哪里
+ * 			user_id  本机用户id
+ * @return
+ */
+let editorInfo = async (ctx, next) => {
+	const data = [ctx.request.body.github, ctx.request.body.website, ctx.request.body.sex, ctx.request.body.place, ctx.user_id]
+	console.log('editorInfo', data)
+	await userModel.editorInfo(data).then(result => {
+			console.log("editorInfo", result);
+			if (result) {
+				ctx.body = {
+					success: true
+				};
+				console.log("修改个人信息成功");
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
+};
+
 module.exports = {
 	getUserInfo,
 	findUIByName,
@@ -183,5 +209,6 @@ module.exports = {
 	agreeBeFriend,
 	delFriend,
 	shieldFriend,
-	editorRemark
+	editorRemark,
+	editorInfo
 };

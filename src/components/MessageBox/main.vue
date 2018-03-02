@@ -5,6 +5,25 @@
 	<div class="message-box-wrapper">
 		<h1> {{title}}</h1>
 		<input v-if="canInput" type="text" v-model="canInputText" maxlength="10" placeholder="最多10个字哦">
+		<form class="editor-info" v-if="canEditorInfo">
+			<div class="">
+				<span>github:</span><input type="text" v-model="myInfo.github">
+			</div>
+			<div class="">
+				<span>website:</span><input type="text" v-model="myInfo.website">
+			</div>
+			<div class="info-sex">
+				<span>性别:</span>
+				<select v-model="myInfo.sex">
+			   <option disabled value="">性别</option>
+			   <option>男</option>
+			   <option>女</option>
+			 </select>
+			</div>
+			<div class="">
+				<span>来自:</span><input type="text" v-model="myInfo.place" maxlength="12">
+			</div>
+		</form>
 		<p v-else class="content">
 			<slot name="content"></slot>
 		</p>
@@ -22,6 +41,9 @@
 </template>
 
 <script>
+import {
+	mapGetters
+} from 'vuex'
 export default {
 	name: 'MessageBox',
 	props: {
@@ -36,13 +58,22 @@ export default {
 			type: String,
 			default: "提示"
 		},
+		//单行输入
 		canInput: {
+			type: Boolean,
+			default: false
+		},
+		//编辑个人信息
+		canEditorInfo: {
 			type: Boolean,
 			default: false
 		},
 		hasCancel: {
 			type: Boolean,
 			default: true
+		},
+		myInfo: {
+			type: Object
 		}
 	},
 	components: {},
@@ -65,6 +96,12 @@ export default {
 				this.$emit("confirm", {
 					messageBoxEvent: this.messageBoxEvent,
 					canInputText: this.canInputText
+				});
+				return
+			} else if (this.canEditorInfo) {
+				this.$emit("confirm", {
+					messageBoxEvent: this.messageBoxEvent,
+					myInfo: this.myInfo
 				});
 				return
 			}
@@ -91,6 +128,13 @@ export default {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -moz-transform: translate(-50%, -50%);
+    //Mozilla内核浏览器：firefox3.5+
+    -webkit-transform: translate(-50%, -50%); //Webkit内核浏览器：Safari and Chrome
+    -o-transform: translate(-50%, -50%);
+    //Opera
+    -ms-transform: translate(-50%, -50%);
+    //IE9
     width: 50%;
     height: auto;
     background-color: white;
@@ -197,6 +241,23 @@ export default {
         }
         p:active {
             background: #D6D6D6;
+        }
+    }
+    .editor-info {
+        display: flex;
+        display: -ms-flexbox;
+        flex-direction: column;
+        justify-content: center;
+        font-size: 0.2rem;
+        div {
+            width: 100%;
+            margin: 0.3rem auto;
+            select {
+                width: 60%;
+            }
+            input {
+                font-size: 0.1rem;
+            }
         }
     }
 }
