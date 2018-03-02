@@ -1,7 +1,13 @@
 <template>
 <!-- 用户资料 -->
 <div class="wrapper">
+	<!--弹窗-->
 	<Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :title="	this.messageBox.title" :canInput="this.messageBox.canInput" :hasCancel="this.messageBox.hasCancel" @cancel="cancel" @confirm="confirm">
+		<p slot="content">{{this.messageBox.message}}</p>
+	</Message-box>
+	<!--编辑用户资料-->
+	<Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :title="	this.messageBox.title" :canEditorInfo="this.messageBox.canEditorInfo" :myInfo="this.myInfo" :hasCancel="this.messageBox.hasCancel" @cancel="cancel"
+	    @confirm="confirm">
 		<p slot="content">{{this.messageBox.message}}</p>
 	</Message-box>
 	<Header goback='true' chatTitle="用户资料"></Header>
@@ -44,6 +50,9 @@
 	<div v-if="this.isMyFriend === false && this.isHisFriend === false && this.isAddingMe === false && this.isMe === false" class="action">
 		<span class="add-as-friend" @click="enterReqPage">加为好友</span>
 	</div>
+	<div v-if="this.isMe" class="action">
+		<span class="editor-info" @click="editorInfo">编辑我的信息</span>
+	</div>
 </div>
 </template>
 
@@ -69,7 +78,8 @@ export default {
 				message: "", //弹窗内容
 				canInput: false, //弹窗是否能输入
 				hasCancel: true, //弹窗是否有取消键
-				messageBoxEvent: "" //弹窗事件名称
+				messageBoxEvent: "", //弹窗事件名称
+				canEditorInfo: false //编辑用户资料的弹窗
 			}
 		}
 	},
@@ -84,6 +94,11 @@ export default {
 	methods: {
 		//获取用户资料
 		getInfo() {
+			//如果是自己，那就用本地的个人信息即可，省一次请求
+			if (this.isMe) {
+				this.userInfo = this.myInfo;
+				return
+			}
 			axios.get('/api/v1/user_info', {
 				params: {
 					user_id: this.$route.params.user_id
@@ -170,6 +185,13 @@ export default {
 			this.messageBox.canInput = true;
 			this.messageBox.title = '修改备注';
 		},
+		//修改我的信息
+		editorInfo() {
+			this.messageBox.messageBoxEvent = 'editorInfo'
+			this.messageBox.visible = true;
+			this.messageBox.canEditorInfo = true;
+			this.messageBox.title = '修改我的信息';
+		},
 		//屏蔽此人
 		shieldIt() {},
 		//删除好友
@@ -206,6 +228,7 @@ export default {
 		},
 		//弹窗确定事件
 		confirm(value) {
+			//删除好友
 			if (value === 'delFriend') {
 				axios.delete('/api/v1/del_friend', {
 					params: {
@@ -228,9 +251,11 @@ export default {
 					console.log('err', err)
 				})
 			}
+			//同意加为好友
 			if (value === 'agreeBeFriend') {
 				this.goChat();
 			}
+			//修改备注
 			if (value.messageBoxEvent === 'editorRemark') {
 				axios.put('/api/v1/editor_remark', {
 					remark: value.canInputText,
@@ -238,6 +263,31 @@ export default {
 					other_user_id: this.$route.params.user_id
 				}).then((res) => {
 					this.remark = value.canInputText;
+					this.messageBox.visible = false;
+				})
+			}
+			//编辑个人信息
+			if (value.messageBoxEvent === 'editorInfo') {
+				//验证url
+				var urlP = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
+				var re = new RegExp(urlP);
+				if (!re.test(value.myInfo.website) || !re.test(value.myInfo.github)) {
+					this.$message({
+						message: '请输入正确的网址',
+						type: "error"
+					});
+					return
+				}
+				value.myInfo.website = value.myInfo.website.substr(0, 4) != 'http' ? ('http://' + value.myInfo.website) : value.myInfo.website;
+				value.myInfo.github = value.myInfo.github.substr(0, 4) != 'http' ? ('http://' + value.myInfo.github) : value.myInfo.github;
+				console.log(value.myInfo)
+				axios.put('/api/v1/editor_info', {
+					github: value.myInfo.github,
+					website: value.myInfo.website,
+					sex: value.myInfo.sex,
+					place: value.myInfo.place
+				}).then((res) => {
+					localStorage.setItem("userInfo", JSON.stringify(value.myInfo));
 					this.messageBox.visible = false;
 				})
 			}
@@ -250,9 +300,6 @@ export default {
 		await this.isAddingMeFun();
 		await this.isFriend();
 		this.getInfo();
-
-
-
 	}
 }
 </script>
@@ -319,7 +366,8 @@ export default {
             background-color: #E16762;
             color: #fff;
         }
-        .add-as-friend {
+        .add-as-friend,
+        .editor-info {
             background-color: #4290F7;
             color: #fff;
         }

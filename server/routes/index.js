@@ -31,6 +31,7 @@ router.post('/register', register) //注册
 	.delete('/del_friend', verify, userInfo.delFriend) // 删除好友
 	.put('/shield_friend', verify, userInfo.shieldFriend) // 屏蔽好友
 	.put('/editor_remark', verify, userInfo.editorRemark) // 修改备注
+	.put('/editor_info', verify, userInfo.editorInfo) // 修改我的信息
 	.get('/find_people', verify, userInfo.findUIByName) //通过用户名搜索加人，此接口返回用户信息
 	.get('/get_newfriends', verify, newFriends.getnewFriends) // 获取新朋友通知
 	.post('/insert_newfriends', verify, newFriends.insertNewFriends) // 添加我的新好友通知
