@@ -6,8 +6,8 @@
 		<p slot="content">{{this.messageBox.message}}</p>
 	</Message-box>
 	<!--编辑用户资料-->
-	<Message-box :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :title="	this.messageBox.title" :canEditorInfo="this.messageBox.canEditorInfo" :myInfo="this.myInfo" :hasCancel="this.messageBox.hasCancel" @cancel="cancel"
-	    @confirm="confirm">
+	<Message-box v-if="this.isMe" :messageBoxEvent="this.messageBox.messageBoxEvent" :visible="this.messageBox.visible" :title="this.messageBox.title" :canEditorInfo="this.messageBox.canEditorInfo" :myInfo="this.myInfo" :hasCancel="this.messageBox.hasCancel"
+	    @cancel="cancel" @confirm="confirm">
 		<p slot="content">{{this.messageBox.message}}</p>
 	</Message-box>
 	<Header goback='true' chatTitle="用户资料"></Header>
@@ -271,15 +271,29 @@ export default {
 				//验证url
 				var urlP = /^((https?|ftp|file):\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 				var re = new RegExp(urlP);
-				if (!re.test(value.myInfo.website) || !re.test(value.myInfo.github)) {
-					this.$message({
-						message: '请输入正确的网址',
-						type: "error"
-					});
-					return
+				console.log('value.myInfo.website', value.myInfo.website)
+				if (value.myInfo.website) {
+					if (!re.test(value.myInfo.website)) {
+						this.$message({
+							message: '请输入正确的网址',
+							type: "error"
+						});
+						return
+					} else {
+						value.myInfo.website = value.myInfo.website.substr(0, 4) != 'http' ? ('http://' + value.myInfo.website) : value.myInfo.website;
+					}
 				}
-				value.myInfo.website = value.myInfo.website.substr(0, 4) != 'http' ? ('http://' + value.myInfo.website) : value.myInfo.website;
-				value.myInfo.github = value.myInfo.github.substr(0, 4) != 'http' ? ('http://' + value.myInfo.github) : value.myInfo.github;
+				if (value.myInfo.github) {
+					if (!re.test(value.myInfo.github)) {
+						this.$message({
+							message: '请输入正确的网址',
+							type: "error"
+						});
+						return
+					} else {
+						value.myInfo.github = value.myInfo.github.substr(0, 4) != 'http' ? ('http://' + value.myInfo.github) : value.myInfo.github;
+					}
+				}
 				console.log(value.myInfo)
 				axios.put('/api/v1/editor_info', {
 					github: value.myInfo.github,
