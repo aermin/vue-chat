@@ -40,7 +40,8 @@ github貌似没展示完全gif图
 
 ![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
-![image](https://user-images.githubusercontent.com/24861316/36930638-451b1704-1ee0-11e8-99cd-97764d24ea49.png)
+![image](https://user-images.githubusercontent.com/24861316/36930662-ee38040a-1ee0-11e8-9c41-ac8ee69f4b8f.png)
+
 
 ### 进度
 
