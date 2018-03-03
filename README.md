@@ -15,11 +15,13 @@
 
 [点击线上查看](http://www.hxvin.com:3000/)
 
-建议打开手机模式
+欢迎大家注册登录，加这个群聊天😄 搜群名称： 项目交流群
+ 
+![群聊](https://user-gold-cdn.xitu.io/2018/3/1/161e03584988b916?w=326&h=251&f=jpeg&s=32371)
 
-欢迎大家注册登录，加这个群聊天
+也可以加我为好友，用户名：   hxvin
 
-![群聊](http://ww1.sinaimg.cn/large/005LrMU0gy1foqqe5r8apj309206zt9l.jpg)
+也可以注册两个账号在两个不同浏览器自己尬聊啦 😂
 
 ### 项目展示 (部分)
 
@@ -37,6 +39,8 @@ github貌似没展示完全gif图
 [gif链接3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
 
 ![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+
+![image](https://user-images.githubusercontent.com/24861316/36930638-451b1704-1ee0-11e8-99cd-97764d24ea49.png)
 
 ### 进度
 
