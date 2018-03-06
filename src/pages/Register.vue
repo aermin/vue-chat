@@ -54,7 +54,7 @@ export default {
 							//弹窗
 							this.messageBox.messageBoxEvent = 'register'
 							this.messageBox.visible = true;
-							this.messageBox.message = res.data.message;
+							this.messageBox.message = "您已注册成功";
 						} else {
 							this.$message({
 								message: res.data.message,
