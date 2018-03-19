@@ -48,12 +48,12 @@ export default {
 		// 获取私聊和群的消息
 		getMsgBySocket() {
 			socket.removeAllListeners('getPrivateMsg');
+			socket.removeAllListeners('getGroupMsg');
 			socket.on('getPrivateMsg', (data) => {
 				console.log('首页获取私聊消息', data);
 				data.type = 'private'
 				this.$store.commit('updateListMutation', data)
 			})
-			socket.removeAllListeners('getGroupMsg');
 			socket.on('getGroupMsg', (data) => {
 				console.log('首页获取群消息', data);
 				data.type = 'group'
