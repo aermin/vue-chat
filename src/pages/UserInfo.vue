@@ -222,6 +222,8 @@ export default {
 		//弹窗取消事件
 		cancel(value) {
 			this.messageBox.visible = false;
+			this.messageBox.canInput = false;
+			this.messageBox.message = null;
 			if (value === 'agreeBeFriend') {
 				location.reload();
 			}
@@ -237,6 +239,7 @@ export default {
 					}
 				}).then(res => {
 					this.messageBox.visible = false;
+					this.messageBox.message = null;
 					const data = {
 						action: "delete",
 						id: this.$route.params.user_id
@@ -263,6 +266,7 @@ export default {
 					other_user_id: this.$route.params.user_id
 				}).then((res) => {
 					this.remark = value.canInputText;
+					this.messageBox.canInput = false;
 					this.messageBox.visible = false;
 				})
 			}
