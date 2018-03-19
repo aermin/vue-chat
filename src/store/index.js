@@ -108,8 +108,6 @@ const store = new Vuex.Store({
 					} else if (ele.other_user_id == data.to_user) { //自己发的
 						ele.message = data.name + ' : ' + data.message;
 						ele.time = data.time;
-						ele.name = data.name;
-						ele.avator = data.avator;
 					}
 				});
 			} else if (data.type === "group") {
