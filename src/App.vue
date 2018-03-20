@@ -63,6 +63,7 @@ export default {
 				console.log('获取新好友通知', data);
 				// 存vuex
 				this.$store.commit('newFriendMutation', data)
+				this.$store.commit('friendReqTipsMutation',true);
 			})
 		}
 	},

@@ -47,13 +47,6 @@ export default {
 	watch: {},
 
 	methods: {
-		// 获取socket消息
-		getMsgBySocket() {
-			socket.on('getresponse', (data) => {
-				console.log('getresponse', data);
-				this.$store.commit('newFriendMutation', data)
-			})
-		},
 		enterIt(val) {
 			this.$router.push(`/user_info/${val}`)
 		},
@@ -78,24 +71,36 @@ export default {
 				if (ele.from_user == val) {
 					ele.status = 1;
 					data = {
-						avator: ele.avator,
-						id: val,
+						avator: ele.avator, //加我的人的头像
+						id: val, //加我的人的id
 						other_user_id: val,
-						message: "你们已成为好友！",
-						time: this.time,
-						name: ele.name,
+						message: "我们已成为好友，开始聊天吧！",
+						time: Date.parse(new Date()) / 1000,
+						name: ele.name, //加我的人的名字
 						type: "private",
 						action: "push",
 					}
 				}
 			})
-			// console.log('updateListMutationdata', data)
 			this.$store.commit('updateListMutation', data)
+			const data2 = {
+				from_user: this.userInfo.user_id, //自己的id
+				to_user: data.id, //要加我的人的id
+				name: this.userInfo.name, //自己的昵称
+				avator: this.userInfo.avator, //自己的头像
+				message: data.message, //消息内容
+				type: 'private',
+				status: '1', //是否在线 0为不在线 1为在线
+				time: Date.parse(new Date()) / 1000 //时间
+			};
+			socket.emit('sendPrivateMsg', data2); //让对方的信息列表也可以显示添加成功的信息
+
 		}
 	},
 	created() {
 		this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
-		this.$store.dispatch('newFriendAction', this.userInfo.user_id)
+		this.$store.dispatch('newFriendAction', this.userInfo.user_id);
+		this.$store.commit('friendReqTipsMutation', false);
 	}
 }
 </script>
