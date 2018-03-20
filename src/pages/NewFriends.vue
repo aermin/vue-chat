@@ -76,7 +76,7 @@ export default {
 						other_user_id: val,
 						message: "我们已成为好友，开始聊天吧！",
 						time: this.time,
-						name: ele.name,//加我的人的名字
+						name: ele.name, //加我的人的名字
 						type: "private",
 						action: "push"
 					}
@@ -91,14 +91,15 @@ export default {
 				message: data.message, //消息内容
 				type: 'private',
 				status: '1', //是否在线 0为不在线 1为在线
-				time: data.time//时间
+				time: this.time //时间
 			};
-			socket.emit('sendPrivateMsg', data2);//让对方的信息列表也可以显示添加成功的信息
+			socket.emit('sendPrivateMsg', data2); //让对方的信息列表也可以显示添加成功的信息
 		}
 	},
 	created() {
 		this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
-		this.$store.dispatch('newFriendAction', this.userInfo.user_id)
+		this.$store.dispatch('newFriendAction', this.userInfo.user_id);
+		this.$store.commit('friendReqTipsMutation', false);
 	}
 }
 </script>

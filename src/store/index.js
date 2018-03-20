@@ -28,7 +28,10 @@ const store = new Vuex.Store({
 			other_user_id: "" //被请求方
 		},
 		newFriend: [], //新朋友列表
-		myInfo: {} //我的信息
+		myInfo: {}, //我的信息
+		tabTips: { //底部tab的未读提示 暂时只做好友添加请求的提示
+			addFriendReq: "" //是否有好友添加请求 0没有 1有
+		}
 	},
 	getters: {
 		robotMsgGetter: state => state.robotmsg,
@@ -41,6 +44,7 @@ const store = new Vuex.Store({
 		addAsFriendGetter: state => state.addAsFriend,
 		newFriendGetter: state => state.newFriend,
 		myInfoGetter: state => state.myInfo,
+		tabTipsGetter: state => state.tabTips
 	},
 	mutations: {
 		//是否是第一次加载首页消息页面
@@ -66,6 +70,15 @@ const store = new Vuex.Store({
 					ele.unread = null
 				}
 			})
+		},
+		//是否有好友添加请求
+		friendReqTipsMutation(state, data) {
+			if (data) {
+				state.tabTips.addFriendReq = "tips";
+			} else {
+				state.tabTips.addFriendReq = "";
+			}
+
 		},
 		//更新首页消息列表
 		updateListMutation(state, data) {
