@@ -3,7 +3,7 @@
 	<Header goback='true' :chatTitle="chatTitle"></Header>
 	<div class="creat-group" @click="createGroup">
 		<svg class="icon" aria-hidden="true"> <use  xlink:href="#icon-group1"></use></svg>
-		<span>建群</span>
+		<span>建一个群</span>
 		<svg class="icon icon-right" aria-hidden="true"><use  xlink:href="#icon-right"></use></svg>
 	</div>
 	<div class="search">
