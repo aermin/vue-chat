@@ -99,7 +99,8 @@ export default {
 	},
 	created() {
 		this.userInfo = JSON.parse(localStorage.getItem("userInfo"));
-		this.$store.dispatch('newFriendAction', this.userInfo.user_id)
+		this.$store.dispatch('newFriendAction', this.userInfo.user_id);
+		this.$store.commit('friendReqTipsMutation',false);
 	}
 }
 </script>
