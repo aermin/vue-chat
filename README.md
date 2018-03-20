@@ -9,7 +9,7 @@
 
 ### 技术栈：
 
-前端vue，vue-router,vuex ，vue-cli和axios，做了移动端适配，没有用第三方组件。
+前端vue，vue-router,vuex ，vue-cli和axios，scss,用rem做了移动端适配，没有用第三方组件。
 后端用koa2，用gulp构建工具实现自动刷新后端代码运行。
 数据库用mysql，基于Token的jwt鉴权机制，用socket.io做双向通信；
 
