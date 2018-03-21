@@ -85,11 +85,12 @@ export default {
 			this.$store.commit('updateListMutation', data);
 			const data2 = {
 				from_user: this.userInfo.user_id, //自己的id
-				to_user: data.id, //要加我的人的id
+				to_user: val,
 				name: this.userInfo.name, //自己的昵称
 				avator: this.userInfo.avator, //自己的头像
 				message: data.message, //消息内容
 				type: 'private',
+				action: "request",
 				status: '1', //是否在线 0为不在线 1为在线
 				time: Date.parse(new Date()) / 1000 //时间
 			};

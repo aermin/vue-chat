@@ -17,7 +17,7 @@
 			<form>
 				<input type="text" class="fadeIn second" placeholder="用户名" v-model="name">
 				<input type="password" class="fadeIn third" placeholder="密码" v-model="password">
-				<input type="submit" @click="login" class="fadeIn fourth" value="登录">
+				<input type="button" @click="login" class="fadeIn fourth" value="登录">
 			</form>
 		</div>
 	</div>
@@ -27,9 +27,6 @@
 <script>
 import axios from "axios";
 export default {
-	name: "login",
-	props: {},
-	components: {},
 	data() {
 		return {
 			name: "",
