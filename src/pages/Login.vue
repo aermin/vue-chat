@@ -17,7 +17,7 @@
 			<form>
 				<input type="text" class="fadeIn second" placeholder="用户名" v-model="name">
 				<input type="password" class="fadeIn third" placeholder="密码" v-model="password">
-				<input type="submit" @click="login" class="fadeIn fourth" value="登录">
+				<input type="button" @click="login" class="fadeIn fourth" value="登录">
 			</form>
 		</div>
 	</div>
@@ -34,8 +34,6 @@ export default {
 		return {
 			name: "",
 			password: "",
-			// visible: false,
-			// message: "",
 			messageBox: {
 				visible: false,
 				message: "", //弹窗内容
