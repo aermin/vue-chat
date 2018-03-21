@@ -29,8 +29,8 @@ const store = new Vuex.Store({
 		},
 		newFriend: [], //新朋友列表
 		myInfo: {}, //我的信息
-		tabTips:{ //底部tab的未读提示 暂时只做好友添加请求的提示
-			addFriendReq:"" //是否有好友添加请求 0没有 1有
+		tabTips: { //底部tab的未读提示 暂时只做好友添加请求的提示
+			addFriendReq: "" //是否有好友添加请求 0没有 1有
 		}
 	},
 	getters: {
@@ -44,7 +44,7 @@ const store = new Vuex.Store({
 		addAsFriendGetter: state => state.addAsFriend,
 		newFriendGetter: state => state.newFriend,
 		myInfoGetter: state => state.myInfo,
-		tabTipsGetter : state => state.tabTips
+		tabTipsGetter: state => state.tabTips
 	},
 	mutations: {
 		//是否是第一次加载首页消息页面
@@ -73,9 +73,9 @@ const store = new Vuex.Store({
 		},
 		//是否有好友添加请求
 		friendReqTipsMutation(state, data) {
-			if(data){
+			if (data) {
 				state.tabTips.addFriendReq = "tips";
-			} else{
+			} else {
 				state.tabTips.addFriendReq = "";
 			}
 
@@ -87,9 +87,7 @@ const store = new Vuex.Store({
 			//添加
 			if (data.action === "push") {
 				data.unread = unread + 1;
-				console.log('push', data)
 				state.msgList.push(data);
-				console.log('push', state.msgList)
 				return
 			}
 			//删除
@@ -103,6 +101,18 @@ const store = new Vuex.Store({
 			}
 			//替换更新
 			if (data.type === "private") {
+				//在请求添加好友的情况下
+				let haveThisEle = state.msgList.filter(ele => ele.other_user_id == data.from_user);
+				if (haveThisEle.length === 0 && data.action === "request") {
+					data.unread = unread + 1;
+					data.other_user_id = data.from_user;
+					data.id = data.from_user;
+					delete data.from_user;
+					delete data.to_user;
+					state.msgList.push(data);
+					return
+				}
+				//正常私聊情况下
 				state.msgList.forEach(ele => {
 					//判断是哪个人  对方发的
 					if (ele.other_user_id == data.from_user) {

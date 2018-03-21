@@ -18,7 +18,7 @@
 			<form>
 				<input type="text" class="fadeIn second" v-model="name" placeholder="用户名">
 				<input type="password" class="fadeIn third" v-model="password" placeholder="密码">
-				<input type="submit" @click="register" class="fadeIn fourth" value="注册">
+				<input type="button" @click="register" class="fadeIn fourth" value="注册">
 			</form>
 		</div>
 	</div>
