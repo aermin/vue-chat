@@ -103,6 +103,18 @@ const store = new Vuex.Store({
 			}
 			//替换更新
 			if (data.type === "private") {
+				//在请求添加好友的情况下
+				let haveThisEle = state.msgList.filter(ele => ele.other_user_id == data.from_user);
+				if (haveThisEle.length === 0 && data.action == "request") {
+					data.unread = unread + 1;
+					data.other_user_id = data.from_user;
+					data.id = data.from_user;
+					delete data.from_user;
+					delete data.to_user;
+					state.msgList.push(data);
+					return
+				}
+				//正常私聊情况下
 				state.msgList.forEach(ele => {
 					//判断是哪个人  对方发的
 					if (ele.other_user_id == data.from_user) {
