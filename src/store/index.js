@@ -103,7 +103,7 @@ const store = new Vuex.Store({
 			if (data.type === "private") {
 				//在请求添加好友的情况下
 				let haveThisEle = state.msgList.filter(ele => ele.other_user_id == data.from_user);
-				if (haveThisEle.length === 0 && data.action == "request") {
+				if (haveThisEle.length === 0 && data.action === "request") {
 					data.unread = unread + 1;
 					data.other_user_id = data.from_user;
 					data.id = data.from_user;
