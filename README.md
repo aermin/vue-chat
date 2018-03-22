@@ -165,7 +165,5 @@ npm run dev
 
 ###  License
 
-#### MIT
-
-使用麻烦注明出处,感谢
+[MIT](http://opensource.org/licenses/MIT)
 
