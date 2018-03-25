@@ -46,7 +46,7 @@ github貌似没展示完全gif图
 
 ![image](https://user-images.githubusercontent.com/24861316/36930662-ee38040a-1ee0-11e8-9c41-ac8ee69f4b8f.png)
 
-
+![WechatIMG215.jpeg](https://upload-images.jianshu.io/upload_images/5287253-5d587ddacd259d70.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ### 进度
 
