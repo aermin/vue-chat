@@ -133,7 +133,7 @@ npm run dev
 
 ### 打包上线，让所有人都能用到你的产品(非必须)
 
-打包上线前需要对master分支的代码做一些修改。具体怎么修改以及后续如何打包上线，请看我单独写的一篇文章[airchat 打包上线小记](https://github.com/hxvin/blog/issues/28)，希望对你有帮助。
+打包上线前需要对master分支的代码做一些修改。具体怎么修改以及后续如何打包上线，请看我单独写的一篇文章[airchat 打包上线小记](https://github.com/aermin/blog/issues/28)，希望对你有帮助。
 
 > 老习惯，代码注释比较详细，需要注释而没有注释的我也尽快补上;
 后面也会写几篇博客来详细介绍本项目，希望更好的帮助到入门的小伙伴(大神请略过，或者给些指导建议😄)
@@ -144,17 +144,17 @@ npm run dev
 
 #### 自己总结的 
 
-[web移动端适配方案](https://github.com/hxvin/blog/issues/8)
+[web移动端适配方案](https://github.com/aermin/blog/issues/8)
 
-[airchat 打包上线小记](https://github.com/hxvin/blog/issues/28)
+[airchat 打包上线小记](https://github.com/aermin/blog/issues/28)
 
-[token，Json web token（jwt）](https://github.com/hxvin/blog/issues/24)
+[token，Json web token（jwt）](https://github.com/aermin/blog/issues/24)
 
-[web移动端页面怎么调试](https://github.com/hxvin/blog/issues/9)
+[web移动端页面怎么调试](https://github.com/aermin/blog/issues/9)
 
-[本地mysql客户端连接centos的数据库](https://github.com/hxvin/blog/issues/7)
+[本地mysql客户端连接centos的数据库](https://github.com/aermin/blog/issues/7)
 
-文章都在[我的博客](https://github.com/hxvin/blog)上，欢迎star我的博客😄
+文章都在[我的博客](https://github.com/aermin/blog)上，欢迎star我的博客😄
 
 #### 第三方的(在此感谢) 
 
