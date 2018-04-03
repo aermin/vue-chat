@@ -16,7 +16,7 @@
                     <p>性别：{{userInfo.sex}}</p>
                     <p>来自：{{userInfo.place}}</p> -->
 	</ul>
-	<a class="item-ad" href="https://github.com/hxvin/airchat">项目地址 & star</a>
+	<a class="item-ad" href="https://github.com/aermin/airchat">项目地址 & star</a>
 	<div class="action" @click="logout">
 		<span class="logout">退出登录</span>
 	</div>

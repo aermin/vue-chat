@@ -2,7 +2,7 @@
   "name": "airchat",
   "version": "1.0.0",
   "description": "easy to chat",
-  "author": "hxvin <hxvin@foxmail.com>",
+  "author": "aermin <aermin@foxmail.com>",
   "private": true,
   "scripts": {
     "init_sql": "node ./server/init/index.js",
