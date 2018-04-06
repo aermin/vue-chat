@@ -144,6 +144,7 @@ npm run dev
 
 ### 开发目录
 
+```
 ├── LICENSE
 ├── README.md
 ├── build
@@ -187,6 +188,7 @@ npm run dev
 │   ├── store //vuex在这
 │   └── utils
 └── static
+```
 
 ### 材料
 
