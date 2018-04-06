@@ -142,6 +142,52 @@ npm run dev
 
 ##### 如果对您有帮助，希望给个start，鼓励我继续更新^ ^
 
+### 开发目录
+
+├── LICENSE
+├── README.md
+├── build
+│   ├── build.js
+│   ├── check-versions.js
+│   ├── logo.png
+│   ├── utils.js
+│   ├── vue-loader.conf.js
+│   ├── webpack.base.conf.js
+│   ├── webpack.dev.conf.js
+│   └── webpack.prod.conf.js
+├── config
+│   ├── dev.env.js
+│   ├── index.js
+│   └── prod.env.js
+├── dist  //打包后的静态资源
+│   ├── index.html
+│   └── static
+├── index.html
+├── package-lock.json
+├── package.json
+├── server  // 后端代码
+│   ├── config.js
+│   ├── controllers
+│   ├── gulpfile.js
+│   ├── index.js 
+│   ├── init  //数据库初始化(sql文件也在这)
+│   ├── middlewares 
+│   ├── models
+│   ├── package-lock.json
+│   ├── package.json
+│   ├── routes
+│   └── utils 
+├── src  //前端代码
+│   ├── App.vue
+│   ├── assets
+│   ├── components
+│   ├── main.js
+│   ├── pages
+│   ├── router
+│   ├── store //vuex在这
+│   └── utils
+└── static
+
 ### 材料
 
 #### 自己总结的 
