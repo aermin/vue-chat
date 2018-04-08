@@ -88,7 +88,7 @@ github貌似没展示完全gif图
 
 > 2018.03.20  收拾掉不少bug :-)  
 
-- [x] 迁移成Electron桌面版本的，支持mac和win环境。 （Electron版本将于六月份答辩完开源）
+- [x] 迁移成Electron桌面版本的，支持mac和win环境。 （Electron版本将于答辩完开源）
 
 > 2018.03.25 
 
