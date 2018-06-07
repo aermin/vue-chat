@@ -7,8 +7,6 @@
 
 对node（koa）和vue学习会挺有帮助，现在开源出来，接下去将继续不断完善😄欢迎star
 
-### `注意协议，别拷贝去当今年的毕设项目,不然查重得gg，别给毕业找麻烦哈` 
-
 ### 技术栈：
 
 前端vue，vue-router,vuex ，vue-cli和axios，scss,用rem做了移动端适配，没有用第三方组件。
@@ -27,26 +25,63 @@
 
 也可以注册两个账号在两个不同浏览器自己尬聊啦 😂
 
-### 项目展示 (部分)
+### 项目展示 
 
-github貌似没展示完全gif图
-可直接戳链接查看
+- 系统组成
 
-[gif链接1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+![image](https://user-images.githubusercontent.com/24861316/41090200-47c9c28e-6a76-11e8-8147-f9f771b3d70d.png)
 
-![airchat1](http://ooytyiziz.bkt.clouddn.com/airchat1.gif)
+- 用户注册
 
-[gif链接2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+![image](https://user-images.githubusercontent.com/24861316/41090565-2115948c-6a77-11e8-9f51-9772e89a9f7a.png)
 
-![airchat2](http://ooytyiziz.bkt.clouddn.com/airchat2.gif)
+- 用户登录 
 
-[gif链接3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+![image](https://user-images.githubusercontent.com/24861316/41090499-fbe26640-6a76-11e8-9689-aed8392a1114.png)
 
-![airchat3](http://ooytyiziz.bkt.clouddn.com/airchat3.gif)
+- 用户退出登录
 
-![image](https://user-images.githubusercontent.com/24861316/36930662-ee38040a-1ee0-11e8-9c41-ac8ee69f4b8f.png)
+![image](https://user-images.githubusercontent.com/24861316/41090616-43cefdd8-6a77-11e8-9443-29bf7ac77aab.png)
 
-![WechatIMG215.jpeg](https://upload-images.jianshu.io/upload_images/5287253-5d587ddacd259d70.jpeg?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
+- 编辑个人信息
+
+![image](https://user-images.githubusercontent.com/24861316/41090665-5ac7f92c-6a77-11e8-9cbd-3d2d912f4844.png)
+
+- 搜索用户（搜索用户->加好友）
+
+![image](https://user-images.githubusercontent.com/24861316/41090693-6bb0d876-6a77-11e8-97f5-a7b458524e13.png)
+
+- 请求加好友（查看新朋友<-收到红点提示<-发送验证<-写验证内容 ）
+
+![image](https://user-images.githubusercontent.com/24861316/41090733-8bc710d0-6a77-11e8-94b9-9d6d698ed162.png)
+
+- 同意加好友（新朋友通知->同意加友->收到成功加友通知）
+
+![image](https://user-images.githubusercontent.com/24861316/41090883-e1e02830-6a77-11e8-9678-3b363f33ff17.png)
+
+- 创建群(建群->首页收到建群成功信息)
+
+![image](https://user-images.githubusercontent.com/24861316/41090940-fe722232-6a77-11e8-8299-7cd675427cf4.png)
+
+- 加群(搜群->加群->首页收到加群成功消息)
+
+![image](https://user-images.githubusercontent.com/24861316/41090981-1ac8242c-6a78-11e8-9731-019a4af127c7.png)
+
+- 退出群组 (首页移除该群<-群资料点击退出群聊<-点击群聊页面右上角 )
+
+![image](https://user-images.githubusercontent.com/24861316/41091038-3c57b9a4-6a78-11e8-9328-fd684c4a99e8.png)
+
+- 私聊(消息首页点击用户->私聊页面 )
+
+![image](https://user-images.githubusercontent.com/24861316/41091080-555167ca-6a78-11e8-91e1-7a0339ca3a34.png)
+
+- 群聊(消息首页点击群组->群聊页面 )
+
+![image](https://user-images.githubusercontent.com/24861316/41091117-6e5f11ea-6a78-11e8-8415-9b73d15fbd9d.png)
+
+- 机器人聊天
+
+![image](https://user-images.githubusercontent.com/24861316/41091157-834856ac-6a78-11e8-923e-31fdaae84a01.png)
 
 ### 进度
 
@@ -68,7 +103,7 @@ github貌似没展示完全gif图
 - [x] 删除好友
 - [x] 未读消息提示
 
-> 2018.02.10  吐槽一下，不得不佩服qq，微信的用户体验，功能细节挺多。。。。。还有，春节快到了，找我玩(茬)的bug也不少呀ಥ_ಥ
+> 2018.02.10  吐槽一下，不得不佩服qq，微信的用户体验，功能细节挺多。。。。。
 
 - [x] 搜索用户，群组
 - [x] 创建群
@@ -77,7 +112,7 @@ github貌似没展示完全gif图
 - [x] 退群
 - [x] 修改备注
 
-> 2018.02.11 一开始我只想做个简单的即时通讯而已的（认真脸），为啥抑制不住洪荒之力 orz 。暂时停更功能，先写毕设去了，毕业要紧毕业要紧🎓
+> 2018.02.11 
 
 - [x] 发布到线上
 - [x] 修改个人信息  
@@ -110,7 +145,7 @@ github貌似没展示完全gif图
 
 Fork 或者 下载本项目
 
-然后进入本项目的文件夹，把airchat/server/init/sql 的 airchat.sql文件 拉到你的msyql客户端(我使用的是mac下的 `Sequel Pro` 挺好用的)
+然后进入本项目的文件夹，把airchat/server/init/sql 的 airchat.sql文件 拉到你的msyql客户端 run一下生成数据库(我使用的是mac下的 `Sequel Pro` 挺好用的，当然你用其他方式也可生成数据库也可)
 
 ```js
 npm i
