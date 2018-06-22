@@ -24,7 +24,7 @@
 			<svg class="icon" aria-hidden="true"><use  xlink:href="#icon-yonghu"></use></svg><span>用户名</span>：{{userInfo.name}}
 		</p>
 		<p>
-			<svg class="icon" aria-hidden="true"><use  xlink:href="#icon-xingbie"></use></svg><span>性别</span>：{{userInfo.sex}}
+			<svg class="icon" aria-hidden="true"><use  xlink:href="#icon-xingbie"></use></svg><span>性别</span>：{{userInfo.sex === 0 ? '男' : '女' }}
 		</p>
 		<p>
 			<svg class="icon" aria-hidden="true"><use  xlink:href="#icon-placeholder"></use></svg><span>来自</span>：{{userInfo.place}}

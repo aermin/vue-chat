@@ -99,6 +99,8 @@ export default {
 				});
 				return
 			} else if (this.canEditorInfo) {
+                console.log('myInfo',this.myInfo); 
+                this.myInfo.sex = this.myInfo.sex === '男' ? 0 : 1;
 				this.$emit("confirm", {
 					messageBoxEvent: this.messageBoxEvent,
 					myInfo: this.myInfo
