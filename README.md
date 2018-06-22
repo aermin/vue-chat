@@ -9,7 +9,7 @@
 
 `更新：` [electron-vue-chat：vue-chat的Electron桌面版本项目地址](https://github.com/aermin/electron-vue-chat)
 
-正在写react版本的😄
+正在写[react版本](https://github.com/aermin/react-chat)的😄,写完将继续更新功能
 
 ### 技术栈：
 
