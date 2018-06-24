@@ -7,7 +7,7 @@
 				<img :src="data.avator" alt="">
 				<div class="content">
 					<p>{{data.name}}
-						<svg v-if="data.sex = '男'" class="icon" aria-hidden="true"> <use  xlink:href="#icon-icon1"></use></svg>
+						<svg v-if="data.sex = 0" class="icon" aria-hidden="true"> <use  xlink:href="#icon-icon1"></use></svg>
 						<svg v-else class="icon" aria-hidden="true"> <use  xlink:href="#icon-icon"></use></svg>
 					</p>
 					<p>
