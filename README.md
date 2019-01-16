@@ -9,7 +9,7 @@
 
 `更新：` [electron-vue-chat：vue-chat的Electron桌面版本项目地址](https://github.com/aermin/electron-vue-chat)
 
-正在写[react版本](https://github.com/aermin/react-chat)的😄,写完将继续更新功能
+### 正在重写+重构react技术栈版本，此版本注重性能和代码质量，更有学习意义哦，有兴趣的同学请移步 -> [react版本](https://github.com/aermin/react-chat)
 
 ### 技术栈：
 
@@ -35,55 +35,13 @@
 
 ![image](https://user-images.githubusercontent.com/24861316/41090200-47c9c28e-6a76-11e8-8147-f9f771b3d70d.png)
 
-- 用户注册
 
-![image](https://user-images.githubusercontent.com/24861316/41090565-2115948c-6a77-11e8-9f51-9772e89a9f7a.png)
-
-- 用户登录 
-
-![image](https://user-images.githubusercontent.com/24861316/41090499-fbe26640-6a76-11e8-9689-aed8392a1114.png)
-
-- 用户退出登录
-
-![image](https://user-images.githubusercontent.com/24861316/41090616-43cefdd8-6a77-11e8-9443-29bf7ac77aab.png)
-
-- 编辑个人信息
-
-![image](https://user-images.githubusercontent.com/24861316/41090665-5ac7f92c-6a77-11e8-9cbd-3d2d912f4844.png)
-
-- 搜索用户（搜索用户->加好友）
-
-![image](https://user-images.githubusercontent.com/24861316/41090693-6bb0d876-6a77-11e8-97f5-a7b458524e13.png)
-
-- 请求加好友（查看新朋友<-收到红点提示<-发送验证<-写验证内容 ）
+![image](https://pic3.zhimg.com/v2-e910ab47a384372da02ebeb1e9394f6e_b.gif)
+![image](https://pic3.zhimg.com/v2-555e1045f4e55b0877b65be1e3832242_b.gif)
+![image](https://pic2.zhimg.com/v2-a2b249f27021fc0db4f7ee87950e2601_b.gif)
 
 ![image](https://user-images.githubusercontent.com/24861316/41090733-8bc710d0-6a77-11e8-94b9-9d6d698ed162.png)
 
-- 同意加好友（新朋友通知->同意加友->收到成功加友通知）
-
-![image](https://user-images.githubusercontent.com/24861316/41090883-e1e02830-6a77-11e8-9678-3b363f33ff17.png)
-
-- 创建群(建群->首页收到建群成功信息)
-
-![image](https://user-images.githubusercontent.com/24861316/41090940-fe722232-6a77-11e8-8299-7cd675427cf4.png)
-
-- 加群(搜群->加群->首页收到加群成功消息)
-
-![image](https://user-images.githubusercontent.com/24861316/41090981-1ac8242c-6a78-11e8-9731-019a4af127c7.png)
-
-- 退出群组 (首页移除该群<-群资料点击退出群聊<-点击群聊页面右上角 )
-
-![image](https://user-images.githubusercontent.com/24861316/41091038-3c57b9a4-6a78-11e8-9328-fd684c4a99e8.png)
-
-- 私聊(消息首页点击用户->私聊页面 )
-
-![image](https://user-images.githubusercontent.com/24861316/41091080-555167ca-6a78-11e8-91e1-7a0339ca3a34.png)
-
-- 群聊(消息首页点击群组->群聊页面 )
-
-![image](https://user-images.githubusercontent.com/24861316/41091117-6e5f11ea-6a78-11e8-8415-9b73d15fbd9d.png)
-
-- 机器人聊天
 
 ![image](https://user-images.githubusercontent.com/24861316/41091157-834856ac-6a78-11e8-923e-31fdaae84a01.png)
 
