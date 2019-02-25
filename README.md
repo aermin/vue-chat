@@ -1,4 +1,16 @@
-# vue-chat ~~airchat~~      
+# vue-chat    
+
+## 目前将一直重点更新维护react版本的，此版本注重性能和代码质量，完成度更高，更用心地去写，有兴趣的同学请移步 -> [react版本](https://github.com/aermin/react-chat)
+
+
+## 线上地址
+
+[点击加入线上聊天](https://im.aermin.top)
+
+欢迎加入 "ghChat项目交流群" 这个群交流呀，可搜索群名(不用全打)加入，也可点击机器人的邀请加入(如下图)
+
+![image](https://user-images.githubusercontent.com/24861316/53296199-6337a200-3845-11e9-8435-3f5480cca602.png)
+
 
 ### 介绍
 
@@ -7,27 +19,14 @@
 
 对node（koa）和vue学习会挺有帮助，现在开源出来，接下去将继续不断完善😄欢迎star
 
-`更新：` [electron-vue-chat：vue-chat的Electron桌面版本项目地址](https://github.com/aermin/electron-vue-chat)
-
-### 正在重写+重构react技术栈版本，此版本注重性能和代码质量，更有学习意义哦，有兴趣的同学请移步 -> [react版本](https://github.com/aermin/react-chat)
-
 ### 技术栈：
 
 前端vue，vue-router,vuex ，vue-cli和axios，scss,用rem做了移动端适配，没有用第三方组件。
 后端用koa2，用gulp构建工具实现自动刷新后端代码运行。
 数据库用mysql，基于Token的jwt鉴权机制，用socket.io做双向通信；
 
-### 线上地址
-
-[点击线上查看](http://www.hxvin.com:3000/)
-
-欢迎大家注册登录，加这个群聊天😄 搜群名称： 项目交流群
  
 ![群聊](https://user-gold-cdn.xitu.io/2018/3/1/161e03584988b916?w=326&h=251&f=jpeg&s=32371)
-
-也可以加我为好友，用户名：   hxvin
-
-也可以注册两个账号在两个不同浏览器自己尬聊啦 😂
 
 ### 项目展示 
 
@@ -97,7 +96,7 @@
 - [ ] 支持聊天代码美化，md语法
 - [ ] 用户上传头像
 - [ ] 性能优化，redis做缓存
-- [ ] 实现react版本的
+- [x] 实现react版本的
 
 ### 下载到本地开发环境跑
 
