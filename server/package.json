@@ -24,7 +24,7 @@
     "mysql": "2.x",
     "request": "^2.83.0",
     "request-promise": "^4.2.2",
-    "socket.io": "^2.0.3",
+    "socket.io": "^2.5.0",
     "uuid": "^3.2.1"
   },
   "devDependencies": {
